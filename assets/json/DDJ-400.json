@@ -1,0 +1,391 @@
+{
+  "name": "DDJ-400",
+  "manufacturer": "Pioneer",
+  "controllerVersion": "1.1",
+  "revision": "1",
+  "channels": [{
+    "channel": [{
+      "value": 0,
+      "name": "Left deck"
+    }, {
+      "value": 1,
+      "name": "Right deck"
+    }],
+    "name": "Deck",
+    "elements": [{
+      "pitch": [11],
+      "type": 144,
+      "name": "Play/Pause"
+    }, {
+      "pitch": [71],
+      "type": 144,
+      "name": "Shift Play/Pause"
+    }, {
+      "pitch": [12],
+      "type": 144,
+      "name": "Cue"
+    }, {
+      "pitch": [72],
+      "type": 144,
+      "name": "Shift Cue"
+    }, {
+      "pitch": [63],
+      "type": 144,
+      "name": "Shift"
+    }, {
+      "pitch": [16],
+      "type": 144,
+      "name": "In loop/4 beat"
+    }, {
+      "pitch": [76],
+      "type": 144,
+      "name": "In adjust"
+    }, {
+      "pitch": [17],
+      "type": 144,
+      "name": "Out loop"
+    }, {
+      "pitch": [78],
+      "type": 144,
+      "name": "Out adjust"
+    }, {
+      "pitch": [77],
+      "type": 144,
+      "name": "Loop exit"
+    }, {
+      "pitch": [80],
+      "type": 144,
+      "name": "Active loop"
+    }, {
+      "pitch": [81],
+      "type": 144,
+      "name": "Cue/Loop left"
+    }, {
+      "pitch": [62],
+      "type": 144,
+      "name": "Loop delete"
+    }, {
+      "pitch": [83],
+      "type": 144,
+      "name": "Cue/Loop right"
+    }, {
+      "pitch": [61],
+      "type": 144,
+      "name": "Loop memory"
+    }, {
+      "pitch": [88],
+      "type": 144,
+      "name": "Master sync"
+    }, {
+      "pitch": [96],
+      "type": 144,
+      "name": "Tempo range"
+    }, {
+      "pitch": [84],
+      "type": 144,
+      "name": "Headphones cue"
+    }, {
+      "pitch": [104],
+      "type": 144,
+      "name": "Shift Headphones cue"
+    },  {
+      "pitch": [27],
+      "type": 144,
+      "name": "Performance hot cue"
+    },  {
+      "pitch": [105],
+      "type": 144,
+      "name": "Performance keyboard"
+    },  {
+      "pitch": [109],
+      "type": 144,
+      "name": "Performance beat loop"
+    },  {
+      "pitch": [30],
+      "type": 144,
+      "name": "Performance pad FX1"
+    },  {
+      "pitch": [32],
+      "type": 144,
+      "name": "Performance beat jump"
+    },  {
+      "pitch": [107],
+      "type": 144,
+      "name": "Performance pad FX2"
+    },  {
+      "pitch": [34],
+      "type": 144,
+      "name": "Performance sampler"
+    },  {
+      "pitch": [111],
+      "type": 144,
+      "name": "Performance key shift"
+    }, {
+      "pitch": [33],
+      "type": 176,
+      "name": "Jogwheel slow"
+    }, {
+      "pitch": [35],
+      "type": 176,
+      "name": "Jogwheel fast"
+    }, {
+      "pitch": [41],
+      "type": 176,
+      "name": "Shift Jogwheel fast"
+    }, {
+      "pitch": [0],
+      "type": 176,
+      "name": "Tempo low range"
+    }, {
+      "pitch": [32],
+      "type": 176,
+      "name": "Tempo high range"
+    }, {
+      "pitch": [19],
+      "type": 176,
+      "name": "Fader low range"
+    }, {
+      "pitch": [51],
+      "type": 176,
+      "name": "Fader high range"
+    }, {
+      "pitch": [4],
+      "type": 176,
+      "name": "Trim gain low range"
+    }, {
+      "pitch": [36],
+      "type": 176,
+      "name": "Trim gain high range"
+    }, {
+      "pitch": [7],
+      "type": 176,
+      "name": "EQ high low range"
+    }, {
+      "pitch": [39],
+      "type": 176,
+      "name": "EQ high high range"
+    }, {
+      "pitch": [11],
+      "type": 176,
+      "name": "EQ medium low range"
+    }, {
+      "pitch": [43],
+      "type": 176,
+      "name": "EQ medium high range"
+    }, {
+      "pitch": [15],
+      "type": 176,
+      "name": "EQ low low range"
+    }, {
+      "pitch": [47],
+      "type": 176,
+      "name": "EQ low high range"
+    }, {
+      "pitch": [23],
+      "type": 176,
+      "name": "Filter low range"
+    }]
+  }, {
+    "channel": [{
+      "value": 6,
+      "name": "Mixer"
+    }],
+    "name": "Mixer",
+    "elements": [{
+      "pitch": [99],
+      "type": 144,
+      "name": "Headphones master cue"
+    }, {
+      "pitch": [120],
+      "type": 144,
+      "name": "Shift Headphones master cue"
+    }, {
+      "pitch": [70],
+      "type": 144,
+      "name": "Load track left"
+    }, {
+      "pitch": [104],
+      "type": 144,
+      "name": "Shift Load track left"
+    }, {
+      "pitch": [71],
+      "type": 144,
+      "name": "Load track right"
+    }, {
+      "pitch": [122],
+      "type": 144,
+      "name": "Shift Load track right"
+    }, {
+      "pitch": [65],
+      "type": 144,
+      "name": "Navigation back"
+    }, {
+      "pitch": [66],
+      "type": 144,
+      "name": "Shift Navigation back"
+    }, {
+      "pitch": [64],
+      "type": 176,
+      "name": "Rotary"
+    }, {
+      "pitch": [100],
+      "type": 176,
+      "name": "Shift Rotary"
+    }, {
+      "pitch": [8],
+      "type": 176,
+      "name": "Master high range"
+    }, {
+      "pitch": [40],
+      "type": 176,
+      "name": "Master low range"
+    }, {
+      "pitch": [12],
+      "type": 176,
+      "name": "Headphones mixing high range"
+    }, {
+      "pitch": [44],
+      "type": 176,
+      "name": "Headphones mixing low range"
+    }, {
+      "pitch": [13],
+      "type": 176,
+      "name": "Headphones level high range"
+    }, {
+      "pitch": [45],
+      "type": 176,
+      "name": "Headphones level low range"
+    }, {
+      "pitch": [23],
+      "type": 176,
+      "name": "Filter left high range"
+    }, {
+      "pitch": [55],
+      "type": 176,
+      "name": "Filter left low range"
+    }, {
+      "pitch": [24],
+      "type": 176,
+      "name": "Filter right high range"
+    }, {
+      "pitch": [56],
+      "type": 176,
+      "name": "Filter right low range"
+    }, {
+      "pitch": [31],
+      "type": 176,
+      "name": "Crossfader high range"
+    }, {
+      "pitch": [63],
+      "type": 176,
+      "name": "Crossfader low range"
+    }]
+  }, {
+    "channel": [{
+      "value": 4,
+      "name": "Effects"
+    }],
+    "name": "Effects",
+    "elements": [{
+      "pitch": [74],
+      "type": 144,
+      "name": "Beat left"
+    }, {
+      "pitch": [102],
+      "type": 144,
+      "name": "Beat auto"
+    }, {
+      "pitch": [75],
+      "type": 144,
+      "name": "Beat right"
+    }, {
+      "pitch": [107],
+      "type": 144,
+      "name": "Beat tap"
+    }, {
+      "pitch": [99],
+      "type": 144,
+      "name": "FX Select down"
+    }, {
+      "pitch": [100],
+      "type": 144,
+      "name": "FX Select up"
+    }, {
+      "pitch": [16],
+      "type": 144,
+      "name": "Beat FX channel select 1"
+    }, {
+      "pitch": [17],
+      "type": 144,
+      "name": "Beat FX channel select 2"
+    }, {
+      "pitch": [20],
+      "type": 144,
+      "name": "Beat FX channel select master"
+    }, {
+      "pitch": [71],
+      "type": 144,
+      "name": "FX on/off"
+    }, {
+      "pitch": [67],
+      "type": 144,
+      "name": "FX release"
+    }, {
+      "pitch": [2],
+      "type": 176,
+      "name": "FX level/depth high range"
+    }, {
+      "pitch": [34],
+      "type": 176,
+      "name": "FX level/depth low range"
+    }]
+  }, {
+    "channel": [{
+      "value": 7,
+      "name": "Left"
+    }, {
+      "value": 8,
+      "name": "Shift Left"
+    }, {
+      "value": 9,
+      "name": "Right"
+    }, {
+      "value": 10,
+      "name": "Shift Right"
+    }],
+    "name": "Performance pad",
+    "elements": [{
+      "pitch": [0, 16, 32, 48, 64, 80, 96, 112],
+      "type": 144,
+      "name": "Pad 1"
+    }, {
+      "pitch": [1, 17, 33, 49, 65, 81, 97, 113],
+      "type": 144,
+      "name": "Pad 2"
+    }, {
+      "pitch": [2, 18, 34, 50, 66, 82, 98, 114],
+      "type": 144,
+      "name": "Pad 3"
+    }, {
+      "pitch": [3, 19, 35, 51, 67, 83, 99, 115],
+      "type": 144,
+      "name": "Pad 4"
+    }, {
+      "pitch": [4, 20, 36, 52, 68, 84, 100, 116],
+      "type": 144,
+      "name": "Pad 5"
+    }, {
+      "pitch": [5, 21, 37, 53, 69, 85, 101, 117],
+      "type": 144,
+      "name": "Pad 6"
+    }, {
+      "pitch": [6, 22, 38, 54, 70, 86, 102, 118],
+      "type": 144,
+      "name": "Pad 7"
+    }, {
+      "pitch": [7, 23, 39, 55, 71, 87, 103, 119],
+      "type": 144,
+      "name": "Pad 8"
+    }]
+  }]
+}
