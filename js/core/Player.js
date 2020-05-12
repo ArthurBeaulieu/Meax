@@ -154,12 +154,12 @@ class Player {
   setTempo(value) {
     // Update internal gain value
     this._tempoValue = value;
-    console.log(value, this._nodes.source.playbackRate.value)
     // If gain node exists, apply new gain value
     if (this._nodes.source) {
+      console.log(value, this._nodes.source.playbackRate.value)
       let amount = 0;
       if (value < 0.5) {
-        amount = -(0.5 + value);
+        amount = -(0.5 - value);
       } else if (value > 0.5) {
         amount = value - 0.5;
       }
