@@ -2,390 +2,556 @@
   "name": "DDJ-400",
   "manufacturer": "Pioneer",
   "controllerVersion": "1.1",
-  "revision": "1",
+  "revision": "2",
   "channels": [{
     "channel": [{
       "value": 0,
-      "name": "Left deck"
+      "name": "DECK_LEFT"
     }, {
       "value": 1,
-      "name": "Right deck"
+      "name": "DECK_RIGHT"
     }],
-    "name": "Deck",
+    "name": "DECK",
     "elements": [{
-      "pitch": [11],
+      "name": "Play/Pause",
+      "id": "001",
       "type": 144,
-      "name": "Play/Pause"
+      "note": [11],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [71],
+      "name": "Shift Play/Pause",
+      "id": "002",
       "type": 144,
-      "name": "Shift Play/Pause"
+      "note": [71],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [12],
+      "name": "Cue",
+      "id": "003",
       "type": 144,
-      "name": "Cue"
+      "note": [12],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [72],
+      "name": "Shift Cue",
+      "id": "004",
       "type": 144,
-      "name": "Shift Cue"
+      "note": [72],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [63],
+      "name": "Shift",
+      "id": "005",
       "type": 144,
-      "name": "Shift"
+      "note": [63],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [16],
+      "name": "In loop/4 beat",
+      "id": "006",
       "type": 144,
-      "name": "In loop/4 beat"
+      "note": [16],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [76],
+      "name": "In adjust",
+      "id": "007",
       "type": 144,
-      "name": "In adjust"
+      "note": [76],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [17],
+      "name": "Out loop",
+      "id": "008",
       "type": 144,
-      "name": "Out loop"
+      "note": [17],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [78],
+      "name": "Out adjust",
+      "id": "009",
       "type": 144,
-      "name": "Out adjust"
+      "note": [78],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [77],
+      "name": "Loop exit",
+      "id": "010",
       "type": 144,
-      "name": "Loop exit"
+      "note": [77],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [80],
+      "name": "Active loop",
+      "id": "011",
       "type": 144,
-      "name": "Active loop"
+      "note": [80],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [81],
+      "name": "Cue/Loop left",
+      "id": "012",
       "type": 144,
-      "name": "Cue/Loop left"
+      "note": [81],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [62],
+      "name": "Loop delete",
+      "id": "013",
       "type": 144,
-      "name": "Loop delete"
+      "note": [62],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [83],
+      "name": "Cue/Loop right",
+      "id": "014",
       "type": 144,
-      "name": "Cue/Loop right"
+      "note": [83],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [61],
+      "name": "Loop memory",
+      "id": "015",
       "type": 144,
-      "name": "Loop memory"
+      "note": [61],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [88],
+      "name": "Master sync",
+      "id": "016",
       "type": 144,
-      "name": "Master sync"
+      "note": [88],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [96],
+      "name": "Tempo range",
+      "id": "017",
       "type": 144,
-      "name": "Tempo range"
+      "note": [96],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [84],
+      "name": "Headphones cue",
+      "id": "018",
       "type": 144,
-      "name": "Headphones cue"
+      "note": [84],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [104],
+      "name": "Shift Headphones cue",
+      "id": "019",
       "type": 144,
-      "name": "Shift Headphones cue"
+      "note": [104],
+      "elementType": "BUTTON"
     },  {
-      "pitch": [27],
+      "name": "Performance hot cue",
+      "id": "020",
       "type": 144,
-      "name": "Performance hot cue"
+      "note": [27],
+      "elementType": "BUTTON"
     },  {
-      "pitch": [105],
+      "name": "Performance keyboard",
+      "id": "021",
       "type": 144,
-      "name": "Performance keyboard"
+      "note": [105],
+      "elementType": "BUTTON"
     },  {
-      "pitch": [109],
+      "name": "Performance beat loop",
+      "id": "022",
       "type": 144,
-      "name": "Performance beat loop"
+      "note": [109],
+      "elementType": "BUTTON"
     },  {
-      "pitch": [30],
+      "name": "Performance pad FX1",
+      "id": "023",
       "type": 144,
-      "name": "Performance pad FX1"
+      "note": [30],
+      "elementType": "BUTTON"
     },  {
-      "pitch": [32],
+      "name": "Performance beat jump",
+      "id": "024",
       "type": 144,
-      "name": "Performance beat jump"
+      "note": [32],
+      "elementType": "BUTTON"
     },  {
-      "pitch": [107],
+      "name": "Performance pad FX2",
+      "id": "025",
       "type": 144,
-      "name": "Performance pad FX2"
+      "note": [107],
+      "elementType": "BUTTON"
     },  {
-      "pitch": [34],
+      "name": "Performance sampler",
+      "id": "026",
       "type": 144,
-      "name": "Performance sampler"
+      "note": [34],
+      "elementType": "BUTTON"
     },  {
-      "pitch": [111],
+      "name": "Performance key shift",
+      "id": "027",
       "type": 144,
-      "name": "Performance key shift"
+      "note": [111],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [33],
+      "name": "Jogwheel slow",
+      "id": "028",
       "type": 176,
-      "name": "Jogwheel slow"
+      "note": [33],
+      "elementType": "JOGWHEEL"
     }, {
-      "pitch": [35],
+      "name": "Jogwheel fast",
+      "id": "029",
       "type": 176,
-      "name": "Jogwheel fast"
+      "note": [35],
+      "elementType": "JOGWHEEL"
     }, {
-      "pitch": [41],
+      "name": "Shift Jogwheel fast",
+      "id": "030",
       "type": 176,
-      "name": "Shift Jogwheel fast"
+      "note": [41],
+      "elementType": "JOGWHEEL"
     }, {
-      "pitch": [0],
+      "name": "Tempo high range",
+      "id": "031",
       "type": 176,
-      "name": "Tempo low range"
+      "note": [32],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [32],
+      "name": "Tempo low range",
+      "id": "032",
       "type": 176,
-      "name": "Tempo high range"
+      "note": [0],
+      "elementType": "KNOB_LOW"
     }, {
-      "pitch": [19],
+      "name": "Fader high range",
+      "id": "033",
       "type": 176,
-      "name": "Fader low range"
+      "note": [51],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [51],
+      "name": "Fader low range",
+      "id": "034",
       "type": 176,
-      "name": "Fader high range"
+      "note": [19],
+      "elementType": "KNOB_LOW"
     }, {
-      "pitch": [4],
+      "name": "Trim gain high range",
+      "id": "035",
       "type": 176,
-      "name": "Trim gain low range"
+      "note": [36],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [36],
+      "name": "Trim gain low range",
+      "id": "036",
       "type": 176,
-      "name": "Trim gain high range"
+      "note": [4],
+      "elementType": "KNOB_LOW"
     }, {
-      "pitch": [7],
+      "name": "EQ high high range",
+      "id": "037",
       "type": 176,
-      "name": "EQ high low range"
+      "note": [39],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [39],
+      "name": "EQ high low range",
+      "id": "038",
       "type": 176,
-      "name": "EQ high high range"
+      "note": [7],
+      "elementType": "KNOB_LOW"
     }, {
-      "pitch": [11],
+      "name": "EQ medium high range",
+      "id": "039",
       "type": 176,
-      "name": "EQ medium low range"
+      "note": [43],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [43],
+      "name": "EQ medium low range",
+      "id": "040",
       "type": 176,
-      "name": "EQ medium high range"
+      "note": [11],
+      "elementType": "KNOB_LOW"
     }, {
-      "pitch": [15],
+      "name": "EQ low high range",
+      "id": "041",
       "type": 176,
-      "name": "EQ low low range"
+      "note": [47],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [47],
+      "name": "EQ low low range",
+      "id": "042",
       "type": 176,
-      "name": "EQ low high range"
-    }, {
-      "pitch": [23],
-      "type": 176,
-      "name": "Filter low range"
+      "note": [15],
+      "elementType": "KNOB_LOW"
     }]
   }, {
     "channel": [{
       "value": 6,
-      "name": "Mixer"
+      "name": "MIXER"
     }],
-    "name": "Mixer",
+    "name": "MIXER",
     "elements": [{
-      "pitch": [99],
+      "name": "Headphones master cue",
+      "id": "043",
       "type": 144,
-      "name": "Headphones master cue"
+      "note": [99],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [120],
+      "name": "Shift Headphones master cue",
+      "id": "044",
       "type": 144,
-      "name": "Shift Headphones master cue"
+      "note": [120],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [70],
+      "name": "Load track left",
+      "id": "045",
       "type": 144,
-      "name": "Load track left"
+      "note": [70],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [104],
+      "name": "Shift Load track left",
+      "id": "046",
       "type": 144,
-      "name": "Shift Load track left"
+      "note": [104],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [71],
+      "name": "Load track right",
+      "id": "047",
       "type": 144,
-      "name": "Load track right"
+      "note": [71],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [122],
+      "name": "Shift Load track right",
+      "id": "048",
       "type": 144,
-      "name": "Shift Load track right"
+      "note": [122],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [65],
+      "name": "Navigation back",
+      "id": "049",
       "type": 144,
-      "name": "Navigation back"
+      "note": [65],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [66],
+      "name": "Shift Navigation back",
+      "id": "050",
       "type": 144,
-      "name": "Shift Navigation back"
+      "note": [66],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [64],
+      "name": "Rotary",
+      "id": "051",
       "type": 176,
-      "name": "Rotary"
+      "note": [64],
+      "elementType": "ROTARY"
     }, {
-      "pitch": [100],
+      "name": "Shift Rotary",
+      "id": "052",
       "type": 176,
-      "name": "Shift Rotary"
+      "note": [100],
+      "elementType": "ROTARY"
     }, {
-      "pitch": [8],
+      "name": "Master high range",
+      "id": "053",
       "type": 176,
-      "name": "Master high range"
+      "note": [40],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [40],
+      "name": "Master low range",
+      "id": "054",
       "type": 176,
-      "name": "Master low range"
+      "note": [8],
+      "elementType": "KNOB_LOW"
     }, {
-      "pitch": [12],
+      "name": "Headphones mixing high range",
+      "id": "055",
       "type": 176,
-      "name": "Headphones mixing high range"
+      "note": [44],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [44],
+      "name": "Headphones mixing low range",
+      "id": "056",
       "type": 176,
-      "name": "Headphones mixing low range"
+      "note": [12],
+      "elementType": "KNOB_LOW"
     }, {
-      "pitch": [13],
+      "name": "Headphones level high range",
+      "id": "057",
       "type": 176,
-      "name": "Headphones level high range"
+      "note": [45],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [45],
+      "name": "Headphones level low range",
+      "id": "058",
       "type": 176,
-      "name": "Headphones level low range"
+      "note": [13],
+      "elementType": "KNOB_LOW"
     }, {
-      "pitch": [23],
+      "name": "Filter left high range",
+      "id": "059",
       "type": 176,
-      "name": "Filter left high range"
+      "note": [55],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [55],
+      "name": "Filter left low range",
+      "id": "060",
       "type": 176,
-      "name": "Filter left low range"
+      "note": [23],
+      "elementType": "KNOB_LOW"
     }, {
-      "pitch": [24],
+      "name": "Filter right high range",
+      "id": "061",
       "type": 176,
-      "name": "Filter right high range"
+      "note": [56],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [56],
+      "name": "Filter right low range",
+      "id": "062",
       "type": 176,
-      "name": "Filter right low range"
+      "note": [24],
+      "elementType": "KNOB_LOW"
     }, {
-      "pitch": [31],
+      "name": "Crossfader high range",
+      "id": "063",
       "type": 176,
-      "name": "Crossfader high range"
+      "note": [63],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [63],
+      "name": "Crossfader low range",
+      "id": "064",
       "type": 176,
-      "name": "Crossfader low range"
+      "note": [31],
+      "elementType": "KNOB_LOW"
     }]
   }, {
     "channel": [{
       "value": 4,
-      "name": "Effects"
+      "name": "EFFECTS"
     }],
-    "name": "Effects",
+    "name": "EFFECTS",
     "elements": [{
-      "pitch": [74],
+      "name": "Beat left",
+      "id": "065",
       "type": 144,
-      "name": "Beat left"
+      "note": [74],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [102],
+      "name": "Beat auto",
+      "id": "066",
       "type": 144,
-      "name": "Beat auto"
+      "note": [102],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [75],
+      "name": "Beat right",
+      "id": "067",
       "type": 144,
-      "name": "Beat right"
+      "note": [75],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [107],
+      "name": "Beat tap",
+      "id": "068",
       "type": 144,
-      "name": "Beat tap"
+      "note": [107],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [99],
+      "name": "FX Select down",
+      "id": "069",
       "type": 144,
-      "name": "FX Select down"
+      "note": [99],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [100],
+      "name": "FX Select up",
+      "id": "070",
       "type": 144,
-      "name": "FX Select up"
+      "note": [100],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [16],
+      "name": "Beat FX channel select 1",
+      "id": "071",
       "type": 144,
-      "name": "Beat FX channel select 1"
+      "note": [16],
+      "elementType": "SELECT"
     }, {
-      "pitch": [17],
+      "name": "Beat FX channel select 2",
+      "id": "072",
       "type": 144,
-      "name": "Beat FX channel select 2"
+      "note": [17],
+      "elementType": "SELECT"
     }, {
-      "pitch": [20],
+      "name": "Beat FX channel select master",
+      "id": "073",
       "type": 144,
-      "name": "Beat FX channel select master"
+      "note": [20],
+      "elementType": "SELECT"
     }, {
-      "pitch": [71],
+      "name": "FX on/off",
+      "id": "074",
       "type": 144,
-      "name": "FX on/off"
+      "note": [71],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [67],
+      "name": "FX release",
+      "id": "075",
       "type": 144,
-      "name": "FX release"
+      "note": [67],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [2],
+      "name": "FX level/depth high range",
+      "id": "076",
       "type": 176,
-      "name": "FX level/depth high range"
+      "note": [34],
+      "elementType": "KNOB_HIGH"
     }, {
-      "pitch": [34],
+      "name": "FX level/depth low range",
+      "id": "077",
       "type": 176,
-      "name": "FX level/depth low range"
+      "note": [2],
+      "elementType": "KNOB_LOW"
     }]
   }, {
     "channel": [{
       "value": 7,
-      "name": "Left"
+      "name": "PAD_LEFT"
     }, {
       "value": 8,
-      "name": "Shift Left"
+      "name": "PAD_LEFT_SHIFT"
     }, {
       "value": 9,
-      "name": "Right"
+      "name": "PAD_RIGHT"
     }, {
       "value": 10,
-      "name": "Shift Right"
+      "name": "PAD_RIGHT_SHIFT"
     }],
     "name": "Performance pad",
     "elements": [{
-      "pitch": [0, 16, 32, 48, 64, 80, 96, 112],
+      "name": "Pad 1",
+      "id": "078",
       "type": 144,
-      "name": "Pad 1"
+      "note": [0, 16, 32, 48, 64, 80, 96, 112],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [1, 17, 33, 49, 65, 81, 97, 113],
+      "name": "Pad 2",
+      "id": "079",
       "type": 144,
-      "name": "Pad 2"
+      "note": [1, 17, 33, 49, 65, 81, 97, 113],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [2, 18, 34, 50, 66, 82, 98, 114],
+      "name": "Pad 3",
+      "id": "080",
       "type": 144,
-      "name": "Pad 3"
+      "note": [2, 18, 34, 50, 66, 82, 98, 114],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [3, 19, 35, 51, 67, 83, 99, 115],
+      "name": "Pad 4",
+      "id": "081",
       "type": 144,
-      "name": "Pad 4"
+      "note": [3, 19, 35, 51, 67, 83, 99, 115],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [4, 20, 36, 52, 68, 84, 100, 116],
+      "name": "Pad 5",
+      "id": "082",
       "type": 144,
-      "name": "Pad 5"
+      "note": [4, 20, 36, 52, 68, 84, 100, 116],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [5, 21, 37, 53, 69, 85, 101, 117],
+      "name": "Pad 6",
+      "id": "083",
       "type": 144,
-      "name": "Pad 6"
+      "note": [5, 21, 37, 53, 69, 85, 101, 117],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [6, 22, 38, 54, 70, 86, 102, 118],
+      "name": "Pad 7",
+      "id": "084",
       "type": 144,
-      "name": "Pad 7"
+      "note": [6, 22, 38, 54, 70, 86, 102, 118],
+      "elementType": "BUTTON"
     }, {
-      "pitch": [7, 23, 39, 55, 71, 87, 103, 119],
+      "name": "Pad 8",
+      "id": "085",
       "type": 144,
-      "name": "Pad 8"
+      "note": [7, 23, 39, 55, 71, 87, 103, 119],
+      "elementType": "BUTTON"
     }]
   }]
 }

@@ -2,13 +2,64 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>ManaMix</title>
-    <link rel="stylesheet" href="dist/mzkmix.min.css">
+    <title>ManaMeax</title>
+    <link rel="stylesheet" href="dist/manameax.min.css">
   </head>
   <body>
+    <div class="timelines">
+
+    </div>
+    <div class="controller">
+      <div class="deck-left">
+        <div class="track-info">
+          <img src="./assets/img/default-cover.svg" alt="track cover">
+          <div class="main-track-info">
+            <p>Not track loaded</p>
+            <p>No artist</p>
+          </div>
+          <div class="track-signatures">
+            <p>0 BPM</p>
+            <p>Am</p>
+          </div>
+          <div class="track-times">
+            <p>-3:10:18</p>
+            <p>3:10:18</p>
+          </div>
+        </div>
+        <div class="track-waveform-progress">
+
+        </div>
+        <div class="track-manipulation">
+          <div class="performance-pad">
+
+          </div>
+          <div class="track-controls">
+            <div class="track-main-buttons">
+              <img src="./assets/img/cue.svg" alt="track-cue">
+              <img src="./assets/img/player/play.svg" id="play-left" alt="track-play">
+            </div>
+            <div class="jogwheel">
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mixer">
+        <div class="fader-container">
+          <div class="fader left">
+            <img src="./assets/img/fader-back.svg" id="fader-left-track" alt="fader-left">
+            <img src="./assets/img/fader-progress.svg" id="fader-left-progress" class="fader-progress" alt="fader-progress">
+          </div>
+        </div>
+      </div>
+      <div class="deck-right">
+
+      </div>
+    </div>
+
     <script type="module">
-      import ManaMix from "./js/ManaMix.js";
-      const manaMix = new ManaMix();
+      import ManaMeax from "./js/ManaMeax.js";
+      const manaMeax = new ManaMeax();
     </script>
   </body>
 </html>

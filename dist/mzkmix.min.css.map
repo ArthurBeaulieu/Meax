@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,SAAW,CACT,UAAU,CAAE,UAAU,CACtB,MAAM,CAAE,CAAC",
-"sources": ["../css/mzkmix.scss"],
-"names": [],
-"file": "mzkmix.min.css"
-}
