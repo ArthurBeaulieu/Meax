@@ -96,6 +96,7 @@
 html, body {
   background: var(--mzk-color-bg);
   box-sizing: border-box;
+  color: var(--mzk-color-text);
   font-family: SegoeUI, Helvetica, sans-serif;
   height: 100%;
   margin: 0;
@@ -107,7 +108,7 @@ html, body {
 }
 
 .controller {
-  background: white;
+  background: var(--mzk-color-bg-lighter-alpha-50);  
   display: flex;
   height: 30%;
 
@@ -143,10 +144,20 @@ html, body {
       }
     }
 
-    .track-waveform-progress {
+    .track-waveform-progress-container {
       border-top: solid 1px var(--mzk-color-bg-light);
       border-bottom: solid 1px var(--mzk-color-bg-light);
       height: var(--waveformheight);
+      position: relative;
+
+      div {
+        background-color: rgba(127, 127, 127, 0.1);
+        border-right: solid 1px red;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        width: 0%;
+      }
     }
 
     .track-manipulation {
@@ -154,8 +165,16 @@ html, body {
       height: calc(100% - #{var(--waveformheight)} - var(--infoheight));
 
       .performance-pad {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 10px;
         height: 100%;
+        padding: 10px;
         width: 60%;
+
+        .pad {
+          background-color: var(--mzk-color-bg-alpha-25);
+        }
       }
 
       .track-controls {
@@ -210,6 +229,19 @@ html, body {
           position: absolute;
           width: calc(100% - 20px);
         }
+      }
+    }
+  }
+}
+
+.playlists {
+  height: 50%;
+
+  .playlist-container {
+    .playlist-track {
+
+      &.selected {
+        background: red;
       }
     }
   }

@@ -14,24 +14,31 @@
         <div class="track-info">
           <img src="./assets/img/default-cover.svg" alt="track cover">
           <div class="main-track-info">
-            <p>Not track loaded</p>
-            <p>No artist</p>
+            <p id="track-title-left">No title</p>
+            <p id="track-artist-left">No artist</p>
           </div>
           <div class="track-signatures">
-            <p>0 BPM</p>
-            <p>Am</p>
+            <p id="track-bpm-left">No BPM</p>
+            <p id="track-key-left">No Key</p>
           </div>
           <div class="track-times">
-            <p>-3:10:18</p>
-            <p>3:10:18</p>
+            <p id="track-current-time-left">--:--:--</p>
+            <p id="track-duration-left">--:--:--</p>
           </div>
         </div>
-        <div class="track-waveform-progress">
-
+        <div class="track-waveform-progress-container">
+          <div id="track-waveform-progress-left"></div>
         </div>
         <div class="track-manipulation">
           <div class="performance-pad">
-
+            <div class="pad"></div>
+            <div class="pad"></div>
+            <div class="pad"></div>
+            <div class="pad"></div>
+            <div class="pad"></div>
+            <div class="pad"></div>
+            <div class="pad"></div>
+            <div class="pad"></div>
           </div>
           <div class="track-controls">
             <div class="track-main-buttons">
@@ -39,7 +46,7 @@
               <img src="./assets/img/player/play.svg" id="play-left" alt="track-play">
             </div>
             <div class="jogwheel">
-
+              <p id="track-applied-bpm-left">0</p>
             </div>
           </div>
         </div>
@@ -47,19 +54,60 @@
       <div class="mixer">
         <div class="fader-container">
           <div class="fader left">
-            <img src="./assets/img/fader-back.svg" id="fader-left-track" alt="fader-left">
-            <img src="./assets/img/fader-progress.svg" id="fader-left-progress" class="fader-progress" alt="fader-progress">
+            <img src="./assets/img/fader-back.svg" id="fader-track-left" alt="fader-left">
+            <img src="./assets/img/fader-progress.svg" id="fader-progress-left" class="fader-progress" alt="fader-progress">
           </div>
         </div>
       </div>
       <div class="deck-right">
-
+        <div class="track-info">
+          <img src="./assets/img/default-cover.svg" alt="track cover">
+          <div class="main-track-info">
+            <p id="track-title-right">No title</p>
+            <p id="track-artist-right">No artist</p>
+          </div>
+          <div class="track-signatures">
+            <p id="track-bpm-right">No BPM</p>
+            <p id="track-key-right">No Key</p>
+          </div>
+          <div class="track-times">
+            <p id="track-current-time-right">--:--:--</p>
+            <p id="track-duration-right">--:--:--</p>
+          </div>
+        </div>
+        <div class="track-waveform-progress-container">
+          <div id="track-waveform-progress-right"></div>
+        </div>
+        <div class="track-manipulation">
+          <div class="performance-pad">
+            <div class="pad"></div>
+            <div class="pad"></div>
+            <div class="pad"></div>
+            <div class="pad"></div>
+            <div class="pad"></div>
+            <div class="pad"></div>
+            <div class="pad"></div>
+            <div class="pad"></div>
+          </div>
+          <div class="track-controls">
+            <div class="track-main-buttons">
+              <img src="./assets/img/cue.svg" alt="track-cue">
+              <img src="./assets/img/player/play.svg" id="play-right" alt="track-play">
+            </div>
+            <div class="jogwheel">
+              <p id="track-applied-bpm-right">0</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
+    <div class="playlists">
+      <div id="playlist-container" class="playlist-container"></div>
+    </div>
     <script type="module">
       import ManaMeax from "./js/ManaMeax.js";
-      const manaMeax = new ManaMeax();
+      window.ManaMeax = new ManaMeax();
+      window.ManaMeax.init();
     </script>
   </body>
 </html>

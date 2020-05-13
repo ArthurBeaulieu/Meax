@@ -10,6 +10,8 @@ class DeviceHandler {
     // MIDI event utils
     // With know event, we have 2 ranges send, Low then High.
     // We must temporarly store the knob low event to compute the full know value when high event is catched
+    this._input = null;
+    this._output = null;
     this._knobLow = null;
 
     if (navigator.requestMIDIAccess) {
@@ -18,24 +20,51 @@ class DeviceHandler {
       console.log('navigator.requestMIDIAccess undefined on this browser. Try on Chromium/Chrome.');
     }
 
+    this._setEventSubscriptions();
+  }
+
+
+  _setEventSubscriptions() {
+    // CustomEvents.subscribe(`Player/SetVolume`, this._setVolume.bind(this));
+    // CustomEvents.subscribe(`Player/SetTempo`, this._setTempo.bind(this));
+    CustomEvents.subscribe(`Player/Play`, this._setPlay.bind(this));
+    CustomEvents.subscribe(`Player/Pause`, this._setPause.bind(this));
+    // CustomEvents.subscribe(`Player/LoadTrack`, this._loadTrack.bind(this));
+    // CustomEvents.subscribe(`Player/Progress`, this._updateProgress.bind(this));
   }
 
 
   requestMIDIAccessSuccess(midi) {
     var inputs = midi.inputs.values();
+    var outputs = midi.outputs.values();
+
     for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
       console.log('midi input', input.value.name);
       if (input.value.name === 'DDJ-400') {
+        this._input = input;
         this._readJSONFile(`./assets/json/${input.value.name}.json`).then(response => {
           this._channels = response.channels;
           input.value.onmidimessage = this.midiOnMIDImessage.bind(this);
-          midi.onstatechange = this.midiOnStateChange;
+          input.value.onstatechange = this.midiOnStateChange;
         });
         break;
       } else {
         console.log(`Unsupported device ${input.value.name}, contact support@manazeak.org to support this device.`);
       }
     }
+
+    for (var output = outputs.next(); output && !output.done; output = outputs.next()) {
+      if (output.value.name === 'DDJ-400') {
+        this._output = output;
+      } else {
+        console.log(`Unsupported device ${output.value.name}, contact support@manazeak.org to support this device.`);
+      }
+    }
+  }
+
+
+  sendMIDIMessage(options) {
+    this._output.value.send(options);
   }
 
 
@@ -156,7 +185,7 @@ class DeviceHandler {
 
 
   midiOnStateChange(event) {
-    console.log('midiOnStateChange', event, event.port.manufacturer + ' ' + event.port.name + ' ' + event.port.state);
+    console.log('midiOnStateChange', event, event.port.name + ' ' + event.port.state);
   }
 
 
@@ -186,6 +215,18 @@ class DeviceHandler {
       }
     });
   }
+
+
+  _setPlay(options) {
+    this.sendMIDIMessage([144, 11, 127]);
+  }
+
+
+  _setPause(options) {
+    this.sendMIDIMessage([144, 11, 0]);
+  }
+
+
 }
 
 

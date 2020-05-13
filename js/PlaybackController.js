@@ -1,48 +1,145 @@
-import Player from './core/Player.js';
+import Master from './playback/Master.js';
+import Player from './playback/Player.js';
 
 
 class PlaybackController {
 
 
   constructor() {
-    this._leftPlayer = new Player({ name: 'left' });
-    this._rightPlayer = new Player({ name: 'right' });
+    this._master = null;
+    this._leftPlayer = null;
+    this._rightPlayer = null;
+
+    this._init();
   }
 
 
-  addTrack(deckSide, trackPath) {
-    if (deckSide === 'left') {
-      this._leftPlayer.loadTrack(trackPath);
-      console.log(deckSide, trackPath)
-    } else if (deckSide === 'rigt') {
-      this._rightPlayer.loadTrack(trackPath);
+  _init() {
+    // Virtual Table output
+    this._master = new Master();
+    // Separated players for each deck
+    this._leftPlayer = new Player({
+      name: 'left',
+      ac: this._master.audioContext,
+      output: this._master.getMasterInput('left')
+    });
+    this._rightPlayer = new Player({
+      name: 'right',
+      ac: this._master.audioContext,
+      output: this._master.getMasterInput('right')
+    });
+  }
+
+
+  addTrack(deckSide, track) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].loadTrack(track);
+    } else {
+
     }
   }
 
 
   togglePlayback(deckSide) {
-    if (deckSide === 'left') {
-      this._leftPlayer.togglePlayback();
-    } else if (deckSide === 'rigt') {
-      this._rightPlayer.togglePlayback();
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].togglePlayback();
+    } else {
+
     }
   }
 
   setVolume(deckSide, value) {
-    if (deckSide === 'left') {
-      this._leftPlayer.setVolume(value);
-    } else if (deckSide === 'rigt') {
-      this._rightPlayer.setVolume(value);
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].setVolume(value);
+    } else {
+
+    }
+  }
+
+
+  setTrimVolume(deckSide, value) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].setTrimVolume(value);
+    } else {
+
+    }
+  }
+
+
+  setProgress(deckSide, value) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].setProgress(value);
+    } else {
+
+    }
+  }
+
+
+  adjustProgressSlow(deckSide, value) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].adjustProgressSlow(value);
+    } else {
+
+    }
+  }
+
+
+  adjustProgressFast(deckSide, value) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].adjustProgressFast(value);
+    } else {
+
     }
   }
 
 
   setTempo(deckSide, value) {
-    if (deckSide === 'left') {
-      this._leftPlayer.setTempo(value);
-    } else if (deckSide === 'rigt') {
-      this._rightPlayer.setTempo(value);
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].setTempo(value);
+    } else {
+
     }
+  }
+
+
+  setHighEQ(deckSide, value) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].setHighEQ(value);
+    } else {
+
+    }
+  }
+
+
+  setMidEQ(deckSide, value) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].setMidEQ(value);
+    } else {
+
+    }
+  }
+
+
+  setLowEQ(deckSide, value) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].setLowEQ(value);
+    } else {
+
+    }
+  }
+
+
+  setFilter(deckSide, value) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].setFilter(value);
+    } else {
+
+    }
+  }
+
+
+  crossFade(value) {
+    this._master.crossFade(value);
   }
 
 

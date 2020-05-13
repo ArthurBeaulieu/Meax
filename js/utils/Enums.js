@@ -23,10 +23,21 @@ const Components = Object.freeze({
 
 
 const Commands = Object.freeze({
-  LEFT_PLAY: '001',
-  LEFT_TEMPO: '031',
-  LEFT_VOLUME: '033',
-  LEFT_LOAD_TRACK: '045'
+  PLAY: '001',
+  JOGWHEEL_SLOW: '028',
+  JOGWHEEL_FAST: '029',
+  TEMPO: '031',
+  VOLUME: '033',
+  VOLUME_TRIM: '035',
+  HIGH_EQ: '037',
+  MID_EQ: '039',
+  LOW_EQ: '041',
+  LEFT_LOAD_TRACK: '045',
+  RIGHT_LOAD_TRACK: '047',
+  SELECTION_ROTARY: '051',
+  LEFT_FILTER: '059',
+  RIGHT_FILTER: '061',
+  CROSSFADER: '063'
 });
 
 
