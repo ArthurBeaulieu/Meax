@@ -2,7 +2,7 @@
   "name": "DDJ-400",
   "manufacturer": "Pioneer",
   "controllerVersion": "1.1",
-  "revision": "2",
+  "revision": "3",
   "channels": [{
     "channel": [{
       "value": 0,
@@ -184,7 +184,7 @@
       "name": "Jogwheel fast",
       "id": "029",
       "type": 176,
-      "note": [35],
+      "note": [34],
       "elementType": "JOGWHEEL"
     }, {
       "name": "Shift Jogwheel fast",

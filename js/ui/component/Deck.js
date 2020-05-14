@@ -1,3 +1,8 @@
+/* TODO proper lib import */
+import MzkVisualizer from '../../../lib/MzkVisualizer/js/MzkVisualizer.js';
+import Knob from './Knob.js';
+
+
 class Deck {
 
 
@@ -17,10 +22,18 @@ class Deck {
       faderProgress: null
     };
 
+    this._knobs = {
+      gain: null,
+      filter: null
+    };
+
     this._bpm = 0;
 
     this._getElements();
+    this._buildWaveform();
+    this._buildKnobs();
     this._addEvents();
+    this._setEventSubscriptions();
   }
 
 
@@ -39,15 +52,63 @@ class Deck {
   }
 
 
+  _buildWaveform() {
+    const waveformProgress = new MzkVisualizer({
+      type: 'waveformprogress', // Mandatory, either 'frequencybars', 'frequencycircle', 'oscilloscope', 'peakmeter' or 'spectrum'
+      player: MzkMeax.pc.getPlayer(this._name), // Mandatory, the play to wire visualisation to
+      audioContext: MzkMeax.pc.audioContext,
+      input: MzkMeax.pc.getPlayerOutputNode(this._name),
+      renderTo: document.querySelector(`#waveform-${this._name}`), // Mandatory, the HTML div to render component
+      fftSize: 1024, // Optional (default 1024), Higher is smoother for vuemeter (doesn't consume much CPU)
+      animation: 'fade' // Optional (default fade), 'fade' or 'gradient', the animation on bar on progress
+    });
+  }
+
+
+  _buildKnobs() {
+    this._knobs.filter = new Knob({
+      target: document.getElementById(`eq-filter-${this._name}`),
+      type: 'filter',
+      side: this._name
+    });
+
+    this._knobs.gain = new Knob({
+      target: document.getElementById(`eq-gain-${this._name}`),
+      type: 'gain',
+      side: this._name
+    });
+  }
+
+
   _addEvents() {
     CustomEvents.addEvent('click', this._dom.play, () => {
-      ManaMeax.pc.togglePlayback(this._name);
+      MzkMeax.pc.togglePlayback(this._name);
     }, this);
 
     CustomEvents.addEvent('click', this._dom.progressBar.parentNode, event => {
-      const percentage = (event.clientX / this._dom.progressBar.parentNode.offsetWidth);
-      ManaMeax.pc.setProgress(this._name, percentage);
+      const percentage = (event.offsetX / this._dom.progressBar.parentNode.offsetWidth);
+      MzkMeax.pc.setProgress(this._name, percentage);
     }, this);
+  }
+
+
+  _setEventSubscriptions() {
+    CustomEvents.subscribe(`Player/Filter`, this._updateFilter.bind(this));
+    CustomEvents.subscribe(`Player/TrimGain`, this._updateTrimGain.bind(this));
+  }
+
+
+  _updateFilter(options) {
+    if (this._name === options.name) {
+      this._knobs.filter.setValue(options.value);
+    }
+  }
+
+
+  _updateTrimGain(options) {
+    if (this._name === options.name) {
+      this._knobs.gain.setValue(options.value);
+    }
   }
 
 

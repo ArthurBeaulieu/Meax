@@ -218,6 +218,11 @@ class Player {
   setTrimVolume(value) {
     const amount = Utils.convertKnobValue(value, 100);
     this._nodes.trimGain.gain.value = 1 + amount;
+    // Fire event to refresh UI
+    CustomEvents.publish(`Player/TrimGain`, {
+      name: this._name,
+      value: value
+    });
   }
 
 
@@ -227,21 +232,27 @@ class Player {
 
 
   adjustProgressSlow(value) {
-    this._adjustProgress(value, this._player.duration / this._audioCtx.sampleRate);
+    this._adjustProgress(value, 0.1);
   }
 
 
   adjustProgressFast(value) {
-    this._adjustProgress(value, (this._player.duration / this._audioCtx.sampleRate) * 5);
+    this._adjustProgress(value, 10);
   }
 
 
   _adjustProgress(value, amount) {
     if (this._player && this._player.src) {
       if (value === 'increase') {
-        this._player.currentTime += amount;
+        this._player.playbackRate += amount;
+        setTimeout(() => this._player.playbackRate -= amount, 10);
       } else if (value === 'decrease') {
-        this._player.currentTime -= amount;
+        if (this._player.playbackRate - amount <= 0) {
+          this._player.currentTime -= (this._player.duration / this._audioCtx.sampleRate) * amount;
+        } else {
+          this._player.playbackRate -= amount;
+          setTimeout(() => this._player.playbackRate += amount, 10);
+        }
       }
     }
   }
@@ -250,7 +261,7 @@ class Player {
   setTempo(value) {
     // If gain node exists, apply new gain value
     if (this._player && this._player.src) {
-      const amount = Utils.convertTempoValue(value, 16);
+      const amount = Utils.convertKnobValue(value, 16);
       // Update player playback rate
       this._player.playbackRate = 1 + amount;
       // Fire event to refresh UI
@@ -287,6 +298,12 @@ class Player {
       // Update player playback rate
       this._nodes[type].gain.value = amount * 100;
     }
+    // Fire event to refresh UI
+    CustomEvents.publish(`Player/EQ`, {
+      name: this._name,
+      type: type,
+      value: value
+    });
   }
 
 
@@ -321,11 +338,26 @@ class Player {
         this._nodes.high.connect(this._nodes.gain);
       }
     }
+    // Fire event to refresh UI
+    CustomEvents.publish(`Player/Filter`, {
+      name: this._name,
+      value: value
+    });
   }
 
 
   get sourceNode() {
     return this._nodes.trimGain;
+  }
+
+
+  get output() {
+    return this._nodes.source;
+  }
+
+
+  get player() {
+    return this._player;
   }
 
 

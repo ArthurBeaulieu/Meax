@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>ManaMeax</title>
     <link rel="stylesheet" href="dist/manameax.min.css">
+    <link rel="stylesheet" href="lib/MzkVisualizer/css/mzkvisualizer.css">
   </head>
   <body>
     <div class="timelines">
@@ -22,12 +23,13 @@
             <p id="track-key-left">No Key</p>
           </div>
           <div class="track-times">
-            <p id="track-current-time-left">--:--:--</p>
             <p id="track-duration-left">--:--:--</p>
+            <p id="track-current-time-left">--:--:--</p>
           </div>
         </div>
         <div class="track-waveform-progress-container">
-          <div id="track-waveform-progress-left"></div>
+          <div id="track-waveform-progress-left" class="waveform-progress"></div>
+          <div id="waveform-left" class="waveform"></div>
         </div>
         <div class="track-manipulation">
           <div class="performance-pad">
@@ -45,17 +47,48 @@
               <img src="./assets/img/cue.svg" alt="track-cue">
               <img src="./assets/img/player/play.svg" id="play-left" alt="track-play">
             </div>
-            <div class="jogwheel">
-              <p id="track-applied-bpm-left">0</p>
+            <div class="playback-info">
+              <div class="tempo-info">
+                <p id="track-applied-bpm-left">0</p>
+              </div>
+              <div class="playback-effects">
+                <div id="eq-filter-left" class="eq-filter"><progress-ring progress="0" class="filter-left"></progress-ring></div>
+                <div id="eq-gain-left" class="eq-gain"><progress-ring progress="0" class="gain-left"></progress-ring></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="mixer">
+        <div class="tracks-eq-container">
+          <div class="peakmeter-left">
+            <div id="peakmeter-left" class="peakmeter"></div>
+            <div class="headphones-left">
+              <img src="./assets/img/headphones.svg" alt="headphones-left">
+            </div>
+          </div>
+          <div class="left">
+            <div id="eq-high-left" class="eq-high"><progress-ring progress="0" class="high-left"></progress-ring></div>
+            <div id="eq-mid-left" class="eq-mid"><progress-ring progress="0" class="mid-left"></progress-ring></div>
+            <div id="eq-low-left" class="eq-low"><progress-ring progress="0" class="low-left"></progress-ring></div>
+          </div>
+          <div class="right">
+            <div id="eq-high-right" class="eq-high"><progress-ring progress="0" class="high-right"></progress-ring></div>
+            <div id="eq-mid-right" class="eq-mid"><progress-ring progress="0" class="mid-right"></progress-ring></div>
+            <div id="eq-low-right" class="eq-low"><progress-ring progress="0" class="low-right"></progress-ring></div>
+          </div>
+          <div class="peakmeter-right">
+            <div id="peakmeter-right" class="peakmeter"></div>
+          </div>
+        </div>
         <div class="fader-container">
           <div class="fader left">
             <img src="./assets/img/fader-back.svg" id="fader-track-left" alt="fader-left">
-            <img src="./assets/img/fader-progress.svg" id="fader-progress-left" class="fader-progress" alt="fader-progress">
+            <img src="./assets/img/fader-progress.svg" id="fader-progress-left" class="fader-progress" alt="fader-progress-left">
+          </div>
+          <div class="fader right">
+            <img src="./assets/img/fader-back.svg" id="fader-track-right" alt="fader-right">
+            <img src="./assets/img/fader-progress.svg" id="fader-progress-right" class="fader-progress" alt="fader-progress-right">
           </div>
         </div>
       </div>
@@ -71,14 +104,30 @@
             <p id="track-key-right">No Key</p>
           </div>
           <div class="track-times">
-            <p id="track-current-time-right">--:--:--</p>
             <p id="track-duration-right">--:--:--</p>
+            <p id="track-current-time-right">--:--:--</p>
           </div>
         </div>
         <div class="track-waveform-progress-container">
-          <div id="track-waveform-progress-right"></div>
+          <div id="track-waveform-progress-right" class="waveform-progress"></div>
+          <div id="waveform-right" class="waveform"></div>
         </div>
         <div class="track-manipulation">
+          <div class="track-controls">
+            <div class="playback-info">
+              <div class="tempo-info">
+                <p id="track-applied-bpm-right">0</p>
+              </div>
+              <div class="playback-effects start-align">
+                <div id="eq-gain-right" class="eq-gain"><progress-ring progress="0" class="gain-right"></progress-ring></div>
+                <div id="eq-filter-right" class="eq-filter"><progress-ring progress="0" class="filter-right"></progress-ring></div>
+              </div>
+            </div>
+            <div class="track-main-buttons">
+              <img src="./assets/img/cue.svg" alt="track-cue">
+              <img src="./assets/img/player/play.svg" id="play-right" alt="track-play">
+            </div>
+          </div>
           <div class="performance-pad">
             <div class="pad"></div>
             <div class="pad"></div>
@@ -89,15 +138,6 @@
             <div class="pad"></div>
             <div class="pad"></div>
           </div>
-          <div class="track-controls">
-            <div class="track-main-buttons">
-              <img src="./assets/img/cue.svg" alt="track-cue">
-              <img src="./assets/img/player/play.svg" id="play-right" alt="track-play">
-            </div>
-            <div class="jogwheel">
-              <p id="track-applied-bpm-right">0</p>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -106,8 +146,8 @@
     </div>
     <script type="module">
       import ManaMeax from "./js/ManaMeax.js";
-      window.ManaMeax = new ManaMeax();
-      window.ManaMeax.init();
+      window.MzkMeax = new ManaMeax();
+      window.MzkMeax.init();
     </script>
   </body>
 </html>

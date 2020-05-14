@@ -56,21 +56,6 @@ class Utils {
   }
 
 
-  convertTempoValue(value, maxRange) {
-    const scaledPercentage = (value * maxRange) / 100;
-    const breakpoint = (maxRange / 200);
-    let amount = 0;
-    // Slow down playback
-    if (scaledPercentage < breakpoint) { // [-0.5,0] is half
-      amount = this.precisionRound(-(breakpoint - scaledPercentage), 2);
-    } else if (scaledPercentage > breakpoint) { // [1,2] is twice the interval
-      amount = this.precisionRound((scaledPercentage - breakpoint) * 2, 2);
-    }
-
-    return amount;
-  }
-
-
   convertKnobValue(value, maxRange) {
     const scaledPercentage = (value * maxRange) / 100;
     const breakpoint = (maxRange / 200);

@@ -143,6 +143,21 @@ class PlaybackController {
   }
 
 
+  getPlayer(deckSide) {
+    return this[`_${deckSide}Player`].player;
+  }
+
+
+  getPlayerOutputNode(deckSide) {
+    return this[`_${deckSide}Player`].sourceNode;
+  }
+
+
+  get audioContext() {
+    return this._master.audioContext;
+  }
+
+
 }
 
 

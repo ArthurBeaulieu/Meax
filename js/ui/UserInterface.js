@@ -1,14 +1,27 @@
+import Timeline from './component/Timeline.js';
 import Deck from './component/Deck.js';
+import Mixer from './component/Mixer.js';
 import Playlist from './component/Playlist.js';
+import ProgressRing from './component/ProgressRing.js';
 
 
 class UserInterface {
 
 
   constructor() {
+    // Define custom element for knob radial gauge
+    window.customElements.define('progress-ring', ProgressRing);
+
+    this._leftTimeline = new Timeline('left');
+    this._rightTimeline = new Timeline('right');
+
     this._leftDeck = new Deck('left');
     this._rightDeck = new Deck('right');
+
+    this._mixer = new Mixer();
+
     this._playlist = new Playlist();
+
     this._setEventSubscriptions();
   }
 
@@ -20,6 +33,7 @@ class UserInterface {
     CustomEvents.subscribe(`Player/Pause`, this._setPause.bind(this));
     CustomEvents.subscribe(`Player/LoadTrack`, this._loadTrack.bind(this));
     CustomEvents.subscribe(`Player/Progress`, this._updateProgress.bind(this));
+    CustomEvents.subscribe(`Player/EQ`, this._updateKnobs.bind(this));
   }
 
 
@@ -52,19 +66,19 @@ class UserInterface {
 
 
   _setVolume(options) {
-    if (options.name === 'left') {
+    if (options.name === 'left' || options.name === 'right') {
       // Update left or right deck with loaded track info (stored in options.value)
       this[`_${options.name}Deck`].setVolume(options.value); // TODO Put in Mixer.js ui component ?
-    } else if (options.name === 'right') {
+    } else {
 
     }
   }
 
 
   _setTempo(options) {
-    if (options.name === 'left') {
+    if (options.name === 'left' || options.name === 'right') {
       this[`_${options.name}Deck`].setTempo(options.value);
-    } else if (options.name === 'right') {
+    } else {
 
     }
   }
@@ -77,6 +91,14 @@ class UserInterface {
 
     }
   }
+
+
+  _updateKnobs(options) {
+    if (options.name === 'left' || options.name === 'right') {
+      this._mixer.updateKnob(options);
+    }
+  }
+
 
 
   navigateInPlaylist(deckSide, value) {

@@ -36,11 +36,11 @@ class Master {
 
   crossFade(value) {
     if (value < 0.5) { // Crossfade to left
-      this._nodes.leftGain.gain.value = 1 - value;
-      this._nodes.rightGain.gain.value = value;
+      this._nodes.leftGain.gain.value = 1;
+      this._nodes.rightGain.gain.value = value * 2;
     } else if (value > 0.5) { // Crossfade to right
-      this._nodes.leftGain.gain.value = 1 - value;
-      this._nodes.rightGain.gain.value = value;
+      this._nodes.leftGain.gain.value = 1 - (value - 0.5) * 2;
+      this._nodes.rightGain.gain.value = 1;
     } else if (value === 0.5) {
       this._nodes.leftGain.gain.value = 0.5;
       this._nodes.rightGain.gain.value = 0.5;

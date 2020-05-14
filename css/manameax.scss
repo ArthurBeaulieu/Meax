@@ -103,26 +103,29 @@ html, body {
   width: 100%;
 }
 
+/**/
+
 .timelines {
   height: 20%;
 }
 
 .controller {
-  background: var(--mzk-color-bg-lighter-alpha-50);  
+  background: var(--mzk-color-bg-lighter-alpha-50);
   display: flex;
-  height: 30%;
+  height: 27%;
 
   .deck-left,
   .deck-right {
     --infoheight: 18%;
-    --waveformheight: 12%;
+    --waveformheight: 18%;
 
     height: 100%;
-    width: 40%;
+    width: 45%;
 
     .track-info {
       align-items: center;
       display: flex;
+      font-size: .9em;
       height: var(--infoheight);
       padding: 0 10px;
 
@@ -145,18 +148,25 @@ html, body {
     }
 
     .track-waveform-progress-container {
+      align-items: center;
       border-top: solid 1px var(--mzk-color-bg-light);
       border-bottom: solid 1px var(--mzk-color-bg-light);
+      display: flex;
       height: var(--waveformheight);
       position: relative;
 
-      div {
+      .waveform-progress {
         background-color: rgba(127, 127, 127, 0.1);
         border-right: solid 1px red;
         height: 100%;
         left: 0;
         position: absolute;
         width: 0%;
+      }
+
+      .waveform {
+        height: 80%;
+        width: 100%;
       }
     }
 
@@ -170,7 +180,7 @@ html, body {
         grid-gap: 10px;
         height: 100%;
         padding: 10px;
-        width: 60%;
+        width: 70%;
 
         .pad {
           background-color: var(--mzk-color-bg-alpha-25);
@@ -180,25 +190,57 @@ html, body {
       .track-controls {
         display: flex;
         height: 100%;
-        width: 40%;
+        width: 30%;
 
         .track-main-buttons {
-          align-items: center;
           display: flex;
           flex-direction: column;
           height: 100%;
           justify-content: flex-end;
           padding: 10px 0;
-          width: 13%;
+          width: 50px;
 
           img {
             cursor: pointer;
-            width: 100%;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
           }
         }
 
-        .jogwheel {
-          width: 87%;
+        .playback-info {
+          padding: 10px 0;
+          width: calc(100% - 50px);
+
+          .tempo-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(100% - 50px);
+            width: 100%;
+          }
+
+          .playback-effects {
+            display: flex;
+            justify-content: flex-end;
+            height: 50px;
+            width: 100%;
+
+            &.start-align {
+              justify-content: flex-start;
+            }
+
+            div[class^="eq"] {
+              width: 50px;
+            }
+
+            p {
+              font-size: .7em;
+              margin: 0;
+              padding-top: 40px;
+              text-align: center;
+            }
+          }
         }
       }
     }
@@ -208,16 +250,70 @@ html, body {
     border-left: solid 1px var(--mzk-color-bg-light);
     border-right: solid 1px var(--mzk-color-bg-light);
     height: 100%;
-    width: 20%;
+    padding-top: 10px;
+    width: 10%;
+
+    .tracks-eq-container {
+      display: flex;
+      height: calc(100% - 90px);
+      width: 100%;
+
+      .left, .right {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+        position: relative;
+        width: 25%;
+
+        div[class^="eq"] {
+          height: 60px;
+          width: 50px;
+
+          p {
+            font-size: .7em;
+            margin: 0;
+            padding-top: 40px;
+            text-align: center;
+          }
+        }
+      }
+
+      div[class^="peakmeter-"] {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - 20px);
+        justify-content: center;
+        width: 25%;
+
+        .peakmeter {
+          height: 80%;
+          width: 10%;
+        }
+      }
+
+      div[class^="headphones-"] {
+        height: 15px;
+        border: solid 1px grey;
+        border-radius: 2px;
+        width: 70%;
+        margin: 10px 0;
+      }
+    }
 
     .fader-container {
-      height: auto;
+      align-items: center;
+      display: flex;
+      height: 90px;
+      justify-content: center;
 
       .fader {
         height: 100%;
         padding: 10px;
         position: relative;
-        width: 50%;
+        width: 33%;
 
         img {
           width: 100%;
@@ -245,4 +341,52 @@ html, body {
       }
     }
   }
+}
+
+/* Knob */
+:root {
+  --size: 38px;
+  --ring-radius: 24;
+  --knob-gauge: 3;
+  --track-border: calc(var(--size) / 20);
+  --item-border: calc(var(--size) / 50);
+}
+
+.meter-container {
+  width: calc(var(--size) - 10px);
+  height: calc(var(--size) - 10px);
+  margin: 10px;
+  border: var(--track-border) solid lightgrey;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.meter-container .dial {
+  height: calc(var(--size) / 2) !important;
+  width: 0px;
+  border: calc(var(--item-border) * 1.5) solid grey;
+  background-color: grey;
+  transform: rotate(90deg);
+  transform-origin: bottom center;
+  position: absolute;
+  top: calc((var(--size) / 20) * -1 - 3px);
+  right: calc(50% - var(--item-border));
+  border-radius: calc(var(--size) / 10);
+}
+.meter-container .pin {
+  position: absolute;
+  width: calc(var(--size) / 5);
+  height: calc(var(--size) / 5);
+  background-color: grey;
+  border-radius: 50% 0% 50% 50%;
+  top: calc(50% - (var(--size) / 10));
+  transform-origin: center;
+  right: calc(50% - (var(--size) / 10));
+  transform: rotate(45deg);
+}
+
+progress-ring {
+  height: calc(var(--size) + (var(--knob-gauge) * 2px));
+  position: absolute;
 }
