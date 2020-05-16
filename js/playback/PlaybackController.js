@@ -1,5 +1,6 @@
-import Master from './playback/Master.js';
-import Player from './playback/Player.js';
+import Master from './component/Master.js';
+import Player from './component/Player.js';
+import Phones from './component/Phones.js';
 
 
 class PlaybackController {
@@ -9,6 +10,7 @@ class PlaybackController {
     this._master = null;
     this._leftPlayer = null;
     this._rightPlayer = null;
+    this._phones = null;
 
     this._init();
   }
@@ -28,6 +30,11 @@ class PlaybackController {
       ac: this._master.audioContext,
       output: this._master.getMasterInput('right')
     });
+    // For headphones routing
+    this._master.attachPlayer('left', this._leftPlayer);
+    this._master.attachPlayer('right', this._rightPlayer);
+
+    this._phones = new Phones();
   }
 
 
@@ -132,6 +139,15 @@ class PlaybackController {
   setFilter(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${deckSide}Player`].setFilter(value);
+    } else {
+
+    }
+  }
+
+
+  setCuePhone(deckSide, value) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this._master.togglePhoneCue(deckSide, value);
     } else {
 
     }

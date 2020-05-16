@@ -29,7 +29,7 @@ class DeviceHandler {
     // CustomEvents.subscribe(`Player/SetTempo`, this._setTempo.bind(this));
     CustomEvents.subscribe(`Player/Play`, this._setPlay.bind(this));
     CustomEvents.subscribe(`Player/Pause`, this._setPause.bind(this));
-    // CustomEvents.subscribe(`Player/LoadTrack`, this._loadTrack.bind(this));
+    CustomEvents.subscribe(`Player/CuePhones`, this._cuePhones.bind(this));
     // CustomEvents.subscribe(`Player/Progress`, this._updateProgress.bind(this));
   }
 
@@ -75,6 +75,7 @@ class DeviceHandler {
     // Only send calback if element exists in device mapping
     if (element) {
       element.args = args; // If element exists, we add its arguments
+      element.raw = event.data; // Use on MIDI out to notify controller of state change
       const evt = this._buildMIDIEvent(element);
       if (evt) {
         this._onEvent(evt);
@@ -224,6 +225,11 @@ class DeviceHandler {
 
   _setPause(options) {
     this.sendMIDIMessage([144, 11, 0]);
+  }
+
+
+  _cuePhones(options) {
+    this.sendMIDIMessage(options.raw);
   }
 
 

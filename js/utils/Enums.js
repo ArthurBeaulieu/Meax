@@ -24,6 +24,7 @@ const Components = Object.freeze({
 
 const Commands = Object.freeze({
   PLAY: '001',
+  CUE_PHONES_LEFT: '018',
   JOGWHEEL_SLOW: '028',
   JOGWHEEL_FAST: '029',
   TEMPO: '031',

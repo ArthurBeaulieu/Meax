@@ -66,6 +66,7 @@ class Player {
 
   _setupNodes() {
     this._player = document.createElement('AUDIO');
+
     this._nodes.source = this._audioCtx.createMediaElementSource(this._player);
 
     this._nodes.gain = this._audioCtx.createGain();

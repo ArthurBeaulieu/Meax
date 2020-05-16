@@ -1,6 +1,6 @@
 import UserInterface from './ui/UserInterface.js';
 import DeviceHandler from './DeviceHandler.js';
-import PlaybackController from './PlaybackController.js';
+import PlaybackController from './playback/PlaybackController.js';
 import Enums from './utils/Enums.js';
 import Utils from './utils/Utils.js';
 import CustomEvents from './utils/CustomEvents.js';
@@ -68,8 +68,14 @@ class ManaMeax {
       if (element.value === 'push') {
         this._pc.togglePlayback(side);
       }
-    } else if (actionId === Enums.Commands.VOLUME) {
-      this._pc.setVolume(side, element.value);
+    } else if (actionId === Enums.Commands.PLAY) {
+      if (element.value === 'push') {
+        this._pc.togglePlayback(side);
+      }
+    } else if (actionId === Enums.Commands.CUE_PHONES_LEFT) {      
+      if (element.value === 'push') {
+        this._pc.setCuePhone(side, element);
+      }
     } else if (actionId === Enums.Commands.VOLUME_TRIM) {
       this._pc.setTrimVolume(side, element.value);
     } else if (actionId === Enums.Commands.TEMPO) {
