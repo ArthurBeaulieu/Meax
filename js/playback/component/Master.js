@@ -2,19 +2,22 @@ class Master {
 
 
   constructor() {
+    // Audio context app wide ; Master provide a getter to get app AudioCtx
     this._audioCtx = null;
+    // Audio nodes
     this._nodes = {
       leftGain: null,
       rightGain: null,
       outputGain: null,
     };
-
+    // L/R players to feed master with
     this._players = {};
+    // Headphones L/R audio nodes
     this._leftPhoneCue = null;
     this._rightPhoneCue = null;
-
+    // Default neutral gain value
     this._gainValue = 1;
-
+    // Internal flag to save headphone cue state for each deck
     this._leftCue = false;
     this._rightCue = false;
 
@@ -23,6 +26,7 @@ class Master {
 
 
   _setuptNodes() {
+    // Create ManaMeax audio context
     this._audioCtx = new AudioContext();
     // Crossfader left entry
     this._nodes.leftGain = this._audioCtx.createGain();
@@ -36,12 +40,12 @@ class Master {
     // Node connections to audioCtx output (speaker)
     this._nodes.leftGain.connect(this._nodes.outputGain);
     this._nodes.rightGain.connect(this._nodes.outputGain);
-
+    // Get channel count and create merger accordingly to properly route 0/1 to speaker and 2/3 to headphones
     const maxChannelCount = this._audioCtx.destination.maxChannelCount;
     this._nodes.merger = this._audioCtx.createChannelMerger(maxChannelCount);
-    /* Std DJ controller will contain 4 channels */
+    /* Std DJ controller will contain 4 channels, otherwise... hf implementing this */
     this._audioCtx.destination.channelCount = maxChannelCount;
-    // Connect L/R outputs to merger 1/2 (Main speaker)
+    // Connect L/R outputs to merger 0/1 (Main speaker). L/R for headphones (2/3) are to be set in phone cue methods
     this._nodes.leftGain.connect(this._nodes.merger, 0, 0);
     this._nodes.rightGain.connect(this._nodes.merger, 0, 1);
     // Add master gain before sending to destination
@@ -82,42 +86,44 @@ class Master {
         value.raw[2] = 0;
       }
     }
-
+    // Send MIDI event mostly
     CustomEvents.publish(`Player/CuePhones`, value);
-
-    if (this._leftCue === true && this._rightCue === true) {
-      // Both connected
+    // Audio nodes routing to provide proper headphones output (channel 3/4)
+    if (this._leftCue === true && this._rightCue === true) { // Both deck are listened
+      // Disconnect any previous routing to headphones
       if (this._leftPhoneCue && this._rightPhoneCue) {
         this._leftPhoneCue.disconnect(this._nodes.merger, 0, 2);
         this._rightPhoneCue.disconnect(this._nodes.merger, 0, 3);
       }
-
+      // Update heaphones audio nodes
       this._leftPhoneCue = this._players['left'].output;
       this._rightPhoneCue = this._players['right'].output;
-
+      // Connect to merger on headphone channels
       this._leftPhoneCue.connect(this._nodes.merger, 0, 2);
       this._rightPhoneCue.connect(this._nodes.merger, 0, 3);
-    } else if (this._leftCue === true || this._rightCue === true) {
-      // Left or Right
+    } else if (this._leftCue === true || this._rightCue === true) { // Only one channel is listened
+      // Disconnect any previous routing to headphones
       if (this._leftPhoneCue && this._rightPhoneCue) {
         this._leftPhoneCue.disconnect(this._nodes.merger, 0, 2);
         this._rightPhoneCue.disconnect(this._nodes.merger, 0, 3);
       }
-
+      // Update side value if left side, right otherwise
       if (this._leftCue === true) {
         side = 'left';
       }
-
+      // Update heaphones audio nodes
       this._leftPhoneCue = this._players[side].output;
       this._rightPhoneCue = this._players[side].output;
-
+      // Connect to merger on headphone channels
       this._leftPhoneCue.connect(this._nodes.merger, 0, 2);
       this._rightPhoneCue.connect(this._nodes.merger, 0, 3);
-    } else {
+    } else { // No channel deck to headphones
+      // Disconnect any previous routing to headphones
       if (this._leftPhoneCue && this._rightPhoneCue) {
         this._leftPhoneCue.disconnect(this._nodes.merger, 0, 2);
         this._rightPhoneCue.disconnect(this._nodes.merger, 0, 3);
       }
+      // Clear audio nodes
       this._leftPhoneCue = null;
       this._rightPhoneCue = null;
     }

@@ -60,7 +60,12 @@ class Deck {
       input: MzkMeax.pc.getPlayerOutputNode(this._name),
       renderTo: document.querySelector(`#waveform-${this._name}`), // Mandatory, the HTML div to render component
       fftSize: 1024, // Optional (default 1024), Higher is smoother for vuemeter (doesn't consume much CPU)
-      animation: 'fade' // Optional (default fade), 'fade' or 'gradient', the animation on bar on progress
+      animation: 'fade', // Optional (default fade), 'fade' or 'gradient', the animation on bar on progress
+      wave: { // Optional
+        align: 'bottom', // Optional (default center), how to display waveform : top, center, bottom
+        barWidth: 1, // Optional (default 1), the bar width. in range [1, 100]
+        barMarginScale: 0 // Optional (default 0.25), The bar margin percentage from to bar width in range [0, 1]
+      },
     });
   }
 

@@ -107,6 +107,11 @@ html, body {
 
 .timelines {
   height: 20%;
+
+  .timeline {
+    height: 50%;
+    width: 100%;
+  }
 }
 
 .controller {
@@ -295,11 +300,19 @@ html, body {
       }
 
       div[class^="headphones-"] {
-        height: 15px;
+        align-items: center;
         border: solid 1px grey;
         border-radius: 2px;
-        width: 70%;
+        cursor: pointer;
+        display: flex;
+        height: 20px;
+        justify-content: center;
         margin: 10px 0;
+        width: 70%;
+
+        img {
+          height: 80%;
+        }
       }
     }
 
