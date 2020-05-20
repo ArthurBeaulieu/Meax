@@ -9,17 +9,12 @@ class UserInterface {
 
 
   constructor() {
-    // Define custom element for knob radial gauge
+    // Define custom HTML element for knob radial gauge
     window.customElements.define('progress-ring', ProgressRing);
-
-    this._leftTimeline = new Timeline('left');
-    this._rightTimeline = new Timeline('right');
 
     this._leftDeck = new Deck('left');
     this._rightDeck = new Deck('right');
-
     this._mixer = new Mixer();
-
     this._playlist = new Playlist();
 
     this._setEventSubscriptions();
@@ -34,6 +29,7 @@ class UserInterface {
     CustomEvents.subscribe(`Player/LoadTrack`, this._loadTrack.bind(this));
     CustomEvents.subscribe(`Player/Progress`, this._updateProgress.bind(this));
     CustomEvents.subscribe(`Player/EQ`, this._updateKnobs.bind(this));
+    CustomEvents.subscribe(`Player/CuePhones`, this._cuePhones.bind(this));
   }
 
 
@@ -96,6 +92,13 @@ class UserInterface {
   _updateKnobs(options) {
     if (options.name === 'left' || options.name === 'right') {
       this._mixer.updateKnob(options);
+    }
+  }
+
+
+  _cuePhones(options) {
+    if (options.name === 'left' || options.name === 'right') {
+      this[`_${options.name}Deck`].updateCuePhone(options);
     }
   }
 

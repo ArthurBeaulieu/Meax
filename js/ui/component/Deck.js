@@ -1,5 +1,6 @@
 /* TODO proper lib import */
 import MzkVisualizer from '../../../lib/MzkVisualizer/js/MzkVisualizer.js';
+import Timeline from './Timeline.js';
 import Knob from './Knob.js';
 
 
@@ -19,7 +20,8 @@ class Deck {
       duration: null,
       play: null,
       faderTrack: null,
-      faderProgress: null
+      faderProgress: null,
+      cuePhone: null
     };
 
     this._knobs = {
@@ -28,6 +30,8 @@ class Deck {
     };
 
     this._bpm = 0;
+
+    this._time = new Timeline(this._name);
 
     this._getElements();
     this._buildWaveform();
@@ -49,6 +53,7 @@ class Deck {
     this._dom.play = document.getElementById(`play-${this._name}`);
     this._dom.faderTrack = document.getElementById(`fader-track-${this._name}`);
     this._dom.faderProgress = document.getElementById(`fader-progress-${this._name}`);
+    this._dom.cuePhone = document.getElementById(`headphones-${this._name}`);
   }
 
 
@@ -130,11 +135,13 @@ class Deck {
 
   setPlay() {
     this._dom.play.src = './assets/img/player/pause.svg';
+    this._dom.play.classList.add('playing');
   }
 
 
   setPause() {
     this._dom.play.src = './assets/img/player/play.svg';
+    this._dom.play.classList.remove('playing');
   }
 
 
@@ -154,6 +161,15 @@ class Deck {
   updateProgress(options) {
     this._dom.progress.innerHTML = Utils.secondsToTimecode(options.progress, true);
     this._dom.progressBar.style.width = `${(options.progress / options.duration) * 100}%`;
+  }
+
+
+  updateCuePhone(options) {
+    if (options.raw[2] === 127) {
+      this._dom.cuePhone.classList.add('enabled');
+    } else {
+      this._dom.cuePhone.classList.remove('enabled');
+    }
   }
 
 

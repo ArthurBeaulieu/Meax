@@ -1,6 +1,5 @@
 import Master from './component/Master.js';
 import Player from './component/Player.js';
-import Phones from './component/Phones.js';
 
 
 class PlaybackController {
@@ -10,7 +9,6 @@ class PlaybackController {
     this._master = null;
     this._leftPlayer = null;
     this._rightPlayer = null;
-    this._phones = null;
 
     this._init();
   }
@@ -33,8 +31,6 @@ class PlaybackController {
     // For headphones routing
     this._master.attachPlayer('left', this._leftPlayer);
     this._master.attachPlayer('right', this._rightPlayer);
-
-    this._phones = new Phones();
   }
 
 

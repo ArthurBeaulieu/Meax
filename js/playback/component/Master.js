@@ -86,7 +86,8 @@ class Master {
         value.raw[2] = 0;
       }
     }
-    // Send MIDI event mostly
+    // Publish CuePhones with side
+    value.name = side;
     CustomEvents.publish(`Player/CuePhones`, value);
     // Audio nodes routing to provide proper headphones output (channel 3/4)
     if (this._leftCue === true && this._rightCue === true) { // Both deck are listened

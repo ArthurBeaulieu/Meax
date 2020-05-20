@@ -210,6 +210,11 @@ html, body {
             width: 80%;
             margin-left: auto;
             margin-right: auto;
+
+            &.playing {
+              /* Generated with #56D45B, using online converter https://codepen.io/sosuke/pen/Pjoqqp */
+              filter: invert(72%) sepia(78%) saturate(412%) hue-rotate(64deg) brightness(149%) contrast(84%);
+            }
           }
         }
 
@@ -313,6 +318,14 @@ html, body {
         img {
           height: 80%;
         }
+
+        &.enabled {
+          border: solid 1px var(--mzk-color-primary);
+
+          img {
+            filter: invert(72%) sepia(78%) saturate(412%) hue-rotate(64deg) brightness(149%) contrast(84%);
+          }
+        }
       }
     }
 
@@ -344,13 +357,15 @@ html, body {
 }
 
 .playlists {
+  color: white;
   height: 50%;
 
   .playlist-container {
     .playlist-track {
 
       &.selected {
-        background: red;
+        background: var(--mzk-color-primary);
+        color: black;
       }
     }
   }
