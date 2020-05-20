@@ -1,7 +1,8 @@
 /* TODO proper lib import */
 import MzkVisualizer from '../../../lib/MzkVisualizer/js/MzkVisualizer.js';
-import Timeline from './Timeline.js';
 import Knob from './Knob.js';
+import Timeline from './Timeline.js';
+import PerformancePad from './PerformancePad.js';
 
 
 class Deck {
@@ -31,7 +32,8 @@ class Deck {
 
     this._bpm = 0;
 
-    this._time = new Timeline(this._name);
+    this._timeline = new Timeline(this._name);
+    this._performancePad = new PerformancePad(this._name);
 
     this._getElements();
     this._buildWaveform();
@@ -170,6 +172,11 @@ class Deck {
     } else {
       this._dom.cuePhone.classList.remove('enabled');
     }
+  }
+
+
+  setPad(options) {
+    this._performancePad.setPad(options);
   }
 
 

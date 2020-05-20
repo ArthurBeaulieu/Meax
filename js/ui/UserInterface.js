@@ -30,6 +30,8 @@ class UserInterface {
     CustomEvents.subscribe(`Player/Progress`, this._updateProgress.bind(this));
     CustomEvents.subscribe(`Player/EQ`, this._updateKnobs.bind(this));
     CustomEvents.subscribe(`Player/CuePhones`, this._cuePhones.bind(this));
+
+    CustomEvents.subscribe(`Pad`, this._setPad.bind(this));
   }
 
 
@@ -102,6 +104,12 @@ class UserInterface {
     }
   }
 
+
+  _setPad(options) {
+    if (options.name === 'left' || options.name === 'right') {
+      this[`_${options.name}Deck`].setPad(options);
+    }
+  }
 
 
   navigateInPlaylist(deckSide, value) {

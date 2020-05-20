@@ -189,6 +189,13 @@ html, body {
 
         .pad {
           background-color: var(--mzk-color-bg-alpha-25);
+          border: solid 3px transparent;
+
+          transition: border .2s;
+
+          &.enabled {
+            border: solid 3px var(--mzk-color-primary);
+          }
         }
       }
 

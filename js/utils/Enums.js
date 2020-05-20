@@ -38,7 +38,15 @@ const Commands = Object.freeze({
   SELECTION_ROTARY: '051',
   LEFT_FILTER: '059',
   RIGHT_FILTER: '061',
-  CROSSFADER: '063'
+  CROSSFADER: '063',
+  PAD_1: '078',
+  PAD_2: '079',
+  PAD_3: '080',
+  PAD_4: '081',
+  PAD_5: '082',
+  PAD_6: '083',
+  PAD_7: '084',
+  PAD_8: '085'
 });
 
 
