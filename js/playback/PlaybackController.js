@@ -157,12 +157,18 @@ class PlaybackController {
 
   setPad(deckSide, value, padNumber) {
     if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Player`].setHotCue(deckSide, value, padNumber);
+    }
+  }
+
+
+  setPadType(deckSide, value, padNumber) {
+    if (deckSide === 'left' || deckSide === 'right') {
       // TODO proper pad modeling element (for all subsets etc)
       // TODO move out this code out of here
-      CustomEvents.publish('Pad', {
+      CustomEvents.publish('Pad/Type', {
         name: deckSide,
-        pad: padNumber,
-        active: value.raw[2] === 127 ? true : false
+        pad: padNumber
       });
     }
   }

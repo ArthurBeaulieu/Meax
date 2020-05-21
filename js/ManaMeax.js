@@ -80,6 +80,22 @@ class ManaMeax {
       if (element.value === 'push') {
         this._pc.setCuePhone(side, element);
       }
+    } else if (actionId === Enums.Commands.PERFORMANCE_TAB_1) {
+      this._pc.setPadType(side, element, 0);
+    } else if (actionId === Enums.Commands.PERFORMANCE_TAB_2) {
+      this._pc.setPadType(side, element, 1);
+    } else if (actionId === Enums.Commands.PERFORMANCE_TAB_3) {
+      this._pc.setPadType(side, element, 2);
+    } else if (actionId === Enums.Commands.PERFORMANCE_TAB_4) {
+      this._pc.setPadType(side, element, 3);
+    } else if (actionId === Enums.Commands.PERFORMANCE_TAB_5) {
+      this._pc.setPadType(side, element, 4);
+    } else if (actionId === Enums.Commands.PERFORMANCE_TAB_6) {
+      this._pc.setPadType(side, element, 5);
+    } else if (actionId === Enums.Commands.PERFORMANCE_TAB_7) {
+      this._pc.setPadType(side, element, 6);
+    } else if (actionId === Enums.Commands.PERFORMANCE_TAB_8) {
+      this._pc.setPadType(side, element, 7);
     } else if (actionId === Enums.Commands.VOLUME_TRIM) {
       this._pc.setTrimVolume(side, element.value);
     } else if (actionId === Enums.Commands.TEMPO) {

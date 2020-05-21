@@ -31,7 +31,9 @@ class UserInterface {
     CustomEvents.subscribe(`Player/EQ`, this._updateKnobs.bind(this));
     CustomEvents.subscribe(`Player/CuePhones`, this._cuePhones.bind(this));
 
-    CustomEvents.subscribe(`Pad`, this._setPad.bind(this));
+    CustomEvents.subscribe(`Pad/Set`, this._setPad.bind(this));
+    CustomEvents.subscribe(`Pad/Fire`, this._firePad.bind(this));
+    CustomEvents.subscribe(`Pad/Type`, this._setPadType.bind(this));
   }
 
 
@@ -108,6 +110,20 @@ class UserInterface {
   _setPad(options) {
     if (options.name === 'left' || options.name === 'right') {
       this[`_${options.name}Deck`].setPad(options);
+    }
+  }
+
+
+  _firePad(options) {
+    if (options.name === 'left' || options.name === 'right') {
+      this[`_${options.name}Deck`].setPad(options);
+    }    
+  }
+
+
+  _setPadType(options) {
+    if (options.name === 'left' || options.name === 'right') {
+      this[`_${options.name}Deck`].setPadType(options);
     }
   }
 

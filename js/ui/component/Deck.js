@@ -33,7 +33,10 @@ class Deck {
     this._bpm = 0;
 
     this._timeline = new Timeline(this._name);
-    this._performancePad = new PerformancePad(this._name);
+    this._performancePad = new PerformancePad({
+      name: this._name,
+      type: 'hotcue'
+    });
 
     this._getElements();
     this._buildWaveform();
@@ -177,6 +180,11 @@ class Deck {
 
   setPad(options) {
     this._performancePad.setPad(options);
+  }
+
+
+  setPadType(options) {
+    this._performancePad.setPadType(options);
   }
 
 

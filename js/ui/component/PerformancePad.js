@@ -1,8 +1,13 @@
+const PerformanceType = ['hotcue', 'keyboard', 'beatloop', 'fx1', 'beatjump', 'fx2', 'sampler', 'keyshift'];
+
+
 class PerformancePad {
 
 
-  constructor(name) {
-    this._name = name;
+  constructor(options) {
+    this._name = options.name;
+    this._activeType = options.type;
+    this._activeTypeIndex = -1;
     this._dom = {
       pad1: null,
       pad2: null,
@@ -32,6 +37,12 @@ class PerformancePad {
     } else {
       this._dom[`pad${options.pad}`].classList.remove('enabled');
     }
+  }
+
+
+  setPadType(options) {
+    this._type = PerformanceType[options.pad];
+    this._activeTypeIndex = options.pad;
   }
 
 

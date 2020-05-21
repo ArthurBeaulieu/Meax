@@ -1,3 +1,6 @@
+import HotCuePad from './HotCuePad.js';
+
+
 class Player {
 
 
@@ -26,7 +29,10 @@ class Player {
     this._lowFiltered = false;
     this._highFiltered = false;
 
+    this._hotCuePad = null;
+
     this._setupNodes();
+    this._buildPerformancePads();
   }
 
 
@@ -110,6 +116,11 @@ class Player {
     this._nodes.high.connect(this._nodes.gain);
     this._nodes.gain.connect(this._nodes.trimGain);
     this._nodes.trimGain.connect(this._outputNode);
+  }
+
+
+  _buildPerformancePads() {
+    this._hotCuePad = new HotCuePad({ name: this._name, player: this.player });
   }
 
 
@@ -343,6 +354,19 @@ class Player {
     CustomEvents.publish(`Player/Filter`, {
       name: this._name,
       value: value
+    });
+  }
+
+
+  setHotCue(deckSide, value, padNumber) {
+    if (value.value === 'push') { // Only do model actions on push action
+      this._hotCuePad.togglePad(padNumber - 1, true);
+    }
+    // Fire event to refresh UI
+    CustomEvents.publish('Pad/Set', {
+      name: deckSide,
+      pad: padNumber,
+      active: value.raw[2] === 127 ? true : false
     });
   }
 
