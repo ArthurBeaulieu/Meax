@@ -128,15 +128,16 @@ class Player {
     // Play/Pause toggle using API promises
     if (this._isPlaying === true) {
       this.pausePlayback();
+      return 0;
     } else {
       this.resumePlayback();
+      return 127;
     }
   }
 
 
   startPlayback() {
     if (this._player && this._player.src) {
-      console.log('Start');
       this._isPlaying = true;
       this.resumePlayback();
     }
@@ -358,16 +359,14 @@ class Player {
   }
 
 
-  setHotCue(deckSide, value, padNumber) {
-    if (value.value === 'push') { // Only do model actions on push action
-      this._hotCuePad.togglePad(padNumber - 1, true);
+  setHotCue(deckSide, value, padNumber, shift) {
+    if (shift === false) {
+      this._hotCuePad.togglePad(deckSide, value, padNumber - 1);
+    } else { // Remove cue when shift is one
+      if (value.value === 'push') {
+        this._hotCuePad.shiftTogglePad(padNumber - 1);
+      }
     }
-    // Fire event to refresh UI
-    CustomEvents.publish('Pad/Set', {
-      name: deckSide,
-      pad: padNumber,
-      active: value.raw[2] === 127 ? true : false
-    });
   }
 
 
@@ -383,6 +382,11 @@ class Player {
 
   get player() {
     return this._player;
+  }
+
+
+  get playing() {
+    return this._isPlaying;
   }
 
 

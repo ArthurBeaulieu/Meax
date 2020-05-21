@@ -8,7 +8,7 @@ class DeviceHandler {
     this._onEvent = options.onEvent;
     this._channels = [];
     // MIDI event utils
-    // With know event, we have 2 ranges send, Low then High.
+    // With knob event, we have 2 ranges send, Low then High.
     // We must temporarly store the knob low event to compute the full know value when high event is catched
     this._input = null;
     this._output = null;
@@ -25,12 +25,7 @@ class DeviceHandler {
 
 
   _setEventSubscriptions() {
-    // CustomEvents.subscribe(`Player/SetVolume`, this._setVolume.bind(this));
-    // CustomEvents.subscribe(`Player/SetTempo`, this._setTempo.bind(this));
-    CustomEvents.subscribe(`Player/Play`, this._setPlay.bind(this));
-    CustomEvents.subscribe(`Player/Pause`, this._setPause.bind(this));
     CustomEvents.subscribe(`Player/CuePhones`, this._cuePhones.bind(this));
-    // CustomEvents.subscribe(`Player/Progress`, this._updateProgress.bind(this));
   }
 
 
@@ -215,16 +210,6 @@ class DeviceHandler {
         reject(`Error when loading ${path}`);
       }
     });
-  }
-
-
-  _setPlay(options) {
-    this.sendMIDIMessage([144, 11, 127]);
-  }
-
-
-  _setPause(options) {
-    this.sendMIDIMessage([144, 11, 0]);
   }
 
 

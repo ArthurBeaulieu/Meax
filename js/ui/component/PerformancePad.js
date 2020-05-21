@@ -31,12 +31,17 @@ class PerformancePad {
 
 
   setPad(options) {
-    console.log(options)
     if (options.active === true) {
       this._dom[`pad${options.pad}`].classList.add('enabled');
     } else {
       this._dom[`pad${options.pad}`].classList.remove('enabled');
     }
+  }
+
+
+  saveHotCue(options) {
+    this._dom[`pad${options.pad}`].innerHTML = '';    
+    console.log(options)
   }
 
 

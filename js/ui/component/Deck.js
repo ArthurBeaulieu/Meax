@@ -183,6 +183,11 @@ class Deck {
   }
 
 
+  saveHotCue(options) {
+    this._performancePad.saveHotCue(options);
+  }
+
+
   setPadType(options) {
     this._performancePad.setPadType(options);
   }

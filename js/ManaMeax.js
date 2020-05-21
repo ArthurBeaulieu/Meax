@@ -41,9 +41,13 @@ class ManaMeax {
     } else if (componentId === Enums.Components.DECK_RIGHT) {
       this._deckEvents('right', element, actionId);
     } else if (componentId === Enums.Components.PAD_LEFT) {
-      this._padEvents('left', element, actionId);
+      this._padEvents('left', element, actionId, false);
+    } else if (componentId === Enums.Components.PAD_LEFT_SHIFT) {
+      this._padEvents('left', element, actionId, true);
     } else if (componentId === Enums.Components.PAD_RIGHT) {
-      this._padEvents('right', element, actionId);
+      this._padEvents('right', element, actionId, false);
+    } else if (componentId === Enums.Components.PAD_RIGHT_SHIFT) {
+      this._padEvents('right', element, actionId, true);
     }
   }
 
@@ -70,11 +74,8 @@ class ManaMeax {
   _deckEvents(side, element, actionId) {
     if (actionId === Enums.Commands.PLAY) {
       if (element.value === 'push') {
-        this._pc.togglePlayback(side);
-      }
-    } else if (actionId === Enums.Commands.PLAY) {
-      if (element.value === 'push') {
-        this._pc.togglePlayback(side);
+        const play = this._pc.togglePlayback(side, element);
+        this._dh.sendMIDIMessage([element.raw[0], element.raw[1], play]);
       }
     } else if (actionId === Enums.Commands.CUE_PHONES_LEFT) {
       if (element.value === 'push') {
@@ -96,6 +97,8 @@ class ManaMeax {
       this._pc.setPadType(side, element, 6);
     } else if (actionId === Enums.Commands.PERFORMANCE_TAB_8) {
       this._pc.setPadType(side, element, 7);
+    } else if (actionId === Enums.Commands.VOLUME) {
+      this._pc.setVolume(side, element.value);
     } else if (actionId === Enums.Commands.VOLUME_TRIM) {
       this._pc.setTrimVolume(side, element.value);
     } else if (actionId === Enums.Commands.TEMPO) {
@@ -114,29 +117,35 @@ class ManaMeax {
   }
 
 
-  _padEvents(side, element, actionId) {
+  _padEvents(side, element, actionId, shift) {
     if (actionId === Enums.Commands.PAD_1) {
-      this._pc.setPad(side, element, 1);
+      this._pc.setPad(side, element, 1, shift);
     } else if (actionId === Enums.Commands.PAD_2) {
-      this._pc.setPad(side, element, 2);
+      this._pc.setPad(side, element, 2, shift);
     } else if (actionId === Enums.Commands.PAD_3) {
-      this._pc.setPad(side, element, 3);
+      this._pc.setPad(side, element, 3, shift);
     } else if (actionId === Enums.Commands.PAD_4) {
-      this._pc.setPad(side, element, 4);
+      this._pc.setPad(side, element, 4, shift);
     } else if (actionId === Enums.Commands.PAD_5) {
-      this._pc.setPad(side, element, 5);
+      this._pc.setPad(side, element, 5, shift);
     } else if (actionId === Enums.Commands.PAD_6) {
-      this._pc.setPad(side, element, 6);
+      this._pc.setPad(side, element, 6, shift);
     } else if (actionId === Enums.Commands.PAD_7) {
-      this._pc.setPad(side, element, 7);
+      this._pc.setPad(side, element, 7, shift);
     } else if (actionId === Enums.Commands.PAD_8) {
-      this._pc.setPad(side, element, 8);
+      this._pc.setPad(side, element, 8, shift);
     }
+
+    this._dh.sendMIDIMessage(element.raw);
   }
 
 
   get pc() {
     return this._pc;
+  }
+
+  get dh() {
+    return this._dh;
   }
 
 

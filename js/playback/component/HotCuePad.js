@@ -15,15 +15,39 @@ class HotCuePad extends Pad {
   }
 
 
-  togglePad(index, fire) {
-    if (fire === true) {
+  togglePad(deckSide, value, index) {
+    if (value.value === 'push') { // Only do model actions on push action
       if (this._hotCues[index] === -1) {
         this._hotCues[index] = this._player.currentTime;
+        // Fire event to refresh UI
+        CustomEvents.publish('Pad/SaveHotCue', {
+          name: deckSide,
+          pad: index + 1,
+          active: value.raw[2] === 127 ? true : false,
+          time: this._player.currentTime
+        });
       } else {
         this._player.currentTime = this._hotCues[index];
+        // Fire event to refresh UI
+        CustomEvents.publish('Pad/Fire', {
+          name: deckSide,
+          pad: index + 1,
+          active: value.raw[2] === 127 ? true : false
+        });
       }
-    } else if (this._hotCues[index] !== -1) {
-      this._hotCues[index] === -1;
+    }
+    // Fire event to refresh UI
+    CustomEvents.publish('Pad/Set', {
+      name: deckSide,
+      pad: index + 1,
+      active: value.raw[2] === 127 ? true : false
+    });
+  }
+
+
+  shiftTogglePad(index) {
+    if (this._hotCues[index] !== -1) {
+      this._hotCues[index] = -1;
     }
   }
 

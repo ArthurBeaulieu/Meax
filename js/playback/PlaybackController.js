@@ -43,9 +43,9 @@ class PlaybackController {
   }
 
 
-  togglePlayback(deckSide) {
+  togglePlayback(deckSide, options) {
     if (deckSide === 'left' || deckSide === 'right') {
-      this[`_${deckSide}Player`].togglePlayback();
+      return this[`_${deckSide}Player`].togglePlayback(options);
     } else {
 
     }
@@ -155,9 +155,9 @@ class PlaybackController {
   }
 
 
-  setPad(deckSide, value, padNumber) {
+  setPad(deckSide, value, padNumber, shift) {
     if (deckSide === 'left' || deckSide === 'right') {
-      this[`_${deckSide}Player`].setHotCue(deckSide, value, padNumber);
+      this[`_${deckSide}Player`].setHotCue(deckSide, value, padNumber, shift);
     }
   }
 
