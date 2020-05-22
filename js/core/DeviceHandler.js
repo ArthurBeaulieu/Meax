@@ -1,4 +1,4 @@
-import Enums from './utils/Enums.js';
+import Enums from '../utils/Enums.js';
 
 
 class DeviceHandler {

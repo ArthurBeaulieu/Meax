@@ -1,8 +1,8 @@
-import Timeline from './component/Timeline.js';
-import Deck from './component/Deck.js';
-import Mixer from './component/Mixer.js';
-import Playlist from './component/Playlist.js';
-import ProgressRing from './component/ProgressRing.js';
+import Timeline from '../ui/Timeline.js';
+import Deck from '../ui/Deck.js';
+import Mixer from '../ui/Mixer.js';
+import Playlist from '../ui/Playlist.js';
+import ProgressRing from '../ui/component/ProgressRing.js';
 
 
 class UserInterface {
@@ -26,7 +26,6 @@ class UserInterface {
     CustomEvents.subscribe(`Player/SetTempo`, this._setTempo.bind(this));
     CustomEvents.subscribe(`Player/Play`, this._setPlay.bind(this));
     CustomEvents.subscribe(`Player/Pause`, this._setPause.bind(this));
-    CustomEvents.subscribe(`Player/LoadTrack`, this._loadTrack.bind(this));
     CustomEvents.subscribe(`Player/Progress`, this._updateProgress.bind(this));
     CustomEvents.subscribe(`Player/EQ`, this._updateKnobs.bind(this));
     CustomEvents.subscribe(`Player/CuePhones`, this._cuePhones.bind(this));
@@ -38,10 +37,18 @@ class UserInterface {
   }
 
 
-  _loadTrack(options) {
-    if (options.name === 'left' || options.name === 'right') {
-      // Update left or right deck with loaded track info (stored in options.value)
-      this[`_${options.name}Deck`].loadTrack(options.value);
+  addTrack(deckSide, track) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Deck`].loadTrack(track);
+    } else {
+
+    }
+  }
+
+
+  setFilter(deckSide, options) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Deck`].setFilter(options);
     } else {
 
     }

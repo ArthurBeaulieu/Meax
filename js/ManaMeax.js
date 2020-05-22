@@ -1,6 +1,7 @@
-import UserInterface from './ui/UserInterface.js';
-import DeviceHandler from './DeviceHandler.js';
-import PlaybackController from './playback/PlaybackController.js';
+import UserInterface from './core/UserInterface.js';
+import DeviceHandler from './core/DeviceHandler.js';
+import PlaybackController from './core/PlaybackController.js';
+
 import Enums from './utils/Enums.js';
 import Utils from './utils/Utils.js';
 import CustomEvents from './utils/CustomEvents.js';
@@ -54,17 +55,20 @@ class ManaMeax {
 
   _mixerEvents(element, actionId) {
     if (actionId === Enums.Commands.LEFT_LOAD_TRACK && element.value === 'push') {
-      const track = this._ui.getSelectedTrack();
-      this._pc.addTrack('left', track);
+      // Add track on left deck update model in pc then update UI with track info (duration, bpm etc)
+      this._pc.addTrack('left', this._ui.getSelectedTrack()).then(track => { this._ui.addTrack('left', track); });
     } else if (actionId === Enums.Commands.RIGHT_LOAD_TRACK && element.value === 'push') {
-      const track = this._ui.getSelectedTrack();
-      this._pc.addTrack('right', track);
+      // Add track on right deck update model in pc then update UI with track info (duration, bpm etc)
+      this._pc.addTrack('right', this._ui.getSelectedTrack()).then(track => { this._ui.addTrack('right', track); });
     } else if (actionId === Enums.Commands.SELECTION_ROTARY) {
+      // avigate on pl is a UI only action
       this._ui.navigateInPlaylist('left', element.value);
     } else if (actionId === Enums.Commands.LEFT_FILTER) {
-      this._pc.setFilter('left', element.value);
+      // Left filter knob first applies HPF or HPF on channel output, then update the UI knob
+      this._pc.setFilter('left', element.value).then(options => { this._ui.setFilter('left', options); });
     } else if (actionId === Enums.Commands.RIGHT_FILTER) {
-      this._pc.setFilter('right', element.value);
+      // Right filter knob first applies HPF or HPF on channel output, then update the UI knob
+      this._pc.setFilter('right', element.value).then(options => { this._ui.setFilter('right', options); });
     } else if (actionId === Enums.Commands.CROSSFADER) {
       this._pc.crossFade(element.value);
     }

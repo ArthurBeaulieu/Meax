@@ -1,8 +1,8 @@
 /* TODO proper lib import */
 //import MzkVisualizer from '../../../lib/MzkVisualizer/js/MzkVisualizer.js';
-import Knob from './Knob.js';
+import Knob from './component/Knob.js';
 import Timeline from './Timeline.js';
-import PerformancePad from './PerformancePad.js';
+import PerformancePad from './component/PerformancePad.js';
 
 
 class Deck {
@@ -108,15 +108,13 @@ class Deck {
 
 
   _setEventSubscriptions() {
-    CustomEvents.subscribe(`Player/Filter`, this._updateFilter.bind(this));
+    //CustomEvents.subscribe(`Player/Filter`, this._updateFilter.bind(this));
     CustomEvents.subscribe(`Player/TrimGain`, this._updateTrimGain.bind(this));
   }
 
 
-  _updateFilter(options) {
-    if (this._name === options.name) {
-      this._knobs.filter.setValue(options.value);
-    }
+  setFilter(options) {
+    this._knobs.filter.setValue(options);
   }
 
 

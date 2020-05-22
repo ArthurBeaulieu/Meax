@@ -8,7 +8,6 @@ class Player {
     this._name = options.name;
     this._audioCtx = options.ac;
     this._outputNode = options.output;
-    this._audioBuffer = null;
 
     this._nodes = {
       source: null,
@@ -37,36 +36,34 @@ class Player {
 
 
   loadTrack(track) {
-    console.log('load track')
-    // Checking if any previous source node is playing. If true, we clean it
-    if (this._isPlaying) {
-      this.stopPlayback();
-      CustomEvents.removeEvent(this._endEvtId);
-      this._isPlaying = true; // Must restore flag to automatically start playback if load occured on playing track
-    }
-
-    this._player.src = track.url;
-
-    const loadedListener = () => {
-      console.log('loaded')
-      this._player.removeEventListener('loadedmetadata', loadedListener); // Remove loaded track listener
-      // Restore context playing state in case it turned suspended
-      this._audioCtx.resume();
-      // In case load occured during playback, we startPlayback
-      if (this._isPlaying === true) {
-        this.resumePlayback();
+    return new Promise(resolve => {
+      console.log('load track')
+      // Checking if any previous source node is playing. If true, we clean it
+      if (this._isPlaying) {
+        this.stopPlayback();
+        CustomEvents.removeEvent(this._endEvtId);
+        this._isPlaying = true; // Must restore flag to automatically start playback if load occured on playing track
       }
-      // Register ended event on track to reset player to time 0 when it occurs
-      this._endEvtId = CustomEvents.addEvent('ended', this._player, this._trackEnded, this);
-      // Fire event to refresh UI
-      track.duration = this._player.duration;
-      CustomEvents.publish(`Player/LoadTrack`, {
-        name: this._name,
-        value: track
-      });
-    };
 
-    this._player.addEventListener('loadedmetadata', loadedListener);
+      this._player.src = track.url;
+
+      const loadedListener = () => {
+        console.log('loaded')
+        this._player.removeEventListener('loadedmetadata', loadedListener); // Remove loaded track listener
+        // Restore context playing state in case it turned suspended
+        this._audioCtx.resume();
+        // In case load occured during playback, we startPlayback
+        if (this._isPlaying === true) {
+          this.resumePlayback();
+        }
+        // Register ended event on track to reset player to time 0 when it occurs
+        this._endEvtId = CustomEvents.addEvent('ended', this._player, this._trackEnded, this);
+        track.duration = this._player.duration;
+        resolve(track);
+      };
+
+      this._player.addEventListener('loadedmetadata', loadedListener);
+    })
   }
 
 
@@ -321,40 +318,38 @@ class Player {
 
 
   setFilter(value) {
-    // Knob is not centered
-    if (value !== 0.5) {
-      // Disconnect high in chain to insert filter
-      this._nodes.high.disconnect(0);
-      if (value < 0.5) {
-        this._lowFiltered = true;
-        this._highFiltered = false;
-        this._nodes.high.connect(this._nodes.filterLow);
-        this._nodes.filterLow.connect(this._nodes.gain);
-        const amount = Utils.convertKnobValue(value, 22050 - 320); // Keep 320Hz when lower end is reached
-        this._nodes.filterLow.frequency.value = 22050 + (amount * 100); // Amount is negative
-      } else if (value > 0.5) {
-        this._lowFiltered = false;
-        this._highFiltered = true;
-        this._nodes.high.connect(this._nodes.filterHigh);
-        this._nodes.filterHigh.connect(this._nodes.gain);
-        const amount = Utils.convertKnobValue(value, 22050);
-        this._nodes.filterLow.frequency.value = (amount * 100);
+    return new Promise(resolve => {
+      // Knob is not centered
+      if (value !== 0.5) {
+        // Disconnect high in chain to insert filter
+        this._nodes.high.disconnect(0);
+        if (value < 0.5) {
+          this._lowFiltered = true;
+          this._highFiltered = false;
+          this._nodes.high.connect(this._nodes.filterLow);
+          this._nodes.filterLow.connect(this._nodes.gain);
+          const amount = Utils.convertKnobValue(value, 22050 - 320); // Keep 320Hz when lower end is reached
+          this._nodes.filterLow.frequency.value = 22050 + (amount * 100); // Amount is negative
+        } else if (value > 0.5) {
+          this._lowFiltered = false;
+          this._highFiltered = true;
+          this._nodes.high.connect(this._nodes.filterHigh);
+          this._nodes.filterHigh.connect(this._nodes.gain);
+          const amount = Utils.convertKnobValue(value, 22050);
+          this._nodes.filterLow.frequency.value = (amount * 100);
+        }
+      } else { // Remove filter from audio chain
+        if (this._lowFiltered === true) {
+          this._lowFiltered = false;
+          this._nodes.filterLow.disconnect(0);
+          this._nodes.high.connect(this._nodes.gain);
+        } else if (this._highFiltered === true) {
+          this._highFiltered = false;
+          this._nodes.filterHigh.disconnect(0);
+          this._nodes.high.connect(this._nodes.gain);
+        }
       }
-    } else { // Remove filter from audio chain
-      if (this._lowFiltered === true) {
-        this._lowFiltered = false;
-        this._nodes.filterLow.disconnect(0);
-        this._nodes.high.connect(this._nodes.gain);
-      } else if (this._highFiltered === true) {
-        this._highFiltered = false;
-        this._nodes.filterHigh.disconnect(0);
-        this._nodes.high.connect(this._nodes.gain);
-      }
-    }
-    // Fire event to refresh UI
-    CustomEvents.publish(`Player/Filter`, {
-      name: this._name,
-      value: value
+      resolve(value);
     });
   }
 

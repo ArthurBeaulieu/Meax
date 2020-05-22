@@ -1,5 +1,5 @@
-import Master from './component/Master.js';
-import Player from './component/Player.js';
+import Master from '../playback/Master.js';
+import Player from '../playback/Player.js';
 
 
 class PlaybackController {
@@ -36,7 +36,7 @@ class PlaybackController {
 
   addTrack(deckSide, track) {
     if (deckSide === 'left' || deckSide === 'right') {
-      this[`_${deckSide}Player`].loadTrack(track);
+      return this[`_${deckSide}Player`].loadTrack(track);
     } else {
 
     }
@@ -134,7 +134,7 @@ class PlaybackController {
 
   setFilter(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
-      this[`_${deckSide}Player`].setFilter(value);
+      return this[`_${deckSide}Player`].setFilter(value);
     } else {
 
     }

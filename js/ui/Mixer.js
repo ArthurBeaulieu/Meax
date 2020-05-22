@@ -1,4 +1,4 @@
-import Knob from './Knob.js';
+import Knob from './component/Knob.js';
 
 
 class Mixer {
