@@ -1,5 +1,5 @@
 /* TODO proper lib import */
-import MzkVisualizer from '../../../lib/MzkVisualizer/js/MzkVisualizer.js';
+//import MzkVisualizer from '../../../lib/MzkVisualizer/js/MzkVisualizer.js';
 import Knob from './Knob.js';
 import Timeline from './Timeline.js';
 import PerformancePad from './PerformancePad.js';
@@ -67,7 +67,7 @@ class Deck {
       type: 'waveformprogress', // Mandatory, either 'frequencybars', 'frequencycircle', 'oscilloscope', 'peakmeter' or 'spectrum'
       player: MzkMeax.pc.getPlayer(this._name), // Mandatory, the play to wire visualisation to
       audioContext: MzkMeax.pc.audioContext,
-      input: MzkMeax.pc.getPlayerOutputNode(this._name),
+      inputNode: MzkMeax.pc.getPlayerOutputNode(this._name),
       renderTo: document.querySelector(`#waveform-${this._name}`), // Mandatory, the HTML div to render component
       fftSize: 1024, // Optional (default 1024), Higher is smoother for vuemeter (doesn't consume much CPU)
       animation: 'fade', // Optional (default fade), 'fade' or 'gradient', the animation on bar on progress

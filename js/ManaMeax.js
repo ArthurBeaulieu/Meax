@@ -72,15 +72,11 @@ class ManaMeax {
 
 
   _deckEvents(side, element, actionId) {
-    if (actionId === Enums.Commands.PLAY) {
-      if (element.value === 'push') {
-        const play = this._pc.togglePlayback(side, element);
-        this._dh.sendMIDIMessage([element.raw[0], element.raw[1], play]);
-      }
-    } else if (actionId === Enums.Commands.CUE_PHONES_LEFT) {
-      if (element.value === 'push') {
-        this._pc.setCuePhone(side, element);
-      }
+    if (actionId === Enums.Commands.PLAY && element.value === 'push') {
+      const playStatus = this._pc.togglePlayback(side, element);
+      this._dh.sendMIDIMessage([element.raw[0], element.raw[1], playStatus]);
+    } else if (actionId === Enums.Commands.CUE_PHONES_LEFT && element.value === 'push') {
+      this._pc.setCuePhone(side, element);
     } else if (actionId === Enums.Commands.PERFORMANCE_TAB_1) {
       this._pc.setPadType(side, element, 0);
     } else if (actionId === Enums.Commands.PERFORMANCE_TAB_2) {

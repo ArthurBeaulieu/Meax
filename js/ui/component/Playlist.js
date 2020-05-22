@@ -16,19 +16,19 @@ class Playlist {
     this._dom.container = document.getElementById('playlist-container');
 
     const simulatedPl = [{
-      url: '../assets/audio/Teminite - 01 - Elevate.mp3',
+      url: '../ManaMeax/assets/audio/Teminite - 01 - Elevate.mp3',
       title: 'Elevate',
       artist: 'Teminite',
       bpm: '170',
       key: 'Fm'
     }, {
-      url: '../assets/audio/Teminite - 02 - Hot Fizz.mp3',
+      url: '../ManaMeax/assets/audio/Teminite - 02 - Hot Fizz.mp3',
       title: 'Hot Fizz',
       artist: 'Teminite',
       bpm: '105',
       key: 'G♯m'
     }, {
-      url: '../assets/audio/Teminite - 03 - Don\'t Stop.mp3',
+      url: '../ManaMeax/assets/audio/Teminite - 03 - Don\'t Stop.mp3',
       title: 'Don\'t Stop',
       artist: 'Teminite',
       bpm: '140',

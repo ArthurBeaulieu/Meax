@@ -28,7 +28,7 @@ class Mixer {
       type: 'peakmeter', // Mandatory, either 'frequencybars', 'frequencycircle', 'oscilloscope', 'peakmeter' or 'spectrum'
       player: MzkMeax.pc.getPlayer('left'), // Mandatory, the play to wire visualisation to
       audioContext: MzkMeax.pc.audioContext,
-      input: MzkMeax.pc.getPlayerOutputNode('left'),
+      inputNode: MzkMeax.pc.getPlayerOutputNode('left'),
       renderTo: document.querySelector(`#peakmeter-left`), // Mandatory, the HTML div to render component
       fftSize: 8192, // Optional (default 1024), Higher is smoother for vuemeter (doesn't consume much CPU)
       merged: true, // Optional (default false), Mix channel into single output
@@ -47,7 +47,7 @@ class Mixer {
       type: 'peakmeter', // Mandatory, either 'frequencybars', 'frequencycircle', 'oscilloscope', 'peakmeter' or 'spectrum'
       player: MzkMeax.pc.getPlayer('right'), // Mandatory, the play to wire visualisation to
       audioContext: MzkMeax.pc.audioContext,
-      input: MzkMeax.pc.getPlayerOutputNode('right'),
+      inputNode: MzkMeax.pc.getPlayerOutputNode('right'),
       renderTo: document.querySelector(`#peakmeter-right`), // Mandatory, the HTML div to render component
       fftSize: 8192, // Optional (default 1024), Higher is smoother for vuemeter (doesn't consume much CPU)
       merged: true, // Optional (default false), Mix channel into single output
