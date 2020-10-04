@@ -37,7 +37,6 @@ class Player {
 
   loadTrack(track) {
     return new Promise(resolve => {
-      console.log('load track')
       // Checking if any previous source node is playing. If true, we clean it
       if (this._isPlaying) {
         this.stopPlayback();
@@ -48,7 +47,6 @@ class Player {
       this._player.src = track.url;
 
       const loadedListener = () => {
-        console.log('loaded')
         this._player.removeEventListener('loadedmetadata', loadedListener); // Remove loaded track listener
         // Restore context playing state in case it turned suspended
         this._audioCtx.resume();

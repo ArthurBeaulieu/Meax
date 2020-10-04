@@ -41,11 +41,18 @@ class Pad {
     for (let i = 0; i < 4; ++i) {
       this._dom[`ctrl${i + 1}`].classList.remove('enabled', 'shift-enabled');
     }
+
     /* Check if shift is held or not (even = !shift, odd = shift) */
     if (options.pad % 2 === 0) { // Even is standard modes
       this._dom[`ctrl${(options.pad / 2) + 1}`].classList.add('enabled');
+      for (let i = 0; i < 4; ++i) {
+        this._dom[`ctrl${i + 1}`].firstChild.innerHTML = Enums.PerformanceType[i * 2].toUpperCase();
+      }
     } else { // Odd is shifted modes
       this._dom[`ctrl${((options.pad - 1) / 2) + 1}`].classList.add('shift-enabled');
+      for (let i = 0; i < 4; ++i) {
+        this._dom[`ctrl${i + 1}`].firstChild.innerHTML = Enums.PerformanceType[(i * 2) + 1].toUpperCase();
+      }
     }
   }
 
@@ -78,7 +85,7 @@ class Pad {
 
   saveHotCue(options) {
     this._dom[`pad${options.pad}`].classList.add('enabled');
-    this._dom[`pad${options.pad}`].innerHTML = options.time;
+    this._dom[`pad${options.pad}`].innerHTML = Utils.precisionRound(options.time, 2);
   }
 
 
@@ -91,7 +98,6 @@ class Pad {
   setPadType(options) {
     this._type = Enums.PerformanceType[options.pad];
     this._activeTypeIndex = options.pad;
-    console.log(this._activeTypeIndex)
     this.setPadControl(options);
   }
 

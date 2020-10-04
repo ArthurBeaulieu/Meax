@@ -62,18 +62,23 @@ class Deck {
 
   _buildWaveform() {
     const waveformProgress = new AudioVisualizer({
-      type: 'waveformprogress', // Mandatory, either 'frequencybars', 'frequencycircle', 'oscilloscope', 'peakmeter' or 'spectrum'
-      player: Meax.pc.getPlayer(this._name), // Mandatory, the play to wire visualisation to
+      type: 'waveform',
+      player: Meax.pc.getPlayer(this._name),
+      renderTo: document.querySelector(`#waveform-${this._name}`),
+      fftSize: 1024,
       audioContext: Meax.pc.audioContext,
       inputNode: Meax.pc.getPlayerOutputNode(this._name),
-      renderTo: document.querySelector(`#waveform-${this._name}`), // Mandatory, the HTML div to render component
-      fftSize: 1024, // Optional (default 1024), Higher is smoother for vuemeter (doesn't consume much CPU)
-      animation: 'fade', // Optional (default fade), 'fade' or 'gradient', the animation on bar on progress
-      wave: { // Optional
-        align: 'bottom', // Optional (default center), how to display waveform : top, center, bottom
-        barWidth: 1, // Optional (default 1), the bar width. in range [1, 100]
-        barMarginScale: 0 // Optional (default 0.25), The bar margin percentage from to bar width in range [0, 1]
+      animation: 'fade',
+      wave: {
+        align: 'bottom',
+        barWidth: 1,
+        barMarginScale: 0,
       },
+      colors: {
+        background: '#1D1E25',
+        track: '#E7E9E7',
+        progress: '#56D45B'
+      }
     });
   }
 
@@ -96,6 +101,15 @@ class Deck {
   _addEvents() {
     CustomEvents.addEvent('click', this._dom.play, () => {
       Meax.pc.togglePlayback(this._name);
+    }, this);
+
+    CustomEvents.addEvent('click', this._dom.cuePhone, () => {
+      Meax.pc.setCuePhone(this._name, {
+        raw: [
+          (this._name === 'left' ? 144 : 145),
+          84,
+          (this._dom.cuePhone.classList.contains('enabled') ? 127 : 0)] // See midi controller for values
+      });
     }, this);
 
     CustomEvents.addEvent('click', this._dom.progressBar.parentNode, event => {

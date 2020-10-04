@@ -32,7 +32,7 @@ class Meax {
 
 
   _onControllerEvent(element) {
-    //console.log(element);
+    console.log(element);
     // First bit is component ID
     const componentId = element.id.charAt(0);
     // Remove ID bit to get command unique ID
