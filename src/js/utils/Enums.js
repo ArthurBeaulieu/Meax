@@ -58,10 +58,23 @@ const Commands = Object.freeze({
 });
 
 
+const PerformanceType = [
+  'hotcue',
+  'keyboard',
+  'beatloop',
+  'fx1',
+  'beatjump',
+  'fx2',
+  'sampler',
+  'keyshift'
+];
+
+
 export default {
   ElementType: ElementType,
   Components: Components,
-  Commands: Commands
+  Commands: Commands,
+  PerformanceType: PerformanceType
 };
 
 

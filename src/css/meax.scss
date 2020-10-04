@@ -232,6 +232,10 @@ html, body {
             &.enabled {
               border: solid 3px var(--mzk-color-primary);
             }
+
+            &.shift-enabled {
+              border: solid 3px var(--mzk-color-anti-primary);
+            }            
           }
         }
       }

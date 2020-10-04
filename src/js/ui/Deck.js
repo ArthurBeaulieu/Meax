@@ -1,6 +1,6 @@
 import Knob from './component/Knob.js';
 import Timeline from './Timeline.js';
-import PerformancePad from './component/PerformancePad.js';
+import Pad from './component/Pad.js';
 
 
 class Deck {
@@ -31,7 +31,7 @@ class Deck {
     this._bpm = 0;
 
     this._timeline = new Timeline(this._name);
-    this._performancePad = new PerformancePad({
+    this._performancePad = new Pad({
       name: this._name,
       type: 'hotcue'
     });
@@ -179,8 +179,19 @@ class Deck {
   }
 
 
+  clearPadSelection(options) {
+    this._performancePad.clearPadSelection();
+  }
+
+
+
   saveHotCue(options) {
     this._performancePad.saveHotCue(options);
+  }
+
+
+  removeHotCue(options) {
+    this._performancePad.removeHotCue(options);
   }
 
 

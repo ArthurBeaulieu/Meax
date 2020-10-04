@@ -9,7 +9,7 @@ import CustomEvents from './utils/CustomEvents.js';
 
 window.CustomEvents = new CustomEvents();
 window.Utils = new Utils();
-
+window.Enums = Enums;
 
 class Meax {
 
@@ -32,6 +32,7 @@ class Meax {
 
 
   _onControllerEvent(element) {
+    //console.log(element);
     // First bit is component ID
     const componentId = element.id.charAt(0);
     // Remove ID bit to get command unique ID

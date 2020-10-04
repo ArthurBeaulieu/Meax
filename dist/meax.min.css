@@ -192,6 +192,9 @@ html, body {
             .controller .deck-left .track-manipulation .performance-pad-wrapper .performance-pad .pad.enabled,
             .controller .deck-right .track-manipulation .performance-pad-wrapper .performance-pad .pad.enabled {
               border: solid 3px var(--mzk-color-primary); }
+            .controller .deck-left .track-manipulation .performance-pad-wrapper .performance-pad .pad.shift-enabled,
+            .controller .deck-right .track-manipulation .performance-pad-wrapper .performance-pad .pad.shift-enabled {
+              border: solid 3px var(--mzk-color-anti-primary); }
       .controller .deck-left .track-manipulation .track-controls,
       .controller .deck-right .track-manipulation .track-controls {
         display: flex;

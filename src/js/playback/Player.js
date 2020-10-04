@@ -1,4 +1,4 @@
-import HotCuePad from './HotCuePad.js';
+import Pad from './Pad.js';
 
 
 class Player {
@@ -28,7 +28,7 @@ class Player {
     this._lowFiltered = false;
     this._highFiltered = false;
 
-    this._hotCuePad = null;
+    this._pad = null;
 
     this._setupNodes();
     this._buildPerformancePads();
@@ -117,7 +117,7 @@ class Player {
 
 
   _buildPerformancePads() {
-    this._hotCuePad = new HotCuePad({ name: this._name, player: this.player });
+    this._pad = new Pad({ name: this._name, player: this.player });
   }
 
 
@@ -354,14 +354,17 @@ class Player {
   }
 
 
-  setHotCue(deckSide, value, padNumber, shift) {
+  setPad(deckSide, value, padNumber, shift) {
     if (shift === false) {
-      this._hotCuePad.togglePad(deckSide, value, padNumber - 1);
+      this._pad.togglePad(deckSide, value, padNumber - 1);
     } else { // Remove cue when shift is one
-      if (value.value === 'push') {
-        this._hotCuePad.shiftTogglePad(padNumber - 1);
-      }
+      this._pad.shiftTogglePad(deckSide, value, padNumber - 1);
     }
+  }
+
+
+  setPadType(deckSide, value, padNumber) {
+    this._pad.setPadType(deckSide, value, padNumber - 1);
   }
 
 

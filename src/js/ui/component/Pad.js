@@ -1,13 +1,12 @@
-const PerformanceType = ['hotcue', 'keyboard', 'beatloop', 'fx1', 'beatjump', 'fx2', 'sampler', 'keyshift'];
-
-
-class PerformancePad {
+class Pad {
 
 
   constructor(options) {
     this._name = options.name;
+
     this._activeType = options.type;
-    this._activeTypeIndex = -1;
+    this._activeTypeIndex = 0; // Default to hotcue
+
     this._dom = {
       ctrl1: null,
       ctrl2: null,
@@ -52,23 +51,47 @@ class PerformancePad {
 
 
   setPad(options) {
+    if (this._activeTypeIndex === 0) {
+      return;
+    }
+
+    let className = 'enabled'
+    if (options.shift) {
+      className = 'shift-enabled';
+    }
+
     if (options.active === true) {
-      this._dom[`pad${options.pad}`].classList.add('enabled');
+      this._dom[`pad${options.pad}`].classList.add(className);
     } else {
-      this._dom[`pad${options.pad}`].classList.remove('enabled');
+      this._dom[`pad${options.pad}`].classList.remove('enabled', 'shift-enabled');
+    }
+  }
+
+
+  clearPadSelection() {
+    for (let i = 0; i < 8; ++i) {
+      this._dom[`pad${i + 1}`].classList.remove('enabled', 'shift-enabled');
+      this._dom[`pad${i + 1}`].innerHTML = '';
     }
   }
 
 
   saveHotCue(options) {
+    this._dom[`pad${options.pad}`].classList.add('enabled');
+    this._dom[`pad${options.pad}`].innerHTML = options.time;
+  }
+
+
+  removeHotCue(options) {
+    this._dom[`pad${options.pad}`].classList.remove('enabled');
     this._dom[`pad${options.pad}`].innerHTML = '';
-    console.log(options)
   }
 
 
   setPadType(options) {
-    this._type = PerformanceType[options.pad];
+    this._type = Enums.PerformanceType[options.pad];
     this._activeTypeIndex = options.pad;
+    console.log(this._activeTypeIndex)
     this.setPadControl(options);
   }
 
@@ -76,4 +99,4 @@ class PerformancePad {
 }
 
 
-export default PerformancePad;
+export default Pad;
