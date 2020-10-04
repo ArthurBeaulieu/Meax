@@ -5,5 +5,5 @@ Works on Chromium base browsers so far. Testing on a Pioneer DDJ-400, but contro
 Set your computer audio hardware to your controller one (to allow audio in the headphones).
 
 <p>
-  <img src="/assets/demo/Screenshot.png" width="960" alt="bars" />
+  <img src="/assets/demo/Screenshot-2020-10-04.png" width="960" alt="screenshot" />
 </p>
