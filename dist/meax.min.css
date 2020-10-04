@@ -146,22 +146,52 @@ html, body {
     .controller .deck-right .track-manipulation {
       display: flex;
       height: calc(100% - var(--waveformheight) - var(--infoheight)); }
-      .controller .deck-left .track-manipulation .performance-pad,
-      .controller .deck-right .track-manipulation .performance-pad {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-gap: 10px;
+      .controller .deck-left .track-manipulation .performance-pad-wrapper,
+      .controller .deck-right .track-manipulation .performance-pad-wrapper {
         height: 100%;
-        padding: 10px;
         width: 70%; }
-        .controller .deck-left .track-manipulation .performance-pad .pad,
-        .controller .deck-right .track-manipulation .performance-pad .pad {
-          background-color: var(--mzk-color-bg-alpha-25);
-          border: solid 3px transparent;
-          transition: border .2s; }
-          .controller .deck-left .track-manipulation .performance-pad .pad.enabled,
-          .controller .deck-right .track-manipulation .performance-pad .pad.enabled {
-            border: solid 3px var(--mzk-color-primary); }
+        .controller .deck-left .track-manipulation .performance-pad-wrapper .performance-pad-control,
+        .controller .deck-right .track-manipulation .performance-pad-wrapper .performance-pad-control {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          height: 2rem;
+          width: 100%; }
+          .controller .deck-left .track-manipulation .performance-pad-wrapper .performance-pad-control .pad-control,
+          .controller .deck-right .track-manipulation .performance-pad-wrapper .performance-pad-control .pad-control {
+            background-color: var(--mzk-color-bg-alpha-25);
+            border: solid 3px transparent;
+            display: grid;
+            grid-gap: 10px;
+            margin: 10px;
+            padding: 2px 10px;
+            text-align: center;
+            transition: border .2s; }
+            .controller .deck-left .track-manipulation .performance-pad-wrapper .performance-pad-control .pad-control.enabled,
+            .controller .deck-right .track-manipulation .performance-pad-wrapper .performance-pad-control .pad-control.enabled {
+              border: solid 3px var(--mzk-color-primary); }
+            .controller .deck-left .track-manipulation .performance-pad-wrapper .performance-pad-control .pad-control.shift-enabled,
+            .controller .deck-right .track-manipulation .performance-pad-wrapper .performance-pad-control .pad-control.shift-enabled {
+              border: solid 3px var(--mzk-color-anti-primary); }
+            .controller .deck-left .track-manipulation .performance-pad-wrapper .performance-pad-control .pad-control p,
+            .controller .deck-right .track-manipulation .performance-pad-wrapper .performance-pad-control .pad-control p {
+              font-size: .6rem;
+              margin: 0; }
+        .controller .deck-left .track-manipulation .performance-pad-wrapper .performance-pad,
+        .controller .deck-right .track-manipulation .performance-pad-wrapper .performance-pad {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          grid-gap: 10px;
+          height: calc(100% - 2rem);
+          padding: 10px;
+          width: 100%; }
+          .controller .deck-left .track-manipulation .performance-pad-wrapper .performance-pad .pad,
+          .controller .deck-right .track-manipulation .performance-pad-wrapper .performance-pad .pad {
+            background-color: var(--mzk-color-bg-alpha-25);
+            border: solid 3px transparent;
+            transition: border .2s; }
+            .controller .deck-left .track-manipulation .performance-pad-wrapper .performance-pad .pad.enabled,
+            .controller .deck-right .track-manipulation .performance-pad-wrapper .performance-pad .pad.enabled {
+              border: solid 3px var(--mzk-color-primary); }
       .controller .deck-left .track-manipulation .track-controls,
       .controller .deck-right .track-manipulation .track-controls {
         display: flex;

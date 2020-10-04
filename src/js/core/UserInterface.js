@@ -40,8 +40,6 @@ class UserInterface {
   addTrack(deckSide, track) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${deckSide}Deck`].loadTrack(track);
-    } else {
-
     }
   }
 
@@ -49,8 +47,6 @@ class UserInterface {
   setFilter(deckSide, options) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${deckSide}Deck`].setFilter(options);
-    } else {
-
     }
   }
 
@@ -58,8 +54,6 @@ class UserInterface {
   _setPlay(options) {
     if (options.name === 'left' || options.name === 'right') {
       this[`_${options.name}Deck`].setPlay();
-    } else {
-
     }
   }
 
@@ -67,8 +61,6 @@ class UserInterface {
   _setPause(options) {
     if (options.name === 'left' || options.name === 'right') {
       this[`_${options.name}Deck`].setPause();
-    } else {
-
     }
   }
 
@@ -77,8 +69,6 @@ class UserInterface {
     if (options.name === 'left' || options.name === 'right') {
       // Update left or right deck with loaded track info (stored in options.value)
       this[`_${options.name}Deck`].setVolume(options.value); // TODO Put in Mixer.js ui component ?
-    } else {
-
     }
   }
 
@@ -86,8 +76,6 @@ class UserInterface {
   _setTempo(options) {
     if (options.name === 'left' || options.name === 'right') {
       this[`_${options.name}Deck`].setTempo(options.value);
-    } else {
-
     }
   }
 
@@ -146,8 +134,6 @@ class UserInterface {
   navigateInPlaylist(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this._playlist.navigateInPlaylist(value);
-    } else {
-
     }
   }
 

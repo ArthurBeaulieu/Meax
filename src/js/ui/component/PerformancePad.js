@@ -9,6 +9,10 @@ class PerformancePad {
     this._activeType = options.type;
     this._activeTypeIndex = -1;
     this._dom = {
+      ctrl1: null,
+      ctrl2: null,
+      ctrl3: null,
+      ctrl4: null,
       pad1: null,
       pad2: null,
       pad3: null,
@@ -24,8 +28,25 @@ class PerformancePad {
 
 
   _getElements() {
+    for (let i = 0; i < 4; ++i) { // Four control buttons (eight modes)
+      this._dom[`ctrl${i + 1}`] = document.getElementById(`ctrl${i + 1}-${this._name}`);
+    }
+
     for (let i = 0; i < 8; ++i) { // Eight perfo pad slots
       this._dom[`pad${i + 1}`] = document.getElementById(`pad${i + 1}-${this._name}`);
+    }
+  }
+
+
+  setPadControl(options) {
+    for (let i = 0; i < 4; ++i) {
+      this._dom[`ctrl${i + 1}`].classList.remove('enabled', 'shift-enabled');
+    }
+    /* Check if shift is held or not (even = !shift, odd = shift) */
+    if (options.pad % 2 === 0) { // Even is standard modes
+      this._dom[`ctrl${(options.pad / 2) + 1}`].classList.add('enabled');
+    } else { // Odd is shifted modes
+      this._dom[`ctrl${((options.pad - 1) / 2) + 1}`].classList.add('shift-enabled');
     }
   }
 
@@ -40,7 +61,7 @@ class PerformancePad {
 
 
   saveHotCue(options) {
-    this._dom[`pad${options.pad}`].innerHTML = '';    
+    this._dom[`pad${options.pad}`].innerHTML = '';
     console.log(options)
   }
 
@@ -48,6 +69,7 @@ class PerformancePad {
   setPadType(options) {
     this._type = PerformanceType[options.pad];
     this._activeTypeIndex = options.pad;
+    this.setPadControl(options);
   }
 
 
