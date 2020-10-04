@@ -11,7 +11,7 @@ window.CustomEvents = new CustomEvents();
 window.Utils = new Utils();
 
 
-class ManaMeax {
+class Meax {
 
 
   constructor() {
@@ -32,9 +32,11 @@ class ManaMeax {
 
 
   _onControllerEvent(element) {
-    const componentId = element.id.charAt(0); // First bit is component ID
-    const actionId = element.id.slice(1); // Remove ID bit to get command unique ID
-    console.log(element, actionId)
+    // First bit is component ID
+    const componentId = element.id.charAt(0);
+    // Remove ID bit to get command unique ID
+    const actionId = element.id.slice(1);
+    // Analyse event origin and type to call proper method
     if (componentId === Enums.Components.MIXER) {
       this._mixerEvents(element, actionId);
     } else if (componentId === Enums.Components.DECK_LEFT) {
@@ -56,12 +58,14 @@ class ManaMeax {
   _mixerEvents(element, actionId) {
     if (actionId === Enums.Commands.LEFT_LOAD_TRACK && element.value === 'push') {
       // Add track on left deck update model in pc then update UI with track info (duration, bpm etc)
-      this._pc.addTrack('left', this._ui.getSelectedTrack()).then(track => { this._ui.addTrack('left', track); });
+      this._pc.addTrack('left', this._ui.getSelectedTrack())
+        .then(track => { this._ui.addTrack('left', track); });
     } else if (actionId === Enums.Commands.RIGHT_LOAD_TRACK && element.value === 'push') {
       // Add track on right deck update model in pc then update UI with track info (duration, bpm etc)
-      this._pc.addTrack('right', this._ui.getSelectedTrack()).then(track => { this._ui.addTrack('right', track); });
+      this._pc.addTrack('right', this._ui.getSelectedTrack())
+        .then(track => { this._ui.addTrack('right', track); });
     } else if (actionId === Enums.Commands.SELECTION_ROTARY) {
-      // avigate on pl is a UI only action
+      // Navigate on pl is a UI only action
       this._ui.navigateInPlaylist('left', element.value);
     } else if (actionId === Enums.Commands.LEFT_FILTER) {
       // Left filter knob first applies HPF or HPF on channel output, then update the UI knob
@@ -152,4 +156,5 @@ class ManaMeax {
 }
 
 
-export default ManaMeax;
+window.Meax = new Meax();
+export default Meax;

@@ -10,14 +10,14 @@ class Timeline {
 
 
   _buildWaveform() {
-    new MzkVisualizer({
+    new AudioVisualizer({
       type: 'timeline',
-      player: MzkMeax.pc.getPlayer(this._name), // Mandatory, the play to wire visualisation to
-      audioContext: MzkMeax.pc.audioContext,
-      inputNode: MzkMeax.pc.getPlayerOutputNode(this._name),
+      player: Meax.pc.getPlayer(this._name), // Mandatory, the play to wire visualisation to
+      audioContext: Meax.pc.audioContext,
+      inputNode: Meax.pc.getPlayerOutputNode(this._name),
       renderTo: document.querySelector(`#timeline-${this._name}`), // Mandatory, the HTML div to render component
       fftSize: 1024, // Optional (default 1024), Higher is smoother for vuemeter (doesn't consume much CPU)
-      speed: 10, // Optional (default 5), how many seconds does the canvas fit at once
+      speed: 5, // Optional (default 5), how many seconds does the canvas fit at once
       beat: {
         offset: 0.19,
         bpm: 170,

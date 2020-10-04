@@ -7,15 +7,13 @@ class DeviceHandler {
   constructor(options) {
     this._onEvent = options.onEvent;
     this._channels = [];
-    // MIDI event utils
-    // With knob event, we have 2 ranges send, Low then High.
-    // We must temporarly store the knob low event to compute the full know value when high event is catched
+
     this._input = null;
     this._output = null;
     this._knobLow = null;
 
     if (navigator.requestMIDIAccess) {
-      navigator.requestMIDIAccess().then(this.requestMIDIAccessSuccess.bind(this), this.requestMIDIAccessFailure);
+      navigator.requestMIDIAccess().then(this.requestMIDIAccess.bind(this), this.requestMIDIAccessFailure);
     } else {
       console.log('navigator.requestMIDIAccess undefined on this browser. Try on Chromium/Chrome.');
     }
@@ -29,12 +27,11 @@ class DeviceHandler {
   }
 
 
-  requestMIDIAccessSuccess(midi) {
+  requestMIDIAccess(midi) {
     var inputs = midi.inputs.values();
     var outputs = midi.outputs.values();
 
     for (var input = inputs.next(); input && !input.done; input = inputs.next()) {
-      console.log('midi input', input.value.name);
       if (input.value.name === 'DDJ-400') {
         this._input = input;
         this._readJSONFile(`./assets/json/${input.value.name}.json`).then(response => {
@@ -180,16 +177,6 @@ class DeviceHandler {
   }
 
 
-  midiOnStateChange(event) {
-    console.log('midiOnStateChange', event, event.port.name + ' ' + event.port.state);
-  }
-
-
-  requestMIDIAccessFailure(e) {
-    console.log('requestMIDIAccessFailure', e);
-  }
-
-
   _readJSONFile(path) {
     return new Promise((resolve, reject) => {
       try {
@@ -215,6 +202,16 @@ class DeviceHandler {
 
   _cuePhones(options) {
     this.sendMIDIMessage(options.raw);
+  }
+
+
+  requestMIDIAccessFailure(e) {
+    console.log('requestMIDIAccessFailure', e);
+  }
+
+
+  midiOnStateChange(event) {
+    console.log('midiOnStateChange', event, event.port.name + ' ' + event.port.state);
   }
 
 

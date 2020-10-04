@@ -1,5 +1,3 @@
-/* TODO proper lib import */
-//import MzkVisualizer from '../../../lib/MzkVisualizer/js/MzkVisualizer.js';
 import Knob from './component/Knob.js';
 import Timeline from './Timeline.js';
 import PerformancePad from './component/PerformancePad.js';
@@ -63,11 +61,11 @@ class Deck {
 
 
   _buildWaveform() {
-    const waveformProgress = new MzkVisualizer({
+    const waveformProgress = new AudioVisualizer({
       type: 'waveformprogress', // Mandatory, either 'frequencybars', 'frequencycircle', 'oscilloscope', 'peakmeter' or 'spectrum'
-      player: MzkMeax.pc.getPlayer(this._name), // Mandatory, the play to wire visualisation to
-      audioContext: MzkMeax.pc.audioContext,
-      inputNode: MzkMeax.pc.getPlayerOutputNode(this._name),
+      player: Meax.pc.getPlayer(this._name), // Mandatory, the play to wire visualisation to
+      audioContext: Meax.pc.audioContext,
+      inputNode: Meax.pc.getPlayerOutputNode(this._name),
       renderTo: document.querySelector(`#waveform-${this._name}`), // Mandatory, the HTML div to render component
       fftSize: 1024, // Optional (default 1024), Higher is smoother for vuemeter (doesn't consume much CPU)
       animation: 'fade', // Optional (default fade), 'fade' or 'gradient', the animation on bar on progress
@@ -97,12 +95,12 @@ class Deck {
 
   _addEvents() {
     CustomEvents.addEvent('click', this._dom.play, () => {
-      MzkMeax.pc.togglePlayback(this._name);
+      Meax.pc.togglePlayback(this._name);
     }, this);
 
     CustomEvents.addEvent('click', this._dom.progressBar.parentNode, event => {
       const percentage = (event.offsetX / this._dom.progressBar.parentNode.offsetWidth);
-      MzkMeax.pc.setProgress(this._name, percentage);
+      Meax.pc.setProgress(this._name, percentage);
     }, this);
   }
 
