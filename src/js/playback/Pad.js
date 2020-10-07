@@ -21,17 +21,17 @@ class Pad {
     });
 
     if (value.value === 'push') { // Only do model actions on push action
-      if (this._activeMode === 0) {
-         /* HotCue */
-        if (this._hotCues[index] === -1) {
-          this._hotCues[index] = this._player.currentTime;
+      if (this._activeMode === 0) { // HotCue
+        if (this._hotCues[index] === -1) { // Save the cue point
+          const time = Meax.ui.getClosestBeatTime(deckSide);
+          this._hotCues[index] = time;
           CustomEvents.publish('Pad/SaveHotCue', {
             name: deckSide,
             pad: index + 1,
             active: value.raw[2] === 127 ? true : false,
-            time: this._player.currentTime
+            time: time
           });
-        } else {
+        } else { // Jump to its value
           this._player.currentTime = this._hotCues[index];
         }
       }

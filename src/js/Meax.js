@@ -154,6 +154,11 @@ class Meax {
   }
 
 
+  get ui() {
+    return this._ui;
+  }
+
+
 }
 
 

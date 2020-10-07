@@ -160,6 +160,13 @@ class UserInterface {
   }
 
 
+  getClosestBeatTime(name) {
+    if (name === 'left' || name === 'right') {
+      return this[`_${name}Deck`].getClosestBeatTime();
+    }
+  }
+
+
 }
 
 

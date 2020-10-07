@@ -78,7 +78,8 @@ class Deck {
         background: '#1D1E25',
         track: '#E7E9E7',
         progress: '#56D45B'
-      }
+      },
+      hotCues: []
     });
   }
 
@@ -201,6 +202,7 @@ class Deck {
 
   saveHotCue(options) {
     this._performancePad.saveHotCue(options);
+    this._timeline.setHotCuePoint();
   }
 
 
@@ -211,6 +213,11 @@ class Deck {
 
   setPadType(options) {
     this._performancePad.setPadType(options);
+  }
+
+
+  getClosestBeatTime() {
+    return this._timeline.getClosestBeatTime();
   }
 
 
