@@ -88,8 +88,30 @@ html, body {
 .timelines {
   height: 20%; }
   .timelines .timeline {
+    display: grid;
+    grid-template-areas: "align timeline controls";
+    grid-template-columns: 2rem calc(100% - 4rem) 2rem;
     height: 50%;
     width: 100%; }
+    .timelines .timeline [class^="timeline-align-"],
+    .timelines .timeline [class^="timeline-controls-"] {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      padding: 0 .1rem; }
+      .timelines .timeline [class^="timeline-align-"] img,
+      .timelines .timeline [class^="timeline-controls-"] img {
+        cursor: pointer;
+        max-width: .9rem; }
+    .timelines .timeline [class^="timeline-align-"] {
+      grid-area: align; }
+    .timelines .timeline .timeline-container {
+      grid-area: timeline; }
+    .timelines .timeline [class^="timeline-controls-"] {
+      grid-area: controls; }
+      .timelines .timeline [class^="timeline-controls-"] img {
+        max-width: .8rem; }
 
 .controller {
   background: var(--mzk-color-bg-lighter-alpha-50);
