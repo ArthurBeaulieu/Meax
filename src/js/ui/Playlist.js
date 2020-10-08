@@ -37,10 +37,28 @@ class Playlist {
 
     for (let i = 0; i < simulatedPl.length; ++i) {
       const track = document.createElement('DIV');
+      const loadLeft = document.createElement('DIV');
+      const loadRight = document.createElement('DIV');
       track.classList.add('playlist-track');
       track.innerHTML = `${simulatedPl[i].artist} - ${simulatedPl[i].title}`;
       track.dataset.id = i;
       track.info = simulatedPl[i];
+      loadLeft.id = 'inject-left';
+      loadRight.id = 'inject-right';
+      loadLeft.innerHTML = '<img src="assets/img/inject.svg" alt="inject-left">';
+      loadRight.innerHTML = '<img src="assets/img/inject.svg" alt="inject-right">';
+
+      const injectClicked = function() { // Old function markup to get proper this on clicke elem
+        const side = this.id.split('-')[1];
+        Meax.pc.addTrack(side, track.info)
+          .then(track => { Meax.ui.addTrack(side, track); });
+      };
+
+      CustomEvents.addEvent('click', loadLeft, injectClicked, loadLeft);
+      CustomEvents.addEvent('click', loadRight, injectClicked, loadRight);
+
+      track.appendChild(loadRight); // Reverse inject because float right re-reverse order
+      track.appendChild(loadLeft);
       this._dom.container.appendChild(track);
       this._tracks.push(track);
     }
