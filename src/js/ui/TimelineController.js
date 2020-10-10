@@ -29,7 +29,7 @@ class TimelineController {
     };
 
     this._alignValue = 'center';
-    this._speed = 9;
+    this._speed = 8;
     this._scale = 90;
 
     this._buildTimeline();
@@ -105,47 +105,79 @@ class TimelineController {
 
   speedUpdate(event) {
     if (event.target.id.indexOf('plus') !== -1) {
-      if (this._speed >= 1) {
-        this._speed -= 2;
-        if (this._speed < 0) {
-          this._speed = 1;
-          return;
-        }
-        this._buildTimeline();
+      this._controls.speedLess.classList.add('disabled');
+
+      if (this._speed === 1) {
+        return;
       }
+
+      this._speed -= 2;
+
+      if (this._speed <= 0) {
+        this._speed = 1;
+        this._buildTimeline();
+        return;
+      }
+
+      this._buildTimeline();
     } else {
-      if (this._speed <= 17) {
-        this._speed += 2;
-        if (this._speed > 17) {
-          this._speed = 17;
-          return;
-        }
-        this._buildTimeline();
+      this._controls.speedPlus.classList.add('disabled');
+
+      if (this._speed === 17) {
+        return;
       }
+
+      this._speed += 2;
+      if (this._speed >= 17) {
+        this._speed = 17;
+        this._buildTimeline();
+        return;
+      }
+
+      this._buildTimeline();
     }
+    this._controls.speedLess.classList.remove('disabled');
+    this._controls.speedPlus.classList.remove('disabled');
   }
 
 
   scaleUpdate() {
     if (event.target.id.indexOf('more') !== -1) {
-      if (this._scale <= 100) {
-        this._scale += 10;
-        if (this._scale > 100) {
-          this._scale = 100;
-          return;
-        }
-        this._buildTimeline();
+      this._controls.scaleMore.classList.add('disabled');
+
+      if (this._scale === 100) {
+        return;
       }
+
+      this._scale += 10;
+
+      if (this._scale >= 100) {
+        this._scale = 100;
+        this._buildTimeline();
+        return;
+      }
+
+      this._buildTimeline();
     } else {
-      if (this._scale >= 1) {
-        this._scale -= 10;
-        if (this._scale < 1) {
-          this._scale = 1;
-          return;
-        }
-        this._buildTimeline();
+      this._controls.scaleLess.classList.add('disabled');
+
+      if (this._scale === 10) {
+        return;
       }
+
+      this._scale -= 10;
+
+      if (this._scale <= 10) {
+        this._scale = 10;
+        this._buildTimeline();
+        return;
+      }
+
+      this._buildTimeline();
     }
+
+    this._controls.scaleMore.classList.remove('disabled');
+    this._controls.scaleLess.classList.remove('disabled');
   }
 
 

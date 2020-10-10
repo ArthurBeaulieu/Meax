@@ -119,7 +119,10 @@ html, body {
         max-width: .9rem; }
         .timelines .timeline [class^="timeline-align-"] img.selected,
         .timelines .timeline [class^="timeline-controls-"] img.selected {
-          filter: invert(84%) sepia(10%) saturate(2897%) hue-rotate(64deg) brightness(88%) contrast(88%); }
+          filter: invert(84%) sepia(10%) saturate(3000%) hue-rotate(64deg) brightness(174%) contrast(88%); }
+        .timelines .timeline [class^="timeline-align-"] img.disabled,
+        .timelines .timeline [class^="timeline-controls-"] img.disabled {
+          filter: invert(14%) sepia(6%) saturate(1439%) hue-rotate(202deg) brightness(52%) contrast(83%); }
     .timelines .timeline [class^="timeline-align-"] {
       grid-area: align; }
     .timelines .timeline .timeline-container {

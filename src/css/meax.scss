@@ -142,7 +142,11 @@ html, body {
         max-width: .9rem;
 
         &.selected {
-	         filter: invert(84%) sepia(10%) saturate(2897%) hue-rotate(64deg) brightness(88%) contrast(88%);          
+          filter: invert(84%) sepia(10%) saturate(3000%) hue-rotate(64deg) brightness(174%) contrast(88%);
+        }
+
+        &.disabled {
+          filter: invert(14%) sepia(6%) saturate(1439%) hue-rotate(202deg) brightness(52%) contrast(83%);
         }
       }
     }
