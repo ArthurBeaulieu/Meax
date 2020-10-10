@@ -109,7 +109,7 @@ class Pad {
       const modal = new EditCueModal({
         name: this._name,
         number: options.pad - 1,
-        url: '/assets/html/EditCueModal.html'
+        url: 'assets/html/EditCueModal.html'
       });
     });
     // Update internal pad object

@@ -153,7 +153,7 @@ class TimelineController {
     const modal = new TimelineColorsModal({
       name: this._name,
       colors: this._colors,
-      url: '/assets/html/TimelineColorsModal.html'
+      url: 'assets/html/TimelineColorsModal.html'
     });
   }
 
