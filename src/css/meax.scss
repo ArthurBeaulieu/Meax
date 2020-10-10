@@ -103,6 +103,20 @@ html, body {
   width: 100%;
 }
 
+.loading-overlay {
+  align-items: center;
+  background-color: var(--mzk-color-bg-darker-alpha-75);
+  cursor: progress;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+
 /**/
 
 .timelines {
@@ -126,6 +140,10 @@ html, body {
       img {
         cursor: pointer;
         max-width: .9rem;
+
+        &.selected {
+	         filter: invert(84%) sepia(10%) saturate(2897%) hue-rotate(64deg) brightness(88%) contrast(88%);          
+        }
       }
     }
 
@@ -251,6 +269,7 @@ html, body {
         .performance-pad {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
+          grid-template-rows: repeat(2, 1fr);
           grid-gap: 10px;
           height: calc(100% - 2rem);
           padding: 10px;
@@ -260,6 +279,9 @@ html, body {
             background-color: var(--mzk-color-bg-alpha-25);
             border: solid 3px transparent;
             cursor: pointer;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
 
             transition: border .2s;
 
@@ -269,6 +291,31 @@ html, body {
 
             &.shift-enabled {
               border: solid 3px var(--mzk-color-anti-primary);
+            }
+
+            [class$="hotcue-icon"] {
+              background-color: red;
+              color: black;
+              font-size: .7rem;
+              grid-column: 1;
+              grid-row: 1;
+              height: 1rem;
+              margin-left: .5rem;
+              margin-top: .5rem;
+              padding-top: .1rem;
+              text-align: center;
+              width: 1rem;
+            }
+
+            [class$="hotcue-value"] {
+              align-self: flex-end;
+              font-size: .8rem;
+              grid-column: 2;
+              grid-row: 2;
+              padding-bottom: .5rem;
+              padding-right: .5rem;
+              margin: 0;
+              text-align: right;
             }
           }
         }
@@ -347,7 +394,7 @@ html, body {
 
     .tracks-eq-container {
       display: flex;
-      height: calc(100% - 90px);
+      height: calc(100% - 45%);
       width: 100%;
 
       .left, .right {
@@ -360,7 +407,7 @@ html, body {
         width: 25%;
 
         div[class^="eq"] {
-          height: 60px;
+          height: 50px;
           width: 50px;
 
           p {
@@ -394,7 +441,7 @@ html, body {
         display: flex;
         height: 20px;
         justify-content: center;
-        margin: 10px 0;
+        margin-top: 10px;
         width: 70%;
 
         img {
@@ -413,15 +460,32 @@ html, body {
 
     .fader-container {
       align-items: center;
-      display: flex;
-      height: 90px;
+      display: grid;
+      grid-template-areas: "left right"
+                           "crossfader crossfader";
+      grid-template-columns: 50% 50%;
+      grid-template-rows: 65% 35%;
+      height: 45%;
       justify-content: center;
 
       .fader {
+        display: flex;
         height: 100%;
-        padding: 10px;
+        padding: 5px 0;
         position: relative;
-        width: 33%;
+        width: 60%;
+
+        &.left {
+          grid-area: left;
+          justify-self: flex-end;
+          margin-right: 5px;
+        }
+
+        &.right {
+          grid-area: right;
+          justify-self: flex-start;
+          margin-left: 5px;
+        }
 
         img {
           width: 100%;
@@ -432,6 +496,31 @@ html, body {
           left: 10px;
           position: absolute;
           width: calc(100% - 20px);
+        }
+      }
+
+      .crossfader-wrapper {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        grid-area: crossfader;
+        height: 100%;
+
+        .crossfader {
+          height: 100%;
+          position: relative;
+          width: max-content;
+
+          img:first-child {
+            height: 90%;
+          }
+
+          .crossfader-progress {
+            height: 100%;
+            position: absolute;
+            right: calc(50% - 5px);
+            top: -2.5px;
+          }
         }
       }
     }
@@ -520,6 +609,7 @@ html, body {
   right: calc(50% - var(--item-border));
   border-radius: calc(var(--size) / 10);
 }
+
 .meter-container .pin {
   position: absolute;
   width: calc(var(--size) / 5);
@@ -535,4 +625,66 @@ html, body {
 progress-ring {
   height: calc(var(--size) + (var(--knob-gauge) * 2px));
   position: absolute;
+}
+
+.modal {
+  background-color: rgb(31, 33, 39);
+  border: 1px solid #0e0f14;
+  border-radius: 6px;
+  box-shadow:  0 0 1rem 0 rgba(86, 212, 91, .05);
+  box-sizing: border-box;
+  padding: 2.5rem;
+  width: max-content;
+
+  &.edit-timeline-colors {
+    font-size: .9rem;
+
+    h2 {
+      margin-top: 0;
+    }
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      margin: .3rem 0;
+    }
+
+    label {
+      font-style: italic;
+    }
+
+    input[type=color] {
+      background: 0;
+      border: 1px solid transparent;
+      padding: 0;
+    }
+
+    button {
+      background: 0;
+      border: 1px solid #aaaabe;
+      border-radius: 6px;
+      color: #aaaabe;
+      cursor: pointer;
+      display: block;
+      font-weight: bold;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 1.5em;
+      padding: .5rem 1rem;
+
+      transition: background-color .2s,
+        border .2s,
+        box-shadow .2s,
+        color .2s;
+
+      &:active,
+      &:focus,
+      &:hover {
+        background-color: rgba(127, 127, 127, .1);
+        border: 1px solid #ebebff;
+        box-shadow: 0 0 1px #ebebff;
+        color: #ebebff;
+      }
+    }
+  }
 }

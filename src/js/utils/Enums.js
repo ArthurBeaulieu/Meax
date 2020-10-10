@@ -70,11 +70,20 @@ const PerformanceType = [
 ];
 
 
+const HttpStatusCode = {
+  OK: 200,
+  NOT_FOUND: 404,
+  FORBIDDEN: 403,
+  INTERNAL_ERROR: 500
+};
+
+
 export default {
   ElementType: ElementType,
   Components: Components,
   Commands: Commands,
-  PerformanceType: PerformanceType
+  PerformanceType: PerformanceType,
+  HttpStatusCode: HttpStatusCode
 };
 
 

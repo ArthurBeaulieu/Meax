@@ -1,5 +1,5 @@
 import Knob from './component/Knob.js';
-import Timeline from './Timeline.js';
+import TimelineController from './TimelineController.js';
 import Pad from './component/Pad.js';
 
 
@@ -30,7 +30,9 @@ class Deck {
 
     this._bpm = 0;
 
-    this._timeline = new Timeline(this._name);
+    this._hotCues = [];
+    this._timelineController = new TimelineController(this._name);
+    this._waveform = null;
     this._performancePad = new Pad({
       name: this._name,
       type: 'hotcue'
@@ -61,7 +63,7 @@ class Deck {
 
 
   _buildWaveform() {
-    const waveformProgress = new AudioVisualizer({
+    this._waveform = new AudioVisualizer({
       type: 'waveform',
       player: Meax.pc.getPlayer(this._name),
       renderTo: document.querySelector(`#waveform-${this._name}`),
@@ -79,7 +81,7 @@ class Deck {
         track: '#E7E9E7',
         progress: '#56D45B'
       },
-      hotCues: []
+      hotCues: this._hotCues
     });
   }
 
@@ -139,8 +141,8 @@ class Deck {
 
 
   setVolume(value) { // Value is a percentage [0,1]
-    const topOffset = this._dom.faderTrack.offsetHeight - (value * (this._dom.faderTrack.offsetHeight));
-    this._dom.faderProgress.style.top = `${topOffset}px`;
+    // In 1080 desktop, fader is 60px with 6px margin
+    this._dom.faderProgress.style.top = `${66 - ((value * 54) + 6)}px`;
   }
 
 
@@ -202,12 +204,25 @@ class Deck {
 
   saveHotCue(options) {
     this._performancePad.saveHotCue(options);
-    this._timeline.setHotCuePoint();
+    const hotCue = this._timelineController.setHotCue(options);
+    this._waveform.setHotCuePoint(hotCue);
+    this._hotCues.push(hotCue);
   }
 
 
   removeHotCue(options) {
+    let hotCue = null;
+    for (let i = 0; i < this._hotCues.length; ++i) {
+      if (this._hotCues[i].label === options.pad) {
+        hotCue = this._hotCues[i];
+        this._hotCues.splice(i, 1);
+        break;
+      }
+    }
+
     this._performancePad.removeHotCue(options);
+    this._timelineController.removeHotCue(hotCue);
+    this._waveform.removeHotCuePoint(hotCue);
   }
 
 
@@ -216,8 +231,13 @@ class Deck {
   }
 
 
+  timelineColorUpdate(options) {
+    this._timelineController.setTimelineColors(options);
+  }
+
+
   getClosestBeatTime() {
-    return this._timeline.getClosestBeatTime();
+    return this._timelineController.getClosestBeatTime();
   }
 
 

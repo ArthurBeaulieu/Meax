@@ -23,7 +23,7 @@ class DeviceHandler {
 
 
   _setEventSubscriptions() {
-    CustomEvents.subscribe(`Player/CuePhones`, this._cuePhones.bind(this));
+    CustomEvents.subscribe(`Player/CuePhones`, this._sendMIDIRaw.bind(this));
   }
 
 
@@ -56,6 +56,7 @@ class DeviceHandler {
 
 
   sendMIDIMessage(options) {
+    console.trace();
     this._output.value.send(options);
   }
 
@@ -200,7 +201,7 @@ class DeviceHandler {
   }
 
 
-  _cuePhones(options) {
+  _sendMIDIRaw(options) {
     this.sendMIDIMessage(options.raw);
   }
 

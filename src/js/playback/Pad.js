@@ -86,6 +86,15 @@ class Pad {
   }
 
 
+  getHotCue(index) {
+    if (index < this._hotCues.length) {
+      return this._hotCues[index];
+    }
+
+    return null;
+  }
+
+
 }
 
 

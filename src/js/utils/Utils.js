@@ -71,6 +71,13 @@ class Utils {
   }
 
 
+  parseHTMLFragment(htmlString) {
+    const parser = new DOMParser();
+    const dom = parser.parseFromString(htmlString, 'text/html');
+    return dom.body.firstChild;
+  }
+
+
 }
 
 

@@ -1,4 +1,3 @@
-import Timeline from '../ui/Timeline.js';
 import Deck from '../ui/Deck.js';
 import Mixer from '../ui/Mixer.js';
 import Playlist from '../ui/Playlist.js';
@@ -29,6 +28,7 @@ class UserInterface {
     CustomEvents.subscribe(`Player/Progress`, this._updateProgress.bind(this));
     CustomEvents.subscribe(`Player/EQ`, this._updateKnobs.bind(this));
     CustomEvents.subscribe(`Player/CuePhones`, this._cuePhones.bind(this));
+    CustomEvents.subscribe(`Player/Crossfade`, this._crossfade.bind(this));
 
     CustomEvents.subscribe(`Pad/Set`, this._setPad.bind(this));
     CustomEvents.subscribe(`Pad/ShiftSet`, this._setPad.bind(this));
@@ -106,6 +106,11 @@ class UserInterface {
   }
 
 
+  _crossfade(options) {
+    this._mixer.updateCrossfader(options);
+  }
+
+
   _setPad(options) {
     if (options.name === 'left' || options.name === 'right') {
       this[`_${options.name}Deck`].setPad(options);
@@ -151,6 +156,13 @@ class UserInterface {
   navigateInPlaylist(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this._playlist.navigateInPlaylist(value);
+    }
+  }
+
+
+  timelineColorUpdate(options) {
+    if (options.name === 'left' || options.name === 'right') {
+      this[`_${options.name}Deck`].timelineColorUpdate(options);
     }
   }
 

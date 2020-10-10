@@ -6,8 +6,22 @@ class Mixer {
 
   constructor() {
     this._knobs = {};
+    this._crossfaderTrack = null;
+    this._crossfaderProgress = null;
 
+    this._peakMeter = {
+      left: null,
+      right: null
+    }
+
+    this._buildCrossfader();
     this._buildKnobs();
+  }
+
+
+  _buildCrossfader() {
+    this._crossfaderTrack = document.getElementById('crossfader-track');
+    this._crossfaderProgress = document.getElementById('crossfader-progress');
   }
 
 
@@ -24,7 +38,7 @@ class Mixer {
       }
     }
 
-    new AudioVisualizer({
+    this._peakMeter.left = new AudioVisualizer({
       type: 'peakmeter', // Mandatory, either 'frequencybars', 'frequencycircle', 'oscilloscope', 'peakmeter' or 'spectrum'
       player: Meax.pc.getPlayer('left'), // Mandatory, the play to wire visualisation to
       audioContext: Meax.pc.audioContext,
@@ -43,7 +57,7 @@ class Mixer {
       }
     });
 
-    new AudioVisualizer({
+    this._peakMeter.right = new AudioVisualizer({
       type: 'peakmeter', // Mandatory, either 'frequencybars', 'frequencycircle', 'oscilloscope', 'peakmeter' or 'spectrum'
       player: Meax.pc.getPlayer('right'), // Mandatory, the play to wire visualisation to
       audioContext: Meax.pc.audioContext,
@@ -61,6 +75,11 @@ class Mixer {
         max: '#FFBAB8' // (default #FFBAB8, light red), index 1
       }
     });
+  }
+
+
+  updateCrossfader(options) {
+    this._crossfaderProgress.style.right = `calc(${100 - (options.value * 100)}% - 5px)`;
   }
 
 

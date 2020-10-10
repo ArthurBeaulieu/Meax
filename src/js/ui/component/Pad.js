@@ -1,3 +1,6 @@
+import EditCueModal from '../modal/EditCueModal.js';
+
+
 class Pad {
 
 
@@ -33,8 +36,19 @@ class Pad {
 
     for (let i = 0; i < 8; ++i) { // Eight perfo pad slots
       this._dom[`pad${i + 1}`] = document.getElementById(`pad${i + 1}-${this._name}`);
+      CustomEvents.addEvent('click', this._dom[`pad${i + 1}`], this._padClicked, this);
     }
   }
+
+
+  _padClicked(event) {
+    let id = event.target.id.split('-')[0].charAt(3);
+    if (!id) {
+      id = event.target.parentNode.id.split('-')[0].charAt(3);
+    }
+    Meax.pc.setPad(this._name, { value: 'push', raw: [0, 0, 127] }, id, event.shiftKey);
+  }
+
 
 
   setPadControl(options) {
@@ -84,8 +98,24 @@ class Pad {
 
 
   saveHotCue(options) {
+    const button = document.createElement('DIV');
+    const value = document.createElement('P');
+    button.classList.add(`pad${options.pad - 1}-hotcue-icon`);
+    value.classList.add(`pad${options.pad - 1}-hotcue-value`);
+    button.innerHTML = options.pad;
+    value.innerHTML = Utils.secondsToTimecode(Utils.precisionRound(options.time, 2));
+    CustomEvents.addEvent('click', button, event => {
+      event.stopPropagation(); // Avoid event on parent to trigger
+      const modal = new EditCueModal({
+        name: this._name,
+        number: options.pad - 1,
+        url: '/assets/html/EditCueModal.html'
+      });
+    });
+    // Update internal pad object
+    this._dom[`pad${options.pad}`].appendChild(button);
+    this._dom[`pad${options.pad}`].appendChild(value);
     this._dom[`pad${options.pad}`].classList.add('enabled');
-    this._dom[`pad${options.pad}`].innerHTML = Utils.precisionRound(options.time, 2);
   }
 
 

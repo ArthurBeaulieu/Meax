@@ -183,6 +183,11 @@ class PlaybackController {
   }
 
 
+  getHotCue(deckSide, index) {
+    return this[`_${deckSide}Player`].getHotCue(index);
+  }
+
+
   get audioContext() {
     return this._master.audioContext;
   }

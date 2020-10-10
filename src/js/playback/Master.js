@@ -65,6 +65,12 @@ class Master {
       this._nodes.leftGain.gain.value = 0.5;
       this._nodes.rightGain.gain.value = 0.5;
     }
+
+    CustomEvents.publish(`Player/Crossfade`, {
+      leftGain: this._nodes.leftGain.gain.value,
+      rightGain: this._nodes.rightGain.gain.value,
+      value: value
+    });
   }
 
 

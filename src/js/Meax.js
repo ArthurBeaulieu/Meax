@@ -2,6 +2,7 @@ import UserInterface from './core/UserInterface.js';
 import DeviceHandler from './core/DeviceHandler.js';
 import PlaybackController from './core/PlaybackController.js';
 
+import Kom from './utils/Kom.js';
 import Enums from './utils/Enums.js';
 import Utils from './utils/Utils.js';
 import CustomEvents from './utils/CustomEvents.js';
@@ -18,6 +19,7 @@ class Meax {
     this._dh = null;
     this._pc = null;
     this._ui = null;
+    this._kom = null;
   }
 
 
@@ -28,6 +30,7 @@ class Meax {
 
     this._pc = new PlaybackController();
     this._ui = new UserInterface();
+    this._kom = new Kom();
   }
 
 
@@ -123,6 +126,8 @@ class Meax {
 
 
   _padEvents(side, element, actionId, shift) {
+    this._dh.sendMIDIMessage(element.raw);
+
     if (actionId === Enums.Commands.PAD_1) {
       this._pc.setPad(side, element, 1, shift);
     } else if (actionId === Enums.Commands.PAD_2) {
@@ -140,8 +145,6 @@ class Meax {
     } else if (actionId === Enums.Commands.PAD_8) {
       this._pc.setPad(side, element, 8, shift);
     }
-
-    this._dh.sendMIDIMessage(element.raw);
   }
 
 
@@ -156,6 +159,11 @@ class Meax {
 
   get ui() {
     return this._ui;
+  }
+
+
+  get kom() {
+    return this._kom;
   }
 
 

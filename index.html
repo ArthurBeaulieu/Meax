@@ -10,32 +10,32 @@
     <div class="timelines">
       <div class="timeline">
         <div class="timeline-align-left">
-          <img src="./assets/img/color-picker.svg" alt="timeline-left-colors">
-          <img src="./assets/img/align/v-top.svg" alt="timeline-left-align-top">
-          <img src="./assets/img/align/v-center.svg" alt="timeline-left-align-center">
-          <img src="./assets/img/align/v-bottom.svg" alt="timeline-left-align-bottom">
+          <img src="./assets/img/color-picker.svg" id="timeline-left-colors" alt="timeline-left-colors">
+          <img src="./assets/img/align/v-top.svg" id="timeline-left-align-top" alt="timeline-left-align-top">
+          <img src="./assets/img/align/v-center.svg" id="timeline-left-align-center" class="selected" alt="timeline-left-align-center">
+          <img src="./assets/img/align/v-bottom.svg" id="timeline-left-align-bottom" alt="timeline-left-align-bottom">
         </div>
         <div id="timeline-container-left" class="timeline-container"></div>
         <div class="timeline-controls-left">
-          <img src="./assets/img/zoom-in.svg" alt="timeline-left-speed-plus">
-          <img src="./assets/img/zoom-out.svg" alt="timeline-left-speed-less">
-          <img src="./assets/img/expand.svg" alt="timeline-left-scale-more">
-          <img src="./assets/img/shrink.svg" alt="timeline-left-scale-less">
+          <img src="./assets/img/zoom-in.svg" id="timeline-left-speed-plus" alt="timeline-left-speed-plus">
+          <img src="./assets/img/zoom-out.svg" id="timeline-left-speed-less" alt="timeline-left-speed-less">
+          <img src="./assets/img/expand.svg" id="timeline-left-scale-more" alt="timeline-left-scale-more">
+          <img src="./assets/img/shrink.svg" id="timeline-left-scale-less" alt="timeline-left-scale-less">
         </div>
       </div>
       <div class="timeline">
         <div class="timeline-align-right">
-          <img src="./assets/img/color-picker.svg" alt="timeline-left-colors">
-          <img src="./assets/img/align/v-top.svg" alt="timeline-right-align-top">
-          <img src="./assets/img/align/v-center.svg" alt="timeline-right-align-center">
-          <img src="./assets/img/align/v-bottom.svg" alt="timeline-right-align-bottom">
+          <img src="./assets/img/color-picker.svg" id="timeline-right-colors" alt="timeline-right-colors">
+          <img src="./assets/img/align/v-top.svg" id="timeline-right-align-top" alt="timeline-right-align-top">
+          <img src="./assets/img/align/v-center.svg" id="timeline-right-align-center" class="selected" alt="timeline-right-align-center">
+          <img src="./assets/img/align/v-bottom.svg" id="timeline-right-align-bottom" alt="timeline-right-align-bottom">
         </div>
         <div id="timeline-container-right" class="timeline-container"></div>
         <div class="timeline-controls-right">
-          <img src="./assets/img/zoom-in.svg" alt="timeline-right-speed-plus">
-          <img src="./assets/img/zoom-out.svg" alt="timeline-right-speed-less">
-          <img src="./assets/img/expand.svg" alt="timeline-right-scale-more">
-          <img src="./assets/img/shrink.svg" alt="timeline-right-scale-less">
+          <img src="./assets/img/zoom-in.svg" id="timeline-right-speed-plus" alt="timeline-right-speed-plus">
+          <img src="./assets/img/zoom-out.svg" id="timeline-right-speed-less" alt="timeline-right-speed-less">
+          <img src="./assets/img/expand.svg" id="timeline-right-scale-more" alt="timeline-right-scale-more">
+          <img src="./assets/img/shrink.svg" id="timeline-right-scale-less" alt="timeline-right-scale-less">
         </div>
       </div>
     </div>
@@ -123,12 +123,18 @@
         </div>
         <div class="fader-container">
           <div class="fader left">
-            <img src="./assets/img/fader-back.svg" id="fader-track-left" alt="fader-left">
-            <img src="./assets/img/fader-progress.svg" id="fader-progress-left" class="fader-progress" alt="fader-progress-left">
+            <img src="./assets/img/fader/fader-back.svg" id="fader-track-left" alt="fader-left">
+            <img src="./assets/img/fader/fader-progress.svg" id="fader-progress-left" class="fader-progress" alt="fader-progress-left">
           </div>
           <div class="fader right">
-            <img src="./assets/img/fader-back.svg" id="fader-track-right" alt="fader-right">
-            <img src="./assets/img/fader-progress.svg" id="fader-progress-right" class="fader-progress" alt="fader-progress-right">
+            <img src="./assets/img/fader/fader-back.svg" id="fader-track-right" alt="fader-right">
+            <img src="./assets/img/fader/fader-progress.svg" id="fader-progress-right" class="fader-progress" alt="fader-progress-right">
+          </div>
+          <div class="crossfader-wrapper">
+            <div class="crossfader">
+              <img src="./assets/img/fader/h-fader-back.svg" id="crossfader-track" alt="crossfader">
+              <img src="./assets/img/fader/h-fader-progress.svg" id="crossfader-progress" class="crossfader-progress" alt="crossfader">
+            </div>
           </div>
         </div>
       </div>

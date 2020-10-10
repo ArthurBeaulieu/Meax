@@ -366,6 +366,11 @@ class Player {
   }
 
 
+  getHotCue(index) {
+    return this._pad.getHotCue(index);
+  }
+
+
   get sourceNode() {
     return this._nodes.trimGain;
   }
