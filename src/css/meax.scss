@@ -106,7 +106,6 @@ html, body {
 .loading-overlay {
   align-items: center;
   background-color: var(--mzk-color-bg-darker-alpha-75);
-  cursor: progress;
   display: flex;
   height: 100%;
   justify-content: center;
@@ -216,6 +215,19 @@ html, body {
       height: var(--waveformheight);
       position: relative;
 
+      img {
+        cursor: pointer;
+        height: .7rem;
+        position: absolute;
+        right: .3rem;
+        top: .3rem;
+
+        &.bottom {
+          top: inherit;
+          bottom: .3rem;
+        }
+      }
+
       .waveform-progress {
         background-color: rgba(127, 127, 127, 0.1);
         border-right: solid 1px red;
@@ -285,7 +297,7 @@ html, body {
             border: solid 3px transparent;
             cursor: pointer;
             display: grid;
-            grid-template-columns: 30% 70%;
+            grid-template-columns: 20% 80%;
             grid-template-rows: repeat(2, 1fr);
 
             transition: border .2s;
@@ -309,6 +321,7 @@ html, body {
               margin-top: .3rem;
               padding-top: .1rem;
               text-align: center;
+              user-select: none;
               width: 1rem;
             }
 
@@ -324,6 +337,7 @@ html, body {
               overflow: hidden;
               text-align: right;
               text-overflow: ellipsis;
+              user-select: none;
               white-space: nowrap;
             }
 
@@ -336,6 +350,7 @@ html, body {
               padding-right: .3rem;
               margin: 0;
               text-align: right;
+              user-select: none;
             }
           }
         }
@@ -719,10 +734,24 @@ progress-ring {
     }
   }
 
+  .icons {
+    margin: 1.5em 0;
+  }
+
+  img {
+    cursor: pointer;
+    height: 1rem;
+    margin: 0 .5rem;
+
+    &.selected {
+      filter: invert(84%) sepia(10%) saturate(3000%) hue-rotate(64deg) brightness(174%) contrast(88%);
+    }
+  }
+
   &.edit-hot-cue {
     input[type=text] {
       text-align: center;
-      width: 40%;
+      width: 60%;
     }
   }
 }

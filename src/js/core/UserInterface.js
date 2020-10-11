@@ -174,6 +174,13 @@ class UserInterface {
   }
 
 
+  waveformOptionUpdate(options) {
+    if (options.name === 'left' || options.name === 'right') {
+      this[`_${options.name}Deck`].waveformOptionUpdate(options);
+    }
+  }
+
+
   getSelectedTrack() {
     return this._playlist.selectedTrack;
   }

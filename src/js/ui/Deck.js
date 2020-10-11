@@ -1,6 +1,7 @@
 import Knob from './component/Knob.js';
-import TimelineController from './TimelineController.js';
 import Pad from './component/Pad.js';
+import TimelineController from './component/TimelineController.js';
+import WaveformController from './component/WaveformController.js';
 
 
 class Deck {
@@ -14,13 +15,13 @@ class Deck {
       bpm: null,
       appliedBpm: null,
       key: null,
-      progress: null,
-      progressBar: null,
+      progress: null, // The text displayed value of progress
       duration: null,
       play: null,
       faderTrack: null,
       faderProgress: null,
-      cuePhone: null
+      cuePhone: null,
+      waveformColors: null
     };
 
     this._knobs = {
@@ -32,14 +33,14 @@ class Deck {
 
     this._hotCues = [];
     this._timelineController = new TimelineController(this._name);
-    this._waveform = null;
+    this._waveformController = new WaveformController(this._name);
+
     this._performancePad = new Pad({
       name: this._name,
       type: 'hotcue'
     });
 
     this._getElements();
-    this._buildWaveform();
     this._buildKnobs();
     this._addEvents();
     this._setEventSubscriptions();
@@ -53,36 +54,12 @@ class Deck {
     this._dom.appliedBpm = document.getElementById(`track-applied-bpm-${this._name}`);
     this._dom.key = document.getElementById(`track-key-${this._name}`);
     this._dom.progress = document.getElementById(`track-current-time-${this._name}`);
-    this._dom.progressBar = document.getElementById(`track-waveform-progress-${this._name}`);
     this._dom.duration = document.getElementById(`track-duration-${this._name}`);
     this._dom.play = document.getElementById(`play-${this._name}`);
     this._dom.faderTrack = document.getElementById(`fader-track-${this._name}`);
     this._dom.faderProgress = document.getElementById(`fader-progress-${this._name}`);
     this._dom.cuePhone = document.getElementById(`headphones-${this._name}`);
-  }
-
-
-  _buildWaveform() {
-    this._waveform = new AudioVisualizer({
-      type: 'waveform',
-      player: Meax.pc.getPlayer(this._name),
-      renderTo: document.querySelector(`#waveform-${this._name}`),
-      fftSize: 1024,
-      audioContext: Meax.pc.audioContext,
-      inputNode: Meax.pc.getPlayerOutputNode(this._name),
-      animation: 'fade',
-      wave: {
-        align: 'bottom',
-        barWidth: 1,
-        barMarginScale: 0,
-      },
-      colors: {
-        background: '#1D1E25',
-        track: '#E7E9E7',
-        progress: '#56D45B'
-      },
-      hotCues: this._hotCues
-    });
+    this._dom.waveformColors = document.getElementById(`waveform-${this._name}-colors`);
   }
 
 
@@ -115,9 +92,11 @@ class Deck {
       });
     }, this);
 
-    CustomEvents.addEvent('click', this._dom.progressBar.parentNode, event => {
-      const percentage = (event.offsetX / this._dom.progressBar.parentNode.offsetWidth);
-      Meax.pc.setProgress(this._name, percentage);
+    CustomEvents.addEvent('timeupdate', Meax.pc.getPlayer(this._name), event => {
+      this.updateProgress({
+        progress: Meax.pc.getPlayer(this._name).currentTime,
+        duration: Meax.pc.getPlayer(this._name).duration
+      });
     }, this);
   }
 
@@ -171,14 +150,13 @@ class Deck {
     this._dom.progress.innerHTML = Utils.secondsToTimecode(0, true);
     this._dom.duration.innerHTML = Utils.secondsToTimecode(track.duration, true);
     this._dom.appliedBpm.innerHTML = track.bpm;
-
     this._bpm = parseInt(track.bpm);
   }
 
 
   updateProgress(options) {
     this._dom.progress.innerHTML = Utils.secondsToTimecode(options.progress, true);
-    this._dom.progressBar.style.width = `${(options.progress / options.duration) * 100}%`;
+    this._waveformController.updateProgress(options);
   }
 
 
@@ -205,7 +183,7 @@ class Deck {
   saveHotCue(options) {
     this._performancePad.saveHotCue(options);
     const hotCue = this._timelineController.setHotCue(options);
-    this._waveform.setHotCuePoint(hotCue);
+    this._waveformController.setHotCue(hotCue);
     this._hotCues.push(hotCue);
   }
 
@@ -222,7 +200,7 @@ class Deck {
 
     this._performancePad.removeHotCue(options);
     this._timelineController.removeHotCue(hotCue);
-    this._waveform.removeHotCuePoint(hotCue);
+    this._waveformController.removeHotCue(hotCue);
   }
 
 
@@ -238,7 +216,7 @@ class Deck {
     if (hotCue) {
       this._performancePad.updateHotCue(hotCue, options);
       this._timelineController.updateHotCue(hotCue, options);
-      this._waveform.updateHotCuePoint(hotCue, options);
+      this._waveformController.updateHotCue(hotCue, options);
     }
   }
 
@@ -250,6 +228,11 @@ class Deck {
 
   timelineColorUpdate(options) {
     this._timelineController.setTimelineColors(options);
+  }
+
+
+  waveformOptionUpdate(options) {
+    this._waveformController.setWaveformOptions(options);
   }
 
 

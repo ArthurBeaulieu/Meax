@@ -1,4 +1,4 @@
-import TimelineColorsModal from './modal/TimelineColorsModal.js';
+import TimelineColorsModal from '../modal/TimelineColorsModal.js';
 
 
 class TimelineController {
@@ -25,7 +25,7 @@ class TimelineController {
       background: Meax.sm.get(`${this._name}-timeline-color-background`) || '#1D1E25', // Mzk background
       track: Meax.sm.get(`${this._name}-timeline-color-track`) || '#12B31D', // Dark green
       mainBeat: Meax.sm.get(`${this._name}-timeline-color-main-beat`) || '#FF6B67', // Mzk red
-      subBeat: Meax.sm.get(`${this._name}-timeline-color-su-beat`) || '#56D45B' // Light grey
+      subBeat: Meax.sm.get(`${this._name}-timeline-color-sub-beat`) || '#56D45B' // Light grey
     };
 
     this._alignValue = Meax.sm.get(`${this._name}-timeline-alignment`) || 'center';
