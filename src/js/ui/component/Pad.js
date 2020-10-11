@@ -1,4 +1,5 @@
 import EditCueModal from '../modal/EditCueModal.js';
+import Enum from '../../utils/Enums.js';
 
 
 class Pad {
@@ -99,21 +100,26 @@ class Pad {
 
   saveHotCue(options) {
     const button = document.createElement('DIV');
+    const title = document.createElement('P');
     const value = document.createElement('P');
     button.classList.add(`pad${options.pad - 1}-hotcue-icon`);
+    title.classList.add(`pad${options.pad - 1}-hotcue-title`);
     value.classList.add(`pad${options.pad - 1}-hotcue-value`);
+    button.style.backgroundColor = Enums.DefaultColors.hotCue;
     button.innerHTML = options.pad;
     value.innerHTML = Utils.secondsToTimecode(Utils.precisionRound(options.time, 2));
     CustomEvents.addEvent('click', button, event => {
       event.stopPropagation(); // Avoid event on parent to trigger
       const modal = new EditCueModal({
         name: this._name,
-        number: options.pad - 1,
-        url: 'assets/html/EditCueModal.html'
+        title: title.innerHTML,
+        url: 'assets/html/EditCueModal.html',
+        hotCue: options
       });
     });
     // Update internal pad object
     this._dom[`pad${options.pad}`].appendChild(button);
+    this._dom[`pad${options.pad}`].appendChild(title);
     this._dom[`pad${options.pad}`].appendChild(value);
     this._dom[`pad${options.pad}`].classList.add('enabled');
   }
@@ -122,6 +128,14 @@ class Pad {
   removeHotCue(options) {
     this._dom[`pad${options.pad}`].classList.remove('enabled');
     this._dom[`pad${options.pad}`].innerHTML = '';
+  }
+
+
+  updateHotCue(hotCue, options) {
+    const button = this._dom[`pad${options.pad}`].children[0];
+    const title = this._dom[`pad${options.pad}`].children[1];
+    button.style.backgroundColor = options.color;
+    title.innerHTML = options.title;
   }
 
 

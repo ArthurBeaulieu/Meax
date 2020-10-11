@@ -146,6 +146,13 @@ class UserInterface {
   }
 
 
+  updateHotCue(deckSide, options) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${options.name}Deck`].updateHotCue(options);
+    }
+  }
+
+
   _setPadType(options) {
     if (options.name === 'left' || options.name === 'right') {
       this[`_${options.name}Deck`].setPadType(options);

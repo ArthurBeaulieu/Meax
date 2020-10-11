@@ -78,12 +78,18 @@ const HttpStatusCode = {
 };
 
 
+const DefaultColors = {
+  hotCue: '#F7A637'
+};
+
+
 export default {
   ElementType: ElementType,
   Components: Components,
   Commands: Commands,
   PerformanceType: PerformanceType,
-  HttpStatusCode: HttpStatusCode
+  HttpStatusCode: HttpStatusCode,
+  DefaultColors: DefaultColors
 };
 
 

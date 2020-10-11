@@ -1,4 +1,5 @@
 import TimelineColorsModal from './modal/TimelineColorsModal.js';
+import Enums from '../utils/Enums.js';
 
 
 class TimelineController {
@@ -206,7 +207,7 @@ class TimelineController {
 
   setHotCue(options) {
     return this._timeline.setHotCuePoint({
-      color: '#FF0000',
+      color: Enums.DefaultColors.hotCue,
       label: options.pad
     });
   }
@@ -215,6 +216,13 @@ class TimelineController {
   removeHotCue(hotCue) {
     if (hotCue) {
       this._timeline.removeHotCuePoint(hotCue);
+    }
+  }
+
+
+  updateHotCue(hotCue, options) {
+    if (hotCue) {
+      this._timeline.updateHotCuePoint(hotCue, options);
     }
   }
 

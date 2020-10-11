@@ -1,3 +1,6 @@
+import Enums from '../utils/Enums.js';
+
+
 class Pad {
 
 
@@ -29,7 +32,8 @@ class Pad {
             name: deckSide,
             pad: index + 1,
             active: value.raw[2] === 127 ? true : false,
-            time: time
+            time: time,
+            color: Enums.DefaultColors.hotCue
           });
         } else { // Jump to its value
           this._player.currentTime = this._hotCues[index];

@@ -226,6 +226,23 @@ class Deck {
   }
 
 
+  updateHotCue(options) {
+    let hotCue = null;
+    for (let i = 0; i < this._hotCues.length; ++i) {
+      if (this._hotCues[i].label === options.pad) {
+        hotCue = this._hotCues[i];
+        break;
+      }
+    }
+
+    if (hotCue) {
+      this._performancePad.updateHotCue(hotCue, options);
+      this._timelineController.updateHotCue(hotCue, options);
+      this._waveform.updateHotCuePoint(hotCue, options);
+    }
+  }
+
+
   setPadType(options) {
     this._performancePad.setPadType(options);
   }

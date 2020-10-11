@@ -146,6 +146,7 @@ html, body {
         }
 
         &.disabled {
+          cursor: not-allowed;
           filter: invert(14%) sepia(6%) saturate(1439%) hue-rotate(202deg) brightness(52%) contrast(83%);
         }
       }
@@ -225,7 +226,7 @@ html, body {
       }
 
       .waveform {
-        height: 80%;
+        height: 100%;
         width: 100%;
       }
     }
@@ -284,7 +285,7 @@ html, body {
             border: solid 3px transparent;
             cursor: pointer;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 30% 70%;
             grid-template-rows: repeat(2, 1fr);
 
             transition: border .2s;
@@ -304,11 +305,26 @@ html, body {
               grid-column: 1;
               grid-row: 1;
               height: 1rem;
-              margin-left: .5rem;
-              margin-top: .5rem;
+              margin-left: .3rem;
+              margin-top: .3rem;
               padding-top: .1rem;
               text-align: center;
               width: 1rem;
+            }
+
+            [class$="hotcue-title"] {
+              align-self: flex-start;
+              font-size: .8rem;
+              font-style: italic;
+              grid-column: 2;
+              grid-row: 1;
+              padding-right: .3rem;
+              padding-top: .3rem;
+              margin: 0;
+              overflow: hidden;
+              text-align: right;
+              text-overflow: ellipsis;
+              white-space: nowrap;
             }
 
             [class$="hotcue-value"] {
@@ -316,8 +332,8 @@ html, body {
               font-size: .8rem;
               grid-column: 2;
               grid-row: 2;
-              padding-bottom: .5rem;
-              padding-right: .5rem;
+              padding-bottom: .3rem;
+              padding-right: .3rem;
               margin: 0;
               text-align: right;
             }
@@ -637,58 +653,76 @@ progress-ring {
   border-radius: 6px;
   box-shadow:  0 0 1rem 0 rgba(86, 212, 91, .05);
   box-sizing: border-box;
+  font-size: .9rem;
   padding: 2.5rem;
   width: max-content;
 
-  &.edit-timeline-colors {
-    font-size: .9rem;
+  h2 {
+    margin-top: 0;
+    text-align: center;
+  }
 
-    h2 {
-      margin-top: 0;
+  div {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: .3rem 0;
+  }
+
+  label {
+    font-style: italic;
+  }
+
+  input[type=color] {
+    background: 0;
+    border: 1px solid transparent;
+    padding: 0;
+  }
+
+  input[type=text] {
+    background: 0;
+    border: 1px solid #aaaabe;
+    border-radius: 2px;
+    color: #aaaabe;
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    padding: .2rem;
+    width: 70%;
+  }
+
+  button {
+    background: 0;
+    border: 1px solid #aaaabe;
+    border-radius: 6px;
+    color: #aaaabe;
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1.5em;
+    padding: .5rem 1rem;
+
+    transition: background-color .2s,
+      border .2s,
+      box-shadow .2s,
+      color .2s;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: rgba(127, 127, 127, .1);
+      border: 1px solid #ebebff;
+      box-shadow: 0 0 1px #ebebff;
+      color: #ebebff;
     }
+  }
 
-    div {
-      display: flex;
-      justify-content: space-between;
-      margin: .3rem 0;
-    }
-
-    label {
-      font-style: italic;
-    }
-
-    input[type=color] {
-      background: 0;
-      border: 1px solid transparent;
-      padding: 0;
-    }
-
-    button {
-      background: 0;
-      border: 1px solid #aaaabe;
-      border-radius: 6px;
-      color: #aaaabe;
-      cursor: pointer;
-      display: block;
-      font-weight: bold;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 1.5em;
-      padding: .5rem 1rem;
-
-      transition: background-color .2s,
-        border .2s,
-        box-shadow .2s,
-        color .2s;
-
-      &:active,
-      &:focus,
-      &:hover {
-        background-color: rgba(127, 127, 127, .1);
-        border: 1px solid #ebebff;
-        box-shadow: 0 0 1px #ebebff;
-        color: #ebebff;
-      }
+  &.edit-hot-cue {
+    input[type=text] {
+      text-align: center;
+      width: 40%;
     }
   }
 }
