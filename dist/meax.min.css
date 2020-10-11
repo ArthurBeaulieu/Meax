@@ -123,7 +123,7 @@ html, body {
         .timelines .timeline [class^="timeline-align-"] img.disabled,
         .timelines .timeline [class^="timeline-controls-"] img.disabled {
           cursor: not-allowed;
-          filter: invert(14%) sepia(6%) saturate(1439%) hue-rotate(202deg) brightness(52%) contrast(83%); }
+          filter: invert(14%) sepia(6%) saturate(120%) hue-rotate(202deg) brightness(52%) contrast(83%); }
     .timelines .timeline [class^="timeline-align-"] {
       grid-area: align; }
     .timelines .timeline .timeline-container {

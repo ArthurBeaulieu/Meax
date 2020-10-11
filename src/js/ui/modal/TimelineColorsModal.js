@@ -41,6 +41,10 @@ class TimelineColorsModal extends ModalBase {
 
 
   updateColors() {
+    Meax.sm.save(`${this._name}-timeline-color-background`, this._dom.background.value);
+    Meax.sm.save(`${this._name}-timeline-color-track`, this._dom.track.value);
+    Meax.sm.save(`${this._name}-timeline-color-main-beat`, this._dom.mainBeat.value);
+    Meax.sm.save(`${this._name}-timeline-color-sub-beat`, this._dom.subBeat.value);
     Meax.ui.timelineColorUpdate({
       name: this._name,
       background: this._dom.background.value,

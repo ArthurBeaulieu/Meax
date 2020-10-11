@@ -1,6 +1,7 @@
-import UserInterface from './core/UserInterface.js';
+import SessionManager from './core/SessionManager.js';
 import DeviceHandler from './core/DeviceHandler.js';
 import PlaybackController from './core/PlaybackController.js';
+import UserInterface from './core/UserInterface.js';
 
 import Kom from './utils/Kom.js';
 import Enums from './utils/Enums.js';
@@ -12,10 +13,12 @@ window.CustomEvents = new CustomEvents();
 window.Utils = new Utils();
 window.Enums = Enums;
 
+
 class Meax {
 
 
   constructor() {
+    this._sm = null;
     this._dh = null;
     this._pc = null;
     this._ui = null;
@@ -24,10 +27,10 @@ class Meax {
 
 
   init() {
+    this._sm = new SessionManager();
     this._dh = new DeviceHandler({
       onEvent: this._onControllerEvent.bind(this)
     });
-
     this._pc = new PlaybackController();
     this._ui = new UserInterface();
     this._kom = new Kom();
@@ -145,6 +148,11 @@ class Meax {
     } else if (actionId === Enums.Commands.PAD_8) {
       this._pc.setPad(side, element, 8, shift);
     }
+  }
+
+
+  get sm() {
+    return this._sm;
   }
 
 

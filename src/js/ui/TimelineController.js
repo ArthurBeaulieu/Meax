@@ -1,5 +1,4 @@
 import TimelineColorsModal from './modal/TimelineColorsModal.js';
-import Enums from '../utils/Enums.js';
 
 
 class TimelineController {
@@ -23,15 +22,15 @@ class TimelineController {
     };
 
     this._colors = {
-      background: '#1D1E25', // Mzk background
-      track: '#12B31D', // Dark green
-      mainBeat: '#FF6B67', // Mzk red
-      subBeat: '#56D45B' // Light grey
+      background: Meax.sm.get(`${this._name}-timeline-color-background`) || '#1D1E25', // Mzk background
+      track: Meax.sm.get(`${this._name}-timeline-color-track`) || '#12B31D', // Dark green
+      mainBeat: Meax.sm.get(`${this._name}-timeline-color-main-beat`) || '#FF6B67', // Mzk red
+      subBeat: Meax.sm.get(`${this._name}-timeline-color-su-beat`) || '#56D45B' // Light grey
     };
 
-    this._alignValue = 'center';
-    this._speed = 8;
-    this._scale = 90;
+    this._alignValue = Meax.sm.get(`${this._name}-timeline-alignment`) || 'center';
+    this._speed = Meax.sm.get(`${this._name}-timeline-speed`) || 8;
+    this._scale = Meax.sm.get(`${this._name}-timeline-scale`) || 90;
 
     this._buildTimeline();
     this._setControls();
@@ -88,6 +87,20 @@ class TimelineController {
     this._controls.scaleLess = document.getElementById(`timeline-${this._name}-scale-less`);
     this._controls.colors = document.getElementById(`timeline-${this._name}-colors`);
 
+    this._align[this._alignValue].classList.add('selected');
+
+    if (this._speed === 1) {
+      this._controls.speedPlus.classList.add('disabled');
+    } else if (this._speed === 17) {
+      this._controls.speedLess.classList.add('disabled');
+    }
+
+    if (this._scale === 100) {
+      this._controls.scaleMore.classList.add('disabled');
+    } else if (this._scale === 10) {
+      this._controls.scaleLess.classList.add('disabled');
+    }
+
     CustomEvents.addEvent('click', this._controls.speedPlus, this.speedUpdate, this);
     CustomEvents.addEvent('click', this._controls.speedLess, this.speedUpdate, this);
     CustomEvents.addEvent('click', this._controls.scaleMore, this.scaleUpdate, this);
@@ -100,13 +113,19 @@ class TimelineController {
     this._align[this._alignValue].classList.remove('selected');
     this._alignValue = event.target.id.split('-')[3];
     this._align[this._alignValue].classList.add('selected');
+    Meax.sm.save(`${this._name}-timeline-alignment`, this._alignValue);
     this._buildTimeline();
   }
 
 
   speedUpdate(event) {
+    const updateTimeline = () => {
+      Meax.sm.save(`${this._name}-timeline-speed`, this._speed);
+      this._buildTimeline();
+    };
+
     if (event.target.id.indexOf('plus') !== -1) {
-      this._controls.speedLess.classList.add('disabled');
+      this._controls.speedPlus.classList.add('disabled');
 
       if (this._speed === 1) {
         return;
@@ -116,13 +135,13 @@ class TimelineController {
 
       if (this._speed <= 0) {
         this._speed = 1;
-        this._buildTimeline();
+        updateTimeline();
         return;
       }
 
-      this._buildTimeline();
+      updateTimeline();
     } else {
-      this._controls.speedPlus.classList.add('disabled');
+      this._controls.speedLess.classList.add('disabled');
 
       if (this._speed === 17) {
         return;
@@ -131,11 +150,11 @@ class TimelineController {
       this._speed += 2;
       if (this._speed >= 17) {
         this._speed = 17;
-        this._buildTimeline();
+        updateTimeline();
         return;
       }
 
-      this._buildTimeline();
+      updateTimeline();
     }
     this._controls.speedLess.classList.remove('disabled');
     this._controls.speedPlus.classList.remove('disabled');
@@ -143,6 +162,11 @@ class TimelineController {
 
 
   scaleUpdate() {
+    const updateTimeline = () => {
+      Meax.sm.save(`${this._name}-timeline-scale`, this._scale);
+      this._buildTimeline();
+    };
+
     if (event.target.id.indexOf('more') !== -1) {
       this._controls.scaleMore.classList.add('disabled');
 
@@ -154,11 +178,11 @@ class TimelineController {
 
       if (this._scale >= 100) {
         this._scale = 100;
-        this._buildTimeline();
+        updateTimeline();
         return;
       }
 
-      this._buildTimeline();
+      updateTimeline();
     } else {
       this._controls.scaleLess.classList.add('disabled');
 
@@ -170,11 +194,11 @@ class TimelineController {
 
       if (this._scale <= 10) {
         this._scale = 10;
-        this._buildTimeline();
+        updateTimeline();
         return;
       }
 
-      this._buildTimeline();
+      updateTimeline();
     }
 
     this._controls.scaleMore.classList.remove('disabled');
