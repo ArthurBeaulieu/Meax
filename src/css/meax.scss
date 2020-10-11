@@ -124,7 +124,7 @@ html, body {
   .timeline {
     display: grid;
     grid-template-areas: "align timeline controls";
-    grid-template-columns: 2rem calc(100% - 4rem) 2rem;
+    grid-template-columns: 1.5rem calc(100% - 3rem) 1.5rem;
     height: 50%;
     width: 100%;
 
