@@ -8,7 +8,7 @@ class Master {
     this._nodes = {
       leftGain: null,
       rightGain: null,
-      outputGain: null,
+      outputGain: null
     };
     // L/R players to feed master with
     this._players = {};

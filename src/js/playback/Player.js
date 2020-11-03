@@ -74,8 +74,7 @@ class Player {
     this._nodes.gain.gain.value = this._gainValue;
 
     this._nodes.trimGain = this._audioCtx.createGain();
-    this._nodes.trimGain.gain.value = 0.7079; // -3 dB attenuation
-    console.log(this._nodes.trimGain.gain.maxValue);
+    this._nodes.trimGain.gain.value = 1;
 
     this._nodes.low = this._audioCtx.createBiquadFilter();
   	this._nodes.low.type = "lowshelf";
@@ -99,7 +98,7 @@ class Player {
 
     this._nodes.filterHigh = this._audioCtx.createBiquadFilter();
     this._nodes.filterHigh.type = "highpass";
-    this._nodes.filterHigh.Q.value = 0;
+    this._nodes.filterHigh.Q.value = 10;
 
     this._connectNodes();
   }
@@ -334,7 +333,7 @@ class Player {
           this._highFiltered = true;
           this._nodes.high.connect(this._nodes.filterHigh);
           this._nodes.filterHigh.connect(this._nodes.gain);
-          const amount = Utils.convertKnobValue(value, 22050);
+          const amount = Utils.convertKnobValue(value, 22050 - 3200);
           this._nodes.filterLow.frequency.value = (amount * 100);
         }
       } else { // Remove filter from audio chain
