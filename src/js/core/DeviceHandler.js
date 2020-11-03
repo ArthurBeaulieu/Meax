@@ -21,6 +21,7 @@ class DeviceHandler {
 
   _setEventSubscriptions() {
     CustomEvents.subscribe(`Player/CuePhones`, this._sendMIDIRaw.bind(this));
+    CustomEvents.subscribe(`Player/MasterCuePhones`, this._sendMIDIRaw.bind(this));
   }
 
 

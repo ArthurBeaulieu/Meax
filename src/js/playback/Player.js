@@ -74,7 +74,8 @@ class Player {
     this._nodes.gain.gain.value = this._gainValue;
 
     this._nodes.trimGain = this._audioCtx.createGain();
-    this._nodes.trimGain.gain.value = 1;
+    this._nodes.trimGain.gain.value = 0.7079; // -3 dB attenuation
+    console.log(this._nodes.trimGain.gain.maxValue);
 
     this._nodes.low = this._audioCtx.createBiquadFilter();
   	this._nodes.low.type = "lowshelf";

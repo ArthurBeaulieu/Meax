@@ -118,6 +118,71 @@ html, body {
 
 /**/
 
+.master {
+  align-items: center;
+  background: var(--mzk-color-bg-lighter-alpha-50);
+  display: flex;
+  height: 2rem;
+  justify-content: center;
+
+  label {
+    font-size: 0.5rem;
+    margin-left: .5rem;
+  }
+
+  [class$="global"] {
+    height: 2rem;
+    width: 2rem;
+
+    progress-ring {
+      transform: scale(0.66) translateX(-.4rem) translateY(-.4rem);
+
+      &.headphone-global {
+        transform: scale(0.66) translateX(0.1rem) translateY(0.8rem) rotate(-135deg);
+      }
+    }
+
+    .meter-container {
+      transform: scale(0.66);
+      margin: calc(10px * 0.33);
+    }
+
+    p {
+      display: none;
+    }
+  }
+
+  [class^="headphones-master"] {
+    align-items: center;
+    border: solid 1px grey;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    height: 20px;
+    justify-content: center;
+    margin-left: .5rem;
+    width: 2rem;
+
+    img {
+      height: 80%;
+    }
+
+    &.enabled {
+      border: solid 1px var(--mzk-color-primary);
+
+      img {
+        filter: invert(72%) sepia(78%) saturate(412%) hue-rotate(64deg) brightness(149%) contrast(84%);
+      }
+    }
+  }
+
+  .peakmeter-master {
+    height: 1rem;
+    margin-left: .5rem;
+    width: 6rem;
+  }
+}
+
 .timelines {
   height: 20%;
 
@@ -564,7 +629,7 @@ html, body {
 
 .playlists {
   color: white;
-  height: 50%;
+  height: calc(50% - 2rem);
 
   .playlist-container {
     .playlist-track {

@@ -1,3 +1,4 @@
+import Master from '../ui/Master.js';
 import Deck from '../ui/Deck.js';
 import Mixer from '../ui/Mixer.js';
 import Playlist from '../ui/Playlist.js';
@@ -11,6 +12,7 @@ class UserInterface {
     // Define custom HTML element for knob radial gauge
     window.customElements.define('progress-ring', ProgressRing);
 
+    this._master = new Master();
     this._leftDeck = new Deck('left');
     this._rightDeck = new Deck('right');
     this._mixer = new Mixer();
@@ -29,6 +31,8 @@ class UserInterface {
     CustomEvents.subscribe(`Player/EQ`, this._updateKnobs.bind(this));
     CustomEvents.subscribe(`Player/CuePhones`, this._cuePhones.bind(this));
     CustomEvents.subscribe(`Player/Crossfade`, this._crossfade.bind(this));
+
+    CustomEvents.subscribe(`Master/Volume`, this._setMasterVolume.bind(this));
 
     CustomEvents.subscribe(`Pad/Set`, this._setPad.bind(this));
     CustomEvents.subscribe(`Pad/ShiftSet`, this._setPad.bind(this));
@@ -66,6 +70,9 @@ class UserInterface {
       this[`_${options.name}Deck`].setPause();
     }
   }
+
+
+  /* Player */
 
 
   _setVolume(options) {
@@ -109,6 +116,32 @@ class UserInterface {
   _crossfade(options) {
     this._mixer.updateCrossfader(options);
   }
+
+
+  /* Master */
+
+
+  toggleMasterPhoneCue() {
+    this._master.toggleMasterPhoneCue();
+  }
+
+
+  _setMasterVolume(options) {
+    this._master.setMasterVolume(options);
+  }
+
+
+  setHeadphoneMix(options) {
+    this._master.setMix(options);
+  }
+
+
+  setHeadphoneVolume(options) {
+    this._master.setHeadphoneVolume(options);
+  }
+
+
+  /* Pad */
 
 
   _setPad(options) {

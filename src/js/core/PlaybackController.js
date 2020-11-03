@@ -37,8 +37,6 @@ class PlaybackController {
   addTrack(deckSide, track) {
     if (deckSide === 'left' || deckSide === 'right') {
       return this[`_${deckSide}Player`].loadTrack(track);
-    } else {
-
     }
   }
 
@@ -46,16 +44,18 @@ class PlaybackController {
   togglePlayback(deckSide, options) {
     if (deckSide === 'left' || deckSide === 'right') {
       return this[`_${deckSide}Player`].togglePlayback(options);
-    } else {
-
     }
   }
+
+
+  setMasterVolume(value) {
+    this._master.setMasterVolume(value);
+  }
+
 
   setVolume(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${deckSide}Player`].setVolume(value);
-    } else {
-
     }
   }
 
@@ -63,8 +63,6 @@ class PlaybackController {
   setTrimVolume(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${deckSide}Player`].setTrimVolume(value);
-    } else {
-
     }
   }
 
@@ -72,8 +70,6 @@ class PlaybackController {
   setProgress(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${deckSide}Player`].setProgress(value);
-    } else {
-
     }
   }
 
@@ -81,8 +77,6 @@ class PlaybackController {
   adjustProgressSlow(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${deckSide}Player`].adjustProgressSlow(value);
-    } else {
-
     }
   }
 
@@ -90,8 +84,6 @@ class PlaybackController {
   adjustProgressFast(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${deckSide}Player`].adjustProgressFast(value);
-    } else {
-
     }
   }
 
@@ -99,8 +91,6 @@ class PlaybackController {
   setTempo(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${deckSide}Player`].setTempo(value);
-    } else {
-
     }
   }
 
@@ -108,8 +98,6 @@ class PlaybackController {
   setHighEQ(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${deckSide}Player`].setHighEQ(value);
-    } else {
-
     }
   }
 
@@ -117,8 +105,6 @@ class PlaybackController {
   setMidEQ(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${deckSide}Player`].setMidEQ(value);
-    } else {
-
     }
   }
 
@@ -126,8 +112,6 @@ class PlaybackController {
   setLowEQ(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${deckSide}Player`].setLowEQ(value);
-    } else {
-
     }
   }
 
@@ -135,8 +119,6 @@ class PlaybackController {
   setFilter(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       return this[`_${deckSide}Player`].setFilter(value);
-    } else {
-
     }
   }
 
@@ -144,9 +126,12 @@ class PlaybackController {
   setCuePhone(deckSide, value) {
     if (deckSide === 'left' || deckSide === 'right') {
       this._master.togglePhoneCue(deckSide, value);
-    } else {
-
     }
+  }
+
+
+  setMasterCuePhone(value) {
+    this._master.toggleMasterPhoneCue(value);
   }
 
 
@@ -175,6 +160,16 @@ class PlaybackController {
 
   getPlayer(deckSide) {
     return this[`_${deckSide}Player`].player;
+  }
+
+
+  getMasterPlayer() {
+    return this._master.player;
+  }
+
+
+  getMasterOutputNode(deckSide) {
+    return this._master.getMasterOutput();
   }
 
 

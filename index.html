@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="src/lib/audiovisualizer.min.css">
   </head>
   <body>
+    <div class="master">
+      <label for="master-global">PHONES</label>
+      <div id="headphone-global" class="headphone-global"><progress-ring progress="0" class="headphone-global"></progress-ring></div>
+      <label for="mix-global">MIX</label>
+      <div id="mix-global" class="mix-global"><progress-ring progress="0" class="mix-global"></progress-ring></div>
+      <label for="master-global">MASTER</label>
+      <div id="master-global" class="master-global"><progress-ring progress="0" class="master-global"></progress-ring></div>
+      <div id="headphones-master" class="headphones-master-global">
+        <img src="./assets/img/headphones.svg" alt="headphones-master">
+      </div>
+      <div id="peakmeter-master" class="peakmeter-master"></div>
+    </div>
     <div class="timelines">
       <div class="timeline">
         <div class="timeline-align-left">
@@ -201,10 +213,6 @@
       <div id="playlist-container" class="playlist-container"></div>
     </div>
     <script type="text/javascript" src="src/lib/AudioVisualizer.min.js"></script>
-    <!--
-    <script type="text/javascript" src="dist/Meax.min.js"></script>
-    <script type="text/javascript">
-    -->
     <script type="module">
       import Meax from './src/js/Meax.js';
       window.Meax.init();

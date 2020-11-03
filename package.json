@@ -10,8 +10,8 @@
   ],
   "main": "js/Meax.js",
   "scripts": {
-    "build": "webpack --env.version=0.0.1 --progress",
-    "dev": "webpack --env.version=0.0.1 --env.dev=true --progress",
+    "build": "webpack --env version=0.0.1 --env dev=false --progress",
+    "dev": "webpack --env version=0.0.1 --env dev=true --progress",
     "web-server": "http-server -p 1337 -c-1 -o index.html",
     "beforecommit": "npm run test && npm run build && npm run doc"
   },

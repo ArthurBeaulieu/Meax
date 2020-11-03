@@ -75,13 +75,21 @@ class Meax {
       // Navigate on pl is a UI only action
       this._ui.navigateInPlaylist('left', element.value);
     } else if (actionId === Enums.Commands.LEFT_FILTER) {
-      // Left filter knob first applies HPF or HPF on channel output, then update the UI knob
+      // Left filter knob first applies LPF or HPF on channel output, then update the UI knob
       this._pc.setFilter('left', element.value).then(options => { this._ui.setFilter('left', options); });
     } else if (actionId === Enums.Commands.RIGHT_FILTER) {
-      // Right filter knob first applies HPF or HPF on channel output, then update the UI knob
+      // Right filter knob first applies LPF or HPF on channel output, then update the UI knob
       this._pc.setFilter('right', element.value).then(options => { this._ui.setFilter('right', options); });
     } else if (actionId === Enums.Commands.CROSSFADER) {
       this._pc.crossFade(element.value);
+    } else if (actionId === Enums.Commands.CUE_PHONE_MASTER && element.value === 'push') { // No action required on this._pc as this cue master phone is handled in controller
+      this._ui.toggleMasterPhoneCue();
+    } else if (actionId === Enums.Commands.MASTER_VOLUME) {
+      this._pc.setMasterVolume(element.value);
+    } else if (actionId === Enums.Commands.HEADPHONE_MIX) { // No action required on this._pc as mix is handled in controller
+      this._ui.setHeadphoneMix(element.value);
+    } else if (actionId === Enums.Commands.HEADPHONE_VOLUME) { // No action required on this._pc as headphone volume is handled in controller
+      this._ui.setHeadphoneVolume(element.value);
     }
   }
 

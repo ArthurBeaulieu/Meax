@@ -16,17 +16,17 @@ class Master {
     this._leftPhoneCue = null;
     this._rightPhoneCue = null;
     // Default neutral gain value
-    this._gainValue = 1;
+    this._gainValue = 0.7079; // -3 dB attenuation
     // Internal flag to save headphone cue state for each deck
     this._leftCue = false;
     this._rightCue = false;
-
-    this._setuptNodes()
+    // TODO : add all internal in constructor
+    this._setuptNodes();
   }
 
 
   _setuptNodes() {
-    // Create ManaMeax audio context
+    // Create Meax audio context
     this._audioCtx = new AudioContext();
     // Crossfader left entry
     this._nodes.leftGain = this._audioCtx.createGain();
@@ -137,6 +137,33 @@ class Master {
   }
 
 
+  toggleMasterPhoneCue(value) {
+    CustomEvents.publish(`Player/MasterCuePhones`, value);
+  }
+
+
+  setMasterVolume(value) {
+    // Range [0, 0.66]/[0, 0.7079], [0.66, 1]/[0.7079, 1.995]
+    // 0.7079 is for -3 dB attenuation, 1.995 is for +6 dB boost
+    // Decibel conversion ; db = 20 * log10(gainValue) and gainValue = Math.pow(10, (db / 20))
+    // 0.66 is threshold value as in DDJ-400, the master zero is a the two third of the knob
+    // Formula to convert from one scale to another :
+    // NewValue = (((OldValue - OldMin) * (NewMax - NewMin)) / (OldMax - OldMin)) + NewMin
+    if (value < 0.66) {
+      this._nodes.outputGain.gain.value = (value * 0.7079) / 0.66;
+    } else if (value > 0.66) {
+      this._nodes.outputGain.gain.value = (((value - 0.66) * (1.995 - 0.7079)) / (1 - 0.66)) + 0.7079;
+    } else if (value === 0.66) {
+      this._nodes.outputGain.gain.value = 0.7079; // -3 dB attenuation
+    }
+    // Publish event to update components
+    CustomEvents.publish(`Master/Volume`, {
+      gain: this._nodes.outputGain.gain.value,
+      value: value
+    });
+  }
+
+
   attachPlayer(side, player) {
     this._players[side] = player;
   }
@@ -144,6 +171,11 @@ class Master {
 
   getMasterInput(side) {
     return this._nodes[`${side}Gain`];
+  }
+
+
+  getMasterOutput() {
+    return this._nodes.outputGain;
   }
 
 

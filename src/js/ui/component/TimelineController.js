@@ -53,8 +53,8 @@ class TimelineController {
       fftSize: 1024,
       speed: this._speed,
       beat: {
-        offset: 0.19,
-        bpm: 170,
+        offset: 0.15053,
+        bpm: 85,
         timeSignature: 4
       },
       wave: {

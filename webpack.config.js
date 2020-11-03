@@ -17,15 +17,15 @@ module.exports = env => {
   // Webpack configuration object
   return {
     mode: env.dev === 'true' ? 'development' : 'production',
-    watch: env.dev === 'true',
+    watch: true,
     entry: ['./src/js/Meax.js', './src/css/meax.scss'],
     stats: {
-      warnings: env.dev === 'true',
+      warnings: env.dev === 'true'
     },
     devtool: false,
     output: {
       path: DIST,
-      filename: `Meax.min.js`
+      filename: 'Meax.min.js'
     },
     module: {
       rules: [{
