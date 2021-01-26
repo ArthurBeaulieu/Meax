@@ -20,6 +20,8 @@ class Player {
       trimGain: null
     };
 
+    this._trackInfo = null;
+
     this._endEvtId = -1;
     this._progressRafId = -1;
     this._isPlaying = false;
@@ -44,6 +46,7 @@ class Player {
         this._isPlaying = true; // Must restore flag to automatically start playback if load occured on playing track
       }
 
+      this._trackInfo = track;
       this._player.src = track.url;
 
       const loadedListener = () => {
@@ -388,6 +391,11 @@ class Player {
 
   get playing() {
     return this._isPlaying;
+  }
+
+
+  get trackInfo() {
+    return this._trackInfo;
   }
 
 

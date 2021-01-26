@@ -50,6 +50,39 @@ class Pad {
   }
 
 
+  _setHotCues(pad, hotCues) {
+    for (let i = 0; i < hotCues.length; ++i) {
+      // Attach pad number to hotCue for proper setting
+      hotCues[i].pad = hotCues[i].label;
+      this.saveHotCue(hotCues[i]);
+    }
+  }
+
+
+  _setBeatJump() {
+    for (let i = 0; i < 8; ++i) {
+      const container = document.createElement('DIV');
+      const arrow = document.createElement('P');
+      const value = document.createElement('P');
+      container.classList.add('beatjump');
+
+      if (i % 2 === 1) { // Fast forward
+        arrow.classList.add('ff');
+        value.innerHTML = `${Math.pow(2, (i - 1) / 2)}`;
+        container.appendChild(value);
+        container.appendChild(arrow);
+      } else { // Rewind
+        arrow.classList.add('rw');
+        value.innerHTML = `${Math.pow(2, i / 2)}`;
+        container.appendChild(arrow);
+        container.appendChild(value);
+      }
+
+      this._dom[`pad${i + 1}`].appendChild(container);
+    }
+  }
+
+
 
   setPadControl(options) {
     for (let i = 0; i < 4; ++i) {
@@ -98,9 +131,11 @@ class Pad {
 
 
   saveHotCue(options) {
+    const container = document.createElement('DIV');
     const button = document.createElement('DIV');
     const title = document.createElement('P');
     const value = document.createElement('P');
+    container.classList.add('hotcue');
     button.classList.add(`pad${options.pad - 1}-hotcue-icon`);
     title.classList.add(`pad${options.pad - 1}-hotcue-title`);
     value.classList.add(`pad${options.pad - 1}-hotcue-value`);
@@ -117,9 +152,10 @@ class Pad {
       });
     });
     // Update internal pad object
-    this._dom[`pad${options.pad}`].appendChild(button);
-    this._dom[`pad${options.pad}`].appendChild(title);
-    this._dom[`pad${options.pad}`].appendChild(value);
+    container.appendChild(button);
+    container.appendChild(title);
+    container.appendChild(value);
+    this._dom[`pad${options.pad}`].appendChild(container);
     this._dom[`pad${options.pad}`].classList.add('enabled');
   }
 
@@ -138,10 +174,19 @@ class Pad {
   }
 
 
-  setPadType(options) {
-    this._type = Enums.PerformanceType[options.pad];
-    this._activeTypeIndex = options.pad;
-    this.setPadControl(options);
+  setPadType(options, hotCues) {
+    if (options.value) { // Only trigger when pushed
+      this.clearPadSelection();
+      this._type = Enums.PerformanceType[options.pad];
+      this._activeTypeIndex = options.pad;
+      this.setPadControl(options);
+
+      if (this._type === 'hotcue') {
+        this._setHotCues(options.pad, hotCues);
+      } else if (this._type === 'beatjump') {
+        this._setBeatJump();
+      }
+    }
   }
 
 

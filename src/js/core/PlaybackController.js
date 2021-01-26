@@ -163,6 +163,11 @@ class PlaybackController {
   }
 
 
+  getTrackInfo(deckSide) {
+    return this[`_${deckSide}Player`].trackInfo;
+  }
+
+
   getMasterPlayer() {
     return this._master.player;
   }

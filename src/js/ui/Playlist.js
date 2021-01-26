@@ -19,7 +19,7 @@ class Playlist {
       url: './assets/audio/Teminite - 01 - Elevate.mp3',
       title: 'Elevate',
       artist: 'Teminite',
-      bpm: '170',
+      bpm: '80',
       key: 'Fm'
     }, {
       url: './assets/audio/Teminite - 02 - Hot Fizz.mp3',
@@ -48,7 +48,7 @@ class Playlist {
       loadLeft.innerHTML = '<img src="assets/img/inject.svg" alt="inject-left">';
       loadRight.innerHTML = '<img src="assets/img/inject.svg" alt="inject-right">';
 
-      const injectClicked = function() { // Old function markup to get proper this on clicke elem
+      const injectClicked = function() { // Old function markup to get proper this on click elem
         const side = this.id.split('-')[1];
         Meax.pc.addTrack(side, track.info)
           .then(track => { Meax.ui.addTrack(side, track); });

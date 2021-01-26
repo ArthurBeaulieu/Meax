@@ -63,7 +63,7 @@ class DeviceHandler {
     const args = this._parseMIDIArguments(event.data);
     // Send MIDI input arguments to retrieve the mapped element
     const element = this._retrieveElementFromDeviceMapping(args);
-    // Only send calback if element exists in device mapping
+    // Only send callback if element exists in device mapping
     if (element) {
       element.args = args; // If element exists, we add its arguments
       element.raw = event.data; // Use on MIDI out to notify controller of state change
@@ -81,7 +81,7 @@ class DeviceHandler {
       cmd: event.data[0] >> 4,
       channel: event.data[0] & 0xf,
       note: event.data[1],
-      velocity: event.data[2], //  / 127 to get percenatge
+      velocity: event.data[2], //  / 127 to get percentage
     }
   }
 

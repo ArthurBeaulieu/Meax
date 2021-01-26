@@ -11,13 +11,13 @@ class Pad {
   }
 
 
-  togglePad(deckSide, value, index, shift) {
+  togglePad(deckSide, value, index) {
     // Fire event to refresh UI (border mostly)
     CustomEvents.publish('Pad/Set', {
       name: deckSide,
       pad: index + 1,
       shift: false,
-      active: value.raw[2] === 127 ? true : false
+      active: value.raw[2] === 127
     });
 
     if (value.value === 'push') { // Only do model actions on push action
@@ -28,12 +28,22 @@ class Pad {
           CustomEvents.publish('Pad/SaveHotCue', {
             name: deckSide,
             pad: index + 1,
-            active: value.raw[2] === 127 ? true : false,
+            active: value.raw[2] === 127,
             time: time,
             color: Enums.DefaultColors.hotCue
           });
         } else { // Jump to its value
           this._player.currentTime = this._hotCues[index];
+        }
+      } else if (this._activeMode === 4) {
+        const trackInfo = Meax.pc.getTrackInfo(deckSide);
+        // TODO change scale (offseting index value for longer jump, need addition in UI)
+        if (trackInfo) { // A track is load, and as a bpm set
+          if (index % 2 === 1) { // Fast forward
+            this._player.currentTime += (60 / trackInfo.bpm) * Math.pow(2, (index - 1) / 2);
+          } else { // Rewind
+            this._player.currentTime -= (60 / trackInfo.bpm) * Math.pow(2, index / 2);
+          }
         }
       }
     }
@@ -67,22 +77,13 @@ class Pad {
 
 
   setPadType(deckSide, value, padNumber) {
-    if (this._activeMode === 0 && this._activeMode !== padNumber) {
-      this._hotCues = [-1, -1, -1, -1, -1, -1, -1, -1];
-      CustomEvents.publish('Pad/ClearSelection', {
-        name: deckSide,
-        pad: padNumber + 1,
-        active: value.raw[2] === 127 ? true : false
-      });
-    }
-
     this._type = Enums.PerformanceType[padNumber + 1];
     this._activeMode = padNumber + 1;
 
     CustomEvents.publish('Pad/Type', {
       name: deckSide,
       pad: padNumber + 1,
-      value: value.raw[2] === 127 ? true : false
+      value: value.raw[2] === 127
     });
   }
 

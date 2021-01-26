@@ -1,5 +1,4 @@
 import Knob from './component/Knob.js';
-'use strict';
 
 
 class Master {

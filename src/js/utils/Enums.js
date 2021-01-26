@@ -1,5 +1,3 @@
-
-
 const ElementType = Object.freeze({
     BUTTON: 'BUTTON', // BUTTONs can have 2 states ; OFF (0x00, 0), ON (0x7F, 127)
     KNOB_HIGH: 'KNOB_HIGH',

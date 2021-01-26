@@ -1,3 +1,7 @@
+// Import style file to avoid multi entry point in webpack config
+import '../css/Meax.scss';
+
+
 import SessionManager from './core/SessionManager.js';
 import DeviceHandler from './core/DeviceHandler.js';
 import PlaybackController from './core/PlaybackController.js';
@@ -186,5 +190,4 @@ class Meax {
 }
 
 
-window.Meax = new Meax();
 export default Meax;

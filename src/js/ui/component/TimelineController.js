@@ -109,6 +109,15 @@ class TimelineController {
   }
 
 
+  updateTrack(track) {
+    this._timeline.updateBeatInfo({
+      offset: 1,
+      bpm: track.bpm,
+      timeSignature: 4
+    });
+  }
+
+
   alignUpdate(event) {
     this._align[this._alignValue].classList.remove('selected');
     this._alignValue = event.target.id.split('-')[3];

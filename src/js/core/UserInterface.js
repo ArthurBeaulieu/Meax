@@ -37,9 +37,9 @@ class UserInterface {
     CustomEvents.subscribe(`Pad/Set`, this._setPad.bind(this));
     CustomEvents.subscribe(`Pad/ShiftSet`, this._setPad.bind(this));
     CustomEvents.subscribe(`Pad/Fire`, this._firePad.bind(this));
-    CustomEvents.subscribe(`Pad/ClearSelection`, this._clearPadSelection.bind(this));
     CustomEvents.subscribe(`Pad/SaveHotCue`, this._saveHotCue.bind(this));
     CustomEvents.subscribe(`Pad/RemoveHotCue`, this._removeHotCue.bind(this));
+    CustomEvents.subscribe(`Pad/BeatJump`, this._beatJump.bind(this));
     CustomEvents.subscribe(`Pad/Type`, this._setPadType.bind(this));
   }
 
@@ -158,13 +158,6 @@ class UserInterface {
   }
 
 
-  _clearPadSelection(options) {
-    if (options.name === 'left' || options.name === 'right') {
-      this[`_${options.name}Deck`].clearPadSelection(options);
-    }
-  }
-
-
   _saveHotCue(options) {
     if (options.name === 'left' || options.name === 'right') {
       this[`_${options.name}Deck`].saveHotCue(options);
@@ -182,6 +175,13 @@ class UserInterface {
   updateHotCue(deckSide, options) {
     if (deckSide === 'left' || deckSide === 'right') {
       this[`_${options.name}Deck`].updateHotCue(options);
+    }
+  }
+
+
+  _beatJump(deckSide, options) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${options.name}Deck`].beatJump(deckSide, options);
     }
   }
 

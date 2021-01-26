@@ -151,6 +151,7 @@ class Deck {
     this._dom.duration.innerHTML = Utils.secondsToTimecode(track.duration, true);
     this._dom.appliedBpm.innerHTML = track.bpm;
     this._bpm = parseInt(track.bpm);
+    this._timelineController.updateTrack(track);
   }
 
 
@@ -221,8 +222,13 @@ class Deck {
   }
 
 
+  beatJump(options) {
+
+  }
+
+
   setPadType(options) {
-    this._performancePad.setPadType(options);
+    this._performancePad.setPadType(options, this._hotCues);
   }
 
 

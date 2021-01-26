@@ -1,5 +1,4 @@
 import HttpStatusCode from './Enums.js';
-'use strict';
 
 
 class Kom {
