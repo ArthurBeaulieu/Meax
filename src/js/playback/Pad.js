@@ -37,12 +37,12 @@ class Pad {
         }
       } else if (this._activeMode === 4) {
         const trackInfo = Meax.pc.getTrackInfo(deckSide);
-        // TODO change scale (offseting index value for longer jump, need addition in UI)
+        const offsetFactor = Meax.ui.getBeatJumpOffsetFactor(deckSide);
         if (trackInfo) { // A track is load, and as a bpm set
           if (index % 2 === 1) { // Fast forward
-            this._player.currentTime += (60 / trackInfo.bpm) * Math.pow(2, (index - 1) / 2);
+            this._player.currentTime += (60 / trackInfo.bpm) * Math.pow(2, (index - 1 + offsetFactor) / 2);
           } else { // Rewind
-            this._player.currentTime -= (60 / trackInfo.bpm) * Math.pow(2, index / 2);
+            this._player.currentTime -= (60 / trackInfo.bpm) * Math.pow(2, (index + offsetFactor) / 2);
           }
         }
       }

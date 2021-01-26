@@ -222,11 +222,6 @@ class Deck {
   }
 
 
-  beatJump(options) {
-
-  }
-
-
   setPadType(options) {
     this._performancePad.setPadType(options, this._hotCues);
   }
@@ -244,6 +239,11 @@ class Deck {
 
   getClosestBeatTime() {
     return this._timelineController.getClosestBeatTime();
+  }
+
+
+  getBeatJumpOffsetFactor() {
+    return this._performancePad.getBeatJumpOffsetFactor();
   }
 
 

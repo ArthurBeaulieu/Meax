@@ -22,8 +22,12 @@ class Pad {
       pad5: null,
       pad6: null,
       pad7: null,
-      pad8: null
+      pad8: null,
+      less: null,
+      more: null,
     };
+
+    this._beatJumpBank = 0;
 
     this._getElements();
   }
@@ -34,10 +38,15 @@ class Pad {
       this._dom[`ctrl${i + 1}`] = document.getElementById(`ctrl${i + 1}-${this._name}`);
     }
 
-    for (let i = 0; i < 8; ++i) { // Eight perfo pad slots
+    for (let i = 0; i < 8; ++i) { // Eight performance pad slots
       this._dom[`pad${i + 1}`] = document.getElementById(`pad${i + 1}-${this._name}`);
       CustomEvents.addEvent('click', this._dom[`pad${i + 1}`], this._padClicked, this);
     }
+
+    this._dom.less = document.getElementById(`bank-less-${this._name}`);
+    this._dom.more = document.getElementById(`bank-more-${this._name}`);
+    CustomEvents.addEvent('click', this._dom.less, this._lessClicked, this);
+    CustomEvents.addEvent('click', this._dom.more, this._moreClicked, this);
   }
 
 
@@ -47,6 +56,32 @@ class Pad {
       id = event.target.parentNode.id.split('-')[0].charAt(3);
     }
     Meax.pc.setPad(this._name, { value: 'push', raw: [0, 0, 127] }, id, event.shiftKey);
+  }
+
+
+  _lessClicked() {
+    if (!this._dom.less.classList.contains('disabled') && this._beatJumpBank > 0) {
+      this._dom.more.classList.remove('disabled');
+      --this._beatJumpBank;
+      this.clearPadSelection();
+      this._setBeatJump();
+      if (this._beatJumpBank === 0) {
+        this._dom.less.classList.add('disabled');
+      }
+    }
+  }
+
+
+  _moreClicked() {
+    if (!this._dom.more.classList.contains('disabled') && this._beatJumpBank < 1) {
+      this._dom.less.classList.remove('disabled');
+      ++this._beatJumpBank;
+      this.clearPadSelection();
+      this._setBeatJump();
+      if (this._beatJumpBank === 1) {
+        this._dom.more.classList.add('disabled');
+      }
+    }
   }
 
 
@@ -60,20 +95,27 @@ class Pad {
 
 
   _setBeatJump() {
+    if (this._beatJumpBank === 0) {
+      this._dom.more.classList.remove('disabled');
+    } else if (this._beatJumpBank === 1) {
+      this._dom.less.classList.remove('disabled');
+    }
+
     for (let i = 0; i < 8; ++i) {
       const container = document.createElement('DIV');
       const arrow = document.createElement('P');
       const value = document.createElement('P');
       container.classList.add('beatjump');
 
+      const offset = this._beatJumpBank === 0 ? this._beatJumpBank * 4 : (this._beatJumpBank + 1) * 4;
       if (i % 2 === 1) { // Fast forward
         arrow.classList.add('ff');
-        value.innerHTML = `${Math.pow(2, (i - 1) / 2)}`;
+        value.innerHTML = `${Math.pow(2, (i - 1 + offset) / 2)}`;
         container.appendChild(value);
         container.appendChild(arrow);
       } else { // Rewind
         arrow.classList.add('rw');
-        value.innerHTML = `${Math.pow(2, i / 2)}`;
+        value.innerHTML = `${Math.pow(2, (i + offset) / 2)}`;
         container.appendChild(arrow);
         container.appendChild(value);
       }
@@ -81,7 +123,6 @@ class Pad {
       this._dom[`pad${i + 1}`].appendChild(container);
     }
   }
-
 
 
   setPadControl(options) {
@@ -174,9 +215,16 @@ class Pad {
   }
 
 
+  getBeatJumpOffsetFactor() {
+    return this._beatJumpBank === 0 ? this._beatJumpBank * 4 : (this._beatJumpBank + 1) * 4;
+  }
+
+
   setPadType(options, hotCues) {
     if (options.value) { // Only trigger when pushed
       this.clearPadSelection();
+      this._dom.less.classList.add('disabled');
+      this._dom.more.classList.add('disabled');
       this._type = Enums.PerformanceType[options.pad];
       this._activeTypeIndex = options.pad;
       this.setPadControl(options);

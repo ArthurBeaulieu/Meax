@@ -39,7 +39,6 @@ class UserInterface {
     CustomEvents.subscribe(`Pad/Fire`, this._firePad.bind(this));
     CustomEvents.subscribe(`Pad/SaveHotCue`, this._saveHotCue.bind(this));
     CustomEvents.subscribe(`Pad/RemoveHotCue`, this._removeHotCue.bind(this));
-    CustomEvents.subscribe(`Pad/BeatJump`, this._beatJump.bind(this));
     CustomEvents.subscribe(`Pad/Type`, this._setPadType.bind(this));
   }
 
@@ -179,13 +178,6 @@ class UserInterface {
   }
 
 
-  _beatJump(deckSide, options) {
-    if (deckSide === 'left' || deckSide === 'right') {
-      this[`_${options.name}Deck`].beatJump(deckSide, options);
-    }
-  }
-
-
   _setPadType(options) {
     if (options.name === 'left' || options.name === 'right') {
       this[`_${options.name}Deck`].setPadType(options);
@@ -222,6 +214,13 @@ class UserInterface {
   getClosestBeatTime(name) {
     if (name === 'left' || name === 'right') {
       return this[`_${name}Deck`].getClosestBeatTime();
+    }
+  }
+
+
+  getBeatJumpOffsetFactor(deckSide) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      return this[`_${deckSide}Deck`].getBeatJumpOffsetFactor();
     }
   }
 
