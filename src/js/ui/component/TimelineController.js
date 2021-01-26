@@ -111,7 +111,7 @@ class TimelineController {
 
   updateTrack(track) {
     this._timeline.updateBeatInfo({
-      offset: 1,
+      offset: track.beatOffset,
       bpm: track.bpm,
       timeSignature: 4
     });

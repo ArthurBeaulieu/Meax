@@ -13,6 +13,8 @@ class Deck {
       title: null,
       artist: null,
       bpm: null,
+      phraseSpinner: null,
+      measureSpinner: null,
       appliedBpm: null,
       key: null,
       progress: null, // The text displayed value of progress
@@ -23,6 +25,8 @@ class Deck {
       cuePhone: null,
       waveformColors: null
     };
+
+    this._currentTrack = null;
 
     this._knobs = {
       gain: null,
@@ -51,6 +55,8 @@ class Deck {
     this._dom.title = document.getElementById(`track-title-${this._name}`);
     this._dom.artist = document.getElementById(`track-artist-${this._name}`);
     this._dom.bpm = document.getElementById(`track-bpm-${this._name}`);
+    this._dom.phraseSpinner = document.getElementById(`track-phrase-${this._name}`);
+    this._dom.measureSpinner = document.getElementById(`track-measure-${this._name}`);
     this._dom.appliedBpm = document.getElementById(`track-applied-bpm-${this._name}`);
     this._dom.key = document.getElementById(`track-key-${this._name}`);
     this._dom.progress = document.getElementById(`track-current-time-${this._name}`);
@@ -133,12 +139,16 @@ class Deck {
   setPlay() {
     this._dom.play.src = './assets/img/player/pause.svg';
     this._dom.play.classList.add('playing');
+    this._dom.phraseSpinner.style.animationPlayState = 'running';
+    this._dom.measureSpinner.style.animationPlayState = 'running';
   }
 
 
   setPause() {
     this._dom.play.src = './assets/img/player/play.svg';
     this._dom.play.classList.remove('playing');
+    this._dom.phraseSpinner.style.animationPlayState = 'paused';
+    this._dom.measureSpinner.style.animationPlayState = 'paused';
   }
 
 
@@ -152,6 +162,11 @@ class Deck {
     this._dom.appliedBpm.innerHTML = track.bpm;
     this._bpm = parseInt(track.bpm);
     this._timelineController.updateTrack(track);
+    this._dom.phraseSpinner.style.animationDelay = `${track.beatOffset}s`;
+    this._dom.measureSpinner.style.animationDelay = `${track.beatOffset}s`;
+    this._dom.phraseSpinner.style.animationDuration = `${(60 / this._bpm) * 16}s`;
+    this._dom.measureSpinner.style.animationDuration = `${(60 / this._bpm) * 4}s`;
+    this._currentTrack = track;
   }
 
 
@@ -178,7 +193,6 @@ class Deck {
   clearPadSelection(options) {
     this._performancePad.clearPadSelection();
   }
-
 
 
   saveHotCue(options) {

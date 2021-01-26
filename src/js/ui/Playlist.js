@@ -19,20 +19,23 @@ class Playlist {
       url: './assets/audio/Teminite - 01 - Elevate.mp3',
       title: 'Elevate',
       artist: 'Teminite',
-      bpm: '80',
-      key: 'Fm'
+      bpm: '60',
+      key: 'Fm',
+      beatOffset: 0.14
     }, {
       url: './assets/audio/Teminite - 02 - Hot Fizz.mp3',
       title: 'Hot Fizz',
       artist: 'Teminite',
       bpm: '105',
-      key: 'G♯m'
+      key: 'G♯m',
+      beatOffset: 0.955
     }, {
       url: './assets/audio/Teminite - 03 - Don\'t Stop.mp3',
       title: 'Don\'t Stop',
       artist: 'Teminite',
       bpm: '140',
-      key: 'Fm'
+      key: 'Fm',
+      beatOffset: 0.955
     }];
 
     for (let i = 0; i < simulatedPl.length; ++i) {

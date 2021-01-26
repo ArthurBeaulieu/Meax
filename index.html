@@ -109,7 +109,13 @@
             </div>
             <div class="playback-info">
               <div class="tempo-info">
-                <p id="track-applied-bpm-left">0</p>
+                <div id="track-phrase-left" class="vinyl-wrapper">
+                  <div id="track-measure-left" class="measure-wrapper"></div>
+                </div>
+                <div class="track-bpm-info">
+                  <p id="track-applied-bpm-left">--</p>
+                  <p>10%</p>
+                </div>
               </div>
               <div class="playback-effects">
                 <div id="eq-filter-left" class="eq-filter"><progress-ring progress="0" class="filter-left"></progress-ring></div>
@@ -186,7 +192,12 @@
           <div class="track-controls">
             <div class="playback-info">
               <div class="tempo-info">
-                <p id="track-applied-bpm-right">0</p>
+                <div id="track-phrase-right" class="vinyl-wrapper"></div>
+                <div id="track-measure-right" class="measure-wrapper"></div>
+                <div class="track-bpm-info">
+                  <p id="track-applied-bpm-right">--</p>
+                  <p>10%</p>
+                </div>
               </div>
               <div class="playback-effects start-align">
                 <div id="eq-gain-right" class="eq-gain"><progress-ring progress="0" class="gain-right"></progress-ring></div>

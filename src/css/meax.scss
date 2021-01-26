@@ -89,6 +89,11 @@
   --margin: 10px;
 }
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -525,7 +530,71 @@ html, body {
             align-items: center;
             justify-content: center;
             height: calc(100% - 50px);
+            position: relative;
             width: 100%;
+
+            .vinyl-wrapper {
+              align-items: center;
+              background-color: #1D1E25;
+              border-radius: 50%;
+              border: 6px solid #AAAACC;
+              display: flex;
+              height: 100px;
+              justify-content: center;
+              position: relative;
+              width: 100px;
+
+              animation-name: spin;
+              animation-timing-function: linear;
+              animation-iteration-count: infinite;
+              animation-duration: 0s;
+              animation-play-state:  paused;
+              animation-delay: 0s; // To update in js according to track offset to first beat
+
+              &::after {
+                content: '';
+                background-color: black;
+                position: absolute;
+                height: 6px;
+                top: -6px;
+                left: 50%;
+                width: 6px;
+              }
+            }
+
+            .measure-wrapper {
+              border-radius: 50%;
+              border: 6px solid #FF6B67;
+              height: 88px;
+              width: 88px;
+              position: absolute;
+
+              animation-name: spin;
+              animation-timing-function: linear;
+              animation-iteration-count: infinite;
+              animation-duration: 0s;
+              animation-play-state: paused;
+              animation-delay: 0s; // To update in js according to track offset to first beat
+
+              &::after {
+                content: '';
+                background-color: black;
+                position: absolute;
+                height: 6px;
+                top: -6px;
+                left: 50%;
+                width: 6px;
+              }
+            }
+
+            .track-bpm-info {
+              position: absolute;
+              text-align: center;
+
+              p {
+                margin: 0;
+              }
+            }
           }
 
           .playback-effects {
