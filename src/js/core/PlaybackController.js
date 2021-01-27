@@ -173,7 +173,7 @@ class PlaybackController {
   }
 
 
-  getMasterOutputNode(deckSide) {
+  getMasterOutputNode() {
     return this._master.getMasterOutput();
   }
 

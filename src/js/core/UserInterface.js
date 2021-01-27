@@ -1,7 +1,7 @@
 import Master from '../ui/Master.js';
 import Deck from '../ui/Deck.js';
 import Mixer from '../ui/Mixer.js';
-import Playlist from '../ui/Playlist.js';
+import ViewManager from '../ui/ViewManager.js';
 import ProgressRing from '../ui/component/ProgressRing.js';
 
 
@@ -16,30 +16,30 @@ class UserInterface {
     this._leftDeck = new Deck('left');
     this._rightDeck = new Deck('right');
     this._mixer = new Mixer();
-    this._playlist = new Playlist();
+    this._playlist = new ViewManager();
 
     this._setEventSubscriptions();
   }
 
 
   _setEventSubscriptions() {
-    CustomEvents.subscribe(`Player/SetVolume`, this._setVolume.bind(this));
-    CustomEvents.subscribe(`Player/SetTempo`, this._setTempo.bind(this));
-    CustomEvents.subscribe(`Player/Play`, this._setPlay.bind(this));
-    CustomEvents.subscribe(`Player/Pause`, this._setPause.bind(this));
-    CustomEvents.subscribe(`Player/Progress`, this._updateProgress.bind(this));
-    CustomEvents.subscribe(`Player/EQ`, this._updateKnobs.bind(this));
-    CustomEvents.subscribe(`Player/CuePhones`, this._cuePhones.bind(this));
-    CustomEvents.subscribe(`Player/Crossfade`, this._crossfade.bind(this));
+    window.CustomEvents.subscribe(`Player/SetVolume`, this._setVolume.bind(this));
+    window.CustomEvents.subscribe(`Player/SetTempo`, this._setTempo.bind(this));
+    window.CustomEvents.subscribe(`Player/Play`, this._setPlay.bind(this));
+    window.CustomEvents.subscribe(`Player/Pause`, this._setPause.bind(this));
+    window.CustomEvents.subscribe(`Player/Progress`, this._updateProgress.bind(this));
+    window.CustomEvents.subscribe(`Player/EQ`, this._updateKnobs.bind(this));
+    window.CustomEvents.subscribe(`Player/CuePhones`, this._cuePhones.bind(this));
+    window.CustomEvents.subscribe(`Player/Crossfade`, this._crossfade.bind(this));
 
-    CustomEvents.subscribe(`Master/Volume`, this._setMasterVolume.bind(this));
+    window.CustomEvents.subscribe(`Master/Volume`, this._setMasterVolume.bind(this));
 
-    CustomEvents.subscribe(`Pad/Set`, this._setPad.bind(this));
-    CustomEvents.subscribe(`Pad/ShiftSet`, this._setPad.bind(this));
-    CustomEvents.subscribe(`Pad/Fire`, this._firePad.bind(this));
-    CustomEvents.subscribe(`Pad/SaveHotCue`, this._saveHotCue.bind(this));
-    CustomEvents.subscribe(`Pad/RemoveHotCue`, this._removeHotCue.bind(this));
-    CustomEvents.subscribe(`Pad/Type`, this._setPadType.bind(this));
+    window.CustomEvents.subscribe(`Pad/Set`, this._setPad.bind(this));
+    window.CustomEvents.subscribe(`Pad/ShiftSet`, this._setPad.bind(this));
+    window.CustomEvents.subscribe(`Pad/Fire`, this._firePad.bind(this));
+    window.CustomEvents.subscribe(`Pad/SaveHotCue`, this._saveHotCue.bind(this));
+    window.CustomEvents.subscribe(`Pad/RemoveHotCue`, this._removeHotCue.bind(this));
+    window.CustomEvents.subscribe(`Pad/Type`, this._setPadType.bind(this));
   }
 
 
@@ -92,8 +92,6 @@ class UserInterface {
   _updateProgress(options) {
     if (options.name === 'left' || options.name === 'right') {
       this[`_${options.name}Deck`].updateProgress(options.value);
-    } else {
-
     }
   }
 

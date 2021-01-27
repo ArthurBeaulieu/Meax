@@ -21,11 +21,11 @@ class Master {
     this._leftCue = false;
     this._rightCue = false;
     // TODO : add all internal in constructor
-    this._setuptNodes();
+    this._setupNodes();
   }
 
 
-  _setuptNodes() {
+  _setupNodes() {
     // Create Meax audio context
     this._audioCtx = new AudioContext();
     // Crossfader left entry
@@ -66,7 +66,7 @@ class Master {
       this._nodes.rightGain.gain.value = 0.5;
     }
 
-    CustomEvents.publish(`Player/Crossfade`, {
+    window.CustomEvents.publish(`Player/Crossfade`, {
       leftGain: this._nodes.leftGain.gain.value,
       rightGain: this._nodes.rightGain.gain.value,
       value: value
@@ -94,7 +94,7 @@ class Master {
     }
     // Publish CuePhones with side
     value.name = side;
-    CustomEvents.publish(`Player/CuePhones`, value);
+    window.CustomEvents.publish(`Player/CuePhones`, value);
     // Audio nodes routing to provide proper headphones output (channel 3/4)
     if (this._leftCue === true && this._rightCue === true) { // Both deck are listened
       // Disconnect any previous routing to headphones
@@ -102,7 +102,7 @@ class Master {
         this._leftPhoneCue.disconnect(this._nodes.merger, 0, 2);
         this._rightPhoneCue.disconnect(this._nodes.merger, 0, 3);
       }
-      // Update heaphones audio nodes
+      // Update headphones audio nodes
       this._leftPhoneCue = this._players['left'].output;
       this._rightPhoneCue = this._players['right'].output;
       // Connect to merger on headphone channels
@@ -118,7 +118,7 @@ class Master {
       if (this._leftCue === true) {
         side = 'left';
       }
-      // Update heaphones audio nodes
+      // Update headphones audio nodes
       this._leftPhoneCue = this._players[side].output;
       this._rightPhoneCue = this._players[side].output;
       // Connect to merger on headphone channels
@@ -138,7 +138,7 @@ class Master {
 
 
   toggleMasterPhoneCue(value) {
-    CustomEvents.publish(`Player/MasterCuePhones`, value);
+    window.CustomEvents.publish(`Player/MasterCuePhones`, value);
   }
 
 
@@ -157,7 +157,7 @@ class Master {
       this._nodes.outputGain.gain.value = 0.7079; // -3 dB attenuation
     }
     // Publish event to update components
-    CustomEvents.publish(`Master/Volume`, {
+    window.CustomEvents.publish(`Master/Volume`, {
       gain: this._nodes.outputGain.gain.value,
       value: value
     });

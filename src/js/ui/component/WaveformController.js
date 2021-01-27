@@ -14,13 +14,13 @@ class WaveformController {
     };
 
     this._colors = {
-      background: Meax.sm.get(`${this._name}-waveform-color-background`) || '#1D1E25', // Mzk background
-      track: Meax.sm.get(`${this._name}-waveform-color-track`) || '#FFFFFF', // Dark green
-      progress: Meax.sm.get(`${this._name}-waveform-color-progress`) || '#56D45B', // Mzk red
-      progressBar: Meax.sm.get(`${this._name}-waveform-color-progress-bar`) || '#FF6B67' // Light grey
+      background: window.Meax.sm.get(`${this._name}-waveform-color-background`) || '#1D1E25', // Mzk background
+      track: window.Meax.sm.get(`${this._name}-waveform-color-track`) || '#FFFFFF', // Dark green
+      progress: window.Meax.sm.get(`${this._name}-waveform-color-progress`) || '#56D45B', // Mzk red
+      progressBar: window.Meax.sm.get(`${this._name}-waveform-color-progress-bar`) || '#FF6B67' // Light grey
     };
 
-    this._alignValue = Meax.sm.get(`${this._name}-waveform-alignment`) || 'bottom';
+    this._alignValue = window.Meax.sm.get(`${this._name}-waveform-alignment`) || 'bottom';
 
     this._buildWaveform();
     this._setControls();
@@ -35,13 +35,13 @@ class WaveformController {
       this._waveform = null;
     }
 
-    this._waveform = new AudioVisualizer({
+    this._waveform = new window.AudioVisualizer({
       type: 'waveform',
-      player: Meax.pc.getPlayer(this._name),
+      player: window.Meax.pc.getPlayer(this._name),
       renderTo: document.querySelector(`#waveform-${this._name}`),
       fftSize: 1024,
-      audioContext: Meax.pc.audioContext,
-      inputNode: Meax.pc.getPlayerOutputNode(this._name),
+      audioContext: window.Meax.pc.audioContext,
+      inputNode: window.Meax.pc.getPlayerOutputNode(this._name),
       animation: 'gradient',
       wave: {
         align: this._alignValue,
@@ -62,17 +62,17 @@ class WaveformController {
     this._controls.modal = document.getElementById(`waveform-${this._name}-colors`);
     this._controls.progressBar = document.getElementById(`track-waveform-progress-${this._name}`);
 
-    CustomEvents.addEvent('click', this._controls.modal, this.optionsUpdateModal, this);
+    window.CustomEvents.addEvent('click', this._controls.modal, this.optionsUpdateModal, this);
 
-    CustomEvents.addEvent('click', this._controls.progressBar.parentNode, event => {
+    window.CustomEvents.addEvent('click', this._controls.progressBar.parentNode, event => {
       const percentage = (event.offsetX / this._controls.progressBar.parentNode.offsetWidth);
-      Meax.pc.setProgress(this._name, percentage);
+      window.Meax.pc.setProgress(this._name, percentage);
     }, this);
 
-    CustomEvents.addEvent('timeupdate', Meax.pc.getPlayer(this._name), event => {
+    window.CustomEvents.addEvent('timeupdate', window.Meax.pc.getPlayer(this._name), () => {
       this.updateProgress({
-        progress: Meax.pc.getPlayer(this._name).currentTime,
-        duration: Meax.pc.getPlayer(this._name).duration
+        progress: window.Meax.pc.getPlayer(this._name).currentTime,
+        duration: window.Meax.pc.getPlayer(this._name).duration
       });
     }, this);
   }
@@ -89,7 +89,7 @@ class WaveformController {
 
   optionsUpdateModal(event) {
     event.stopPropagation();
-    const modal = new WaveformOptionsModal({
+    new WaveformOptionsModal({
       name: this._name,
       colors: this._colors,
       align: this._alignValue,

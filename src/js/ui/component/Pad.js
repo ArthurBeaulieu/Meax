@@ -40,13 +40,13 @@ class Pad {
 
     for (let i = 0; i < 8; ++i) { // Eight performance pad slots
       this._dom[`pad${i + 1}`] = document.getElementById(`pad${i + 1}-${this._name}`);
-      CustomEvents.addEvent('click', this._dom[`pad${i + 1}`], this._padClicked, this);
+      window.CustomEvents.addEvent('click', this._dom[`pad${i + 1}`], this._padClicked, this);
     }
 
     this._dom.less = document.getElementById(`bank-less-${this._name}`);
     this._dom.more = document.getElementById(`bank-more-${this._name}`);
-    CustomEvents.addEvent('click', this._dom.less, this._lessClicked, this);
-    CustomEvents.addEvent('click', this._dom.more, this._moreClicked, this);
+    window.CustomEvents.addEvent('click', this._dom.less, this._lessClicked, this);
+    window.CustomEvents.addEvent('click', this._dom.more, this._moreClicked, this);
   }
 
 
@@ -55,7 +55,7 @@ class Pad {
     if (!id) {
       id = event.target.parentNode.id.split('-')[0].charAt(3);
     }
-    Meax.pc.setPad(this._name, { value: 'push', raw: [0, 0, 127] }, id, event.shiftKey);
+    window.Meax.pc.setPad(this._name, { value: 'push', raw: [0, 0, 127] }, id, event.shiftKey);
   }
 
 
@@ -134,12 +134,12 @@ class Pad {
     if (options.pad % 2 === 0) { // Even is standard modes
       this._dom[`ctrl${(options.pad / 2) + 1}`].classList.add('enabled');
       for (let i = 0; i < 4; ++i) {
-        this._dom[`ctrl${i + 1}`].firstChild.innerHTML = Enums.PerformanceType[i * 2].toUpperCase();
+        this._dom[`ctrl${i + 1}`].firstChild.innerHTML = window.Enums.PerformanceType[i * 2].toUpperCase();
       }
     } else { // Odd is shifted modes
       this._dom[`ctrl${((options.pad - 1) / 2) + 1}`].classList.add('shift-enabled');
       for (let i = 0; i < 4; ++i) {
-        this._dom[`ctrl${i + 1}`].firstChild.innerHTML = Enums.PerformanceType[(i * 2) + 1].toUpperCase();
+        this._dom[`ctrl${i + 1}`].firstChild.innerHTML = window.Enums.PerformanceType[(i * 2) + 1].toUpperCase();
       }
     }
   }
@@ -180,12 +180,12 @@ class Pad {
     button.classList.add(`pad${options.pad - 1}-hotcue-icon`);
     title.classList.add(`pad${options.pad - 1}-hotcue-title`);
     value.classList.add(`pad${options.pad - 1}-hotcue-value`);
-    button.style.backgroundColor = Enums.DefaultColors.hotCue;
+    button.style.backgroundColor = window.Enums.DefaultColors.hotCue;
     button.innerHTML = options.pad;
-    value.innerHTML = Utils.secondsToTimecode(Utils.precisionRound(options.time, 2));
-    CustomEvents.addEvent('click', button, event => {
+    value.innerHTML = window.Utils.secondsToTimecode(window.Utils.precisionRound(options.time, 2));
+    window.CustomEvents.addEvent('click', button, event => {
       event.stopPropagation(); // Avoid event on parent to trigger
-      const modal = new EditCueModal({
+      new EditCueModal({
         name: this._name,
         title: title.innerHTML,
         url: 'assets/html/EditCueModal.html',
@@ -208,8 +208,8 @@ class Pad {
 
 
   updateHotCue(hotCue, options) {
-    const button = this._dom[`pad${options.pad}`].children[0];
-    const title = this._dom[`pad${options.pad}`].children[1];
+    const button = this._dom[`pad${options.pad}`].children[0].children[0];
+    const title = this._dom[`pad${options.pad}`].children[0].children[1];
     button.style.backgroundColor = options.color;
     title.innerHTML = options.title;
   }
@@ -225,7 +225,7 @@ class Pad {
       this.clearPadSelection();
       this._dom.less.classList.add('disabled');
       this._dom.more.classList.add('disabled');
-      this._type = Enums.PerformanceType[options.pad];
+      this._type = window.Enums.PerformanceType[options.pad];
       this._activeTypeIndex = options.pad;
       this.setPadControl(options);
 

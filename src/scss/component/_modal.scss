@@ -1,0 +1,134 @@
+.modal-overlay {
+  align-items: center;
+  background-color: var(--mzk-color-bg-darker-alpha-75);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.modal {
+  background-color: rgb(31, 33, 39);
+  border: 1px solid #0e0f14;
+  border-radius: 6px;
+  box-shadow:  0 0 1rem 0 rgba(86, 212, 91, .05);
+  box-sizing: border-box;
+  font-size: 1.2rem;
+  padding: 3rem;
+  width: max-content;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 1.5em;
+    text-align: center;
+  }
+
+  div {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: .3rem 0;
+  }
+
+  label {
+    font-style: italic;
+  }
+
+  input[type=color] {
+    background: 0;
+    border: 1px solid transparent;
+    padding: 0;
+  }
+
+  input[type=text] {
+    background: 0;
+    border: 1px solid #aaaabe;
+    border-radius: 2px;
+    color: #aaaabe;
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    padding: .2rem;
+    width: 70%;
+  }
+
+  button {
+    background: 0;
+    border: 1px solid #aaaabe;
+    border-radius: 6px;
+    color: #aaaabe;
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1.5em;
+    padding: .5rem 1rem;
+
+    transition: background-color .2s, border .2s, box-shadow .2s, color .2s;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: rgba(127, 127, 127, .1);
+      border: 1px solid #ebebff;
+      box-shadow: 0 0 1px #ebebff;
+      color: #ebebff;
+    }
+
+    &.danger {
+      background: var(--mzk-color-anti-primary);
+      color: var(--mzk-color-bg);
+    }
+  }
+
+  .multi-buttons {
+    display: flex;
+    justify-content: center;
+
+    button {
+      margin-left: .5rem;
+      margin-right: .5rem;
+    }
+  }
+
+  .icons {
+    margin: 1.5em 0;
+  }
+
+  img {
+    cursor: pointer;
+    height: 1rem;
+    margin: 0 .5rem;
+
+    &.selected {
+      filter: invert(84%) sepia(10%) saturate(3000%) hue-rotate(64deg) brightness(174%) contrast(88%);
+    }
+  }
+
+  &.edit-hot-cue {
+    input[type=text] {
+      text-align: center;
+      width: 60%;
+    }
+  }
+
+  &.new-local-playlist {
+    .drop-area {
+      align-items: center;
+      background: var(--mzk-color-bg-lighter-alpha-25);
+      border: dashed 3px var(--mzk-color-text-alpha-25);
+      border-radius: 5px;
+      display: flex;
+      height: 10rem;
+      justify-content: center;
+      margin-top: 1.5em;
+      text-align: center;
+      width: 25rem;
+    }
+  }
+}

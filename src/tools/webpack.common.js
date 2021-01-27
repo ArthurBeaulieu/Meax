@@ -21,8 +21,8 @@ module.exports = {
   plugins: [
     new webpack.ProgressPlugin(),
     plugins.CleanWebpackPlugin,
-    //plugins.ESLintPlugin,
-    //plugins.StyleLintPlugin,
+    plugins.ESLintPlugin,
+    plugins.StyleLintPlugin,
     plugins.MiniCssExtractPlugin
   ]
 };

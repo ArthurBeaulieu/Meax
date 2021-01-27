@@ -25,15 +25,14 @@ class EditCueModal extends ModalBase  {
     this._dom.update = document.getElementById('edit-hot-cue-submit');
     this._dom.color.value = this._hotCue.color;
     this._dom.title.value = this._title;
-    CustomEvents.addEvent('click', this._dom.update, this.updateHotCue, this);
+    this._evtIds.push(window.CustomEvents.addEvent('click', this._dom.update, this.updateHotCue, this));
   }
 
 
   updateHotCue() {
     this._hotCue.color = this._dom.color.value;
     this._hotCue.title = this._dom.title.value;
-    Meax.ui.updateHotCue(this._name, this._hotCue);
-    CustomEvents.removeEvent('click', this._dom.update, this.updateHotCue, this);
+    window.Meax.ui.updateHotCue(this._name, this._hotCue);
     this.close();
   }
 

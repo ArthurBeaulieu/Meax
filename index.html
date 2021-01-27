@@ -8,6 +8,7 @@
   </head>
   <body>
     <div class="master">
+      <img src="./assets/img/meax-logo.svg" class="app-logo" alt="meax-logo">
       <label for="master-global">PHONES</label>
       <div id="headphone-global" class="headphone-global"><progress-ring progress="0" class="headphone-global"></progress-ring></div>
       <label for="mix-global">MIX</label>
@@ -18,6 +19,7 @@
         <img src="./assets/img/headphones.svg" alt="headphones-master">
       </div>
       <div id="peakmeter-master" class="peakmeter-master"></div>
+      <div id="clock" class="clock">--:--:--</div>
     </div>
     <div class="timelines">
       <div class="timeline">
@@ -98,7 +100,7 @@
                 <div id="bank-less-left" class="triangle-wrapper disabled">
                   <div class="l-triangle"></div>
                 </div>
-                <div id="bank-more-left" class="triangle-wrapper">
+                <div id="bank-more-left" class="triangle-wrapper disabled">
                   <div class="r-triangle"></div>
                 </div>
               </div>
@@ -114,7 +116,7 @@
                 </div>
                 <div class="track-bpm-info">
                   <p id="track-applied-bpm-left">--</p>
-                  <p>10%</p>
+                  <p>16%</p>
                 </div>
               </div>
               <div class="playback-effects">
@@ -196,7 +198,7 @@
                 <div id="track-measure-right" class="measure-wrapper"></div>
                 <div class="track-bpm-info">
                   <p id="track-applied-bpm-right">--</p>
-                  <p>10%</p>
+                  <p>16%</p>
                 </div>
               </div>
               <div class="playback-effects start-align">
@@ -209,7 +211,7 @@
                 <div id="bank-less-right" class="triangle-wrapper disabled">
                   <div class="l-triangle"></div>
                 </div>
-                <div id="bank-more-right" class="triangle-wrapper">
+                <div id="bank-more-right" class="triangle-wrapper disabled">
                   <div class="r-triangle"></div>
                 </div>
               </div>
@@ -241,6 +243,12 @@
       </div>
     </div>
     <div class="playlists">
+      <div class="playlist-browser">
+        <div id="new-local-playlist" class="new-playlist">
+          <p>Create local playlist</p>
+        </div>
+        <div id="saved-playlists" class="saved-playlists"></div>
+      </div>
       <div id="playlist-container" class="playlist-container"></div>
     </div>
     <script type="text/javascript" src="src/lib/AudioVisualizer.min.js"></script>

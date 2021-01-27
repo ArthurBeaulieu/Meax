@@ -22,15 +22,15 @@ class TimelineController {
     };
 
     this._colors = {
-      background: Meax.sm.get(`${this._name}-timeline-color-background`) || '#1D1E25', // Mzk background
-      track: Meax.sm.get(`${this._name}-timeline-color-track`) || '#12B31D', // Dark green
-      mainBeat: Meax.sm.get(`${this._name}-timeline-color-main-beat`) || '#FF6B67', // Mzk red
-      subBeat: Meax.sm.get(`${this._name}-timeline-color-sub-beat`) || '#56D45B' // Light grey
+      background: window.Meax.sm.get(`${this._name}-timeline-color-background`) || '#1D1E25', // Mzk background
+      track: window.Meax.sm.get(`${this._name}-timeline-color-track`) || '#12B31D', // Dark green
+      mainBeat: window.Meax.sm.get(`${this._name}-timeline-color-main-beat`) || '#FF6B67', // Mzk red
+      subBeat: window.Meax.sm.get(`${this._name}-timeline-color-sub-beat`) || '#56D45B' // Light grey
     };
 
-    this._alignValue = Meax.sm.get(`${this._name}-timeline-alignment`) || 'center';
-    this._speed = Meax.sm.get(`${this._name}-timeline-speed`) || 8;
-    this._scale = Meax.sm.get(`${this._name}-timeline-scale`) || 90;
+    this._alignValue = window.Meax.sm.get(`${this._name}-timeline-alignment`) || 'center';
+    this._speed = window.Meax.sm.get(`${this._name}-timeline-speed`) || 8;
+    this._scale = window.Meax.sm.get(`${this._name}-timeline-scale`) || 90;
 
     this._buildTimeline();
     this._setControls();
@@ -44,11 +44,11 @@ class TimelineController {
       this._timeline = null;
     }
 
-    this._timeline = new AudioVisualizer({
+    this._timeline = new window.AudioVisualizer({
       type: 'timeline',
-      player: Meax.pc.getPlayer(this._name),
-      audioContext: Meax.pc.audioContext,
-      inputNode: Meax.pc.getPlayerOutputNode(this._name),
+      player: window.Meax.pc.getPlayer(this._name),
+      audioContext: window.Meax.pc.audioContext,
+      inputNode: window.Meax.pc.getPlayerOutputNode(this._name),
       renderTo: document.querySelector(`#timeline-container-${this._name}`),
       fftSize: 1024,
       speed: this._speed,
@@ -77,9 +77,9 @@ class TimelineController {
     this._align.center = document.getElementById(`timeline-${this._name}-align-center`);
     this._align.bottom = document.getElementById(`timeline-${this._name}-align-bottom`);
 
-    CustomEvents.addEvent('click', this._align.top, this.alignUpdate, this);
-    CustomEvents.addEvent('click', this._align.center, this.alignUpdate, this);
-    CustomEvents.addEvent('click', this._align.bottom, this.alignUpdate, this);
+    window.CustomEvents.addEvent('click', this._align.top, this.alignUpdate, this);
+    window.CustomEvents.addEvent('click', this._align.center, this.alignUpdate, this);
+    window.CustomEvents.addEvent('click', this._align.bottom, this.alignUpdate, this);
 
     this._controls.speedPlus = document.getElementById(`timeline-${this._name}-speed-plus`);
     this._controls.speedLess = document.getElementById(`timeline-${this._name}-speed-less`);
@@ -101,11 +101,11 @@ class TimelineController {
       this._controls.scaleLess.classList.add('disabled');
     }
 
-    CustomEvents.addEvent('click', this._controls.speedPlus, this.speedUpdate, this);
-    CustomEvents.addEvent('click', this._controls.speedLess, this.speedUpdate, this);
-    CustomEvents.addEvent('click', this._controls.scaleMore, this.scaleUpdate, this);
-    CustomEvents.addEvent('click', this._controls.scaleLess, this.scaleUpdate, this);
-    CustomEvents.addEvent('click', this._controls.colors, this.colorUpdateModal, this);
+    window.CustomEvents.addEvent('click', this._controls.speedPlus, this.speedUpdate, this);
+    window.CustomEvents.addEvent('click', this._controls.speedLess, this.speedUpdate, this);
+    window.CustomEvents.addEvent('click', this._controls.scaleMore, this.scaleUpdate, this);
+    window.CustomEvents.addEvent('click', this._controls.scaleLess, this.scaleUpdate, this);
+    window.CustomEvents.addEvent('click', this._controls.colors, this.colorUpdateModal, this);
   }
 
 
@@ -122,14 +122,14 @@ class TimelineController {
     this._align[this._alignValue].classList.remove('selected');
     this._alignValue = event.target.id.split('-')[3];
     this._align[this._alignValue].classList.add('selected');
-    Meax.sm.save(`${this._name}-timeline-alignment`, this._alignValue);
+    window.Meax.sm.save(`${this._name}-timeline-alignment`, this._alignValue);
     this._buildTimeline();
   }
 
 
   speedUpdate(event) {
     const updateTimeline = () => {
-      Meax.sm.save(`${this._name}-timeline-speed`, this._speed);
+      window.Meax.sm.save(`${this._name}-timeline-speed`, this._speed);
       this._buildTimeline();
     };
 
@@ -172,7 +172,7 @@ class TimelineController {
 
   scaleUpdate() {
     const updateTimeline = () => {
-      Meax.sm.save(`${this._name}-timeline-scale`, this._scale);
+      window.Meax.sm.save(`${this._name}-timeline-scale`, this._scale);
       this._buildTimeline();
     };
 
@@ -216,7 +216,7 @@ class TimelineController {
 
 
   colorUpdateModal() {
-    const modal = new TimelineColorsModal({
+    new TimelineColorsModal({
       name: this._name,
       colors: this._colors,
       url: 'assets/html/TimelineColorsModal.html'
@@ -240,7 +240,7 @@ class TimelineController {
 
   setHotCue(options) {
     return this._timeline.setHotCuePoint({
-      color: Enums.DefaultColors.hotCue,
+      color: window.Enums.DefaultColors.hotCue,
       label: options.pad
     });
   }

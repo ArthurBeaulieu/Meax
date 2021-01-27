@@ -42,7 +42,7 @@ class Player {
       // Checking if any previous source node is playing. If true, we clean it
       if (this._isPlaying) {
         this.stopPlayback();
-        CustomEvents.removeEvent(this._endEvtId);
+        window.CustomEvents.removeEvent(this._endEvtId);
         this._isPlaying = true; // Must restore flag to automatically start playback if load occured on playing track
       }
 
@@ -58,7 +58,7 @@ class Player {
           this.resumePlayback();
         }
         // Register ended event on track to reset player to time 0 when it occurs
-        this._endEvtId = CustomEvents.addEvent('ended', this._player, this._trackEnded, this);
+        this._endEvtId = window.CustomEvents.addEvent('ended', this._player, this._trackEnded, this);
         track.duration = this._player.duration;
         resolve(track);
       };
@@ -80,34 +80,34 @@ class Player {
     this._nodes.trimGain.gain.value = 1;
 
     this._nodes.low = this._audioCtx.createBiquadFilter();
-  	this._nodes.low.type = "lowshelf";
-  	this._nodes.low.frequency.value = 320.0;
-  	this._nodes.low.gain.value = 0.0;
+    this._nodes.low.type = 'lowshelf';
+    this._nodes.low.frequency.value = 320.0;
+    this._nodes.low.gain.value = 0.0;
 
-  	this._nodes.mid = this._audioCtx.createBiquadFilter();
-  	this._nodes.mid.type = "peaking";
-  	this._nodes.mid.frequency.value = 1000.0;
-  	this._nodes.mid.Q.value = 0.5;
-  	this._nodes.mid.gain.value = 0.0;
+    this._nodes.mid = this._audioCtx.createBiquadFilter();
+    this._nodes.mid.type = 'peaking';
+    this._nodes.mid.frequency.value = 1000.0;
+    this._nodes.mid.Q.value = 0.5;
+    this._nodes.mid.gain.value = 0.0;
 
-  	this._nodes.high = this._audioCtx.createBiquadFilter();
-  	this._nodes.high.type = "highshelf";
-  	this._nodes.high.frequency.value = 3200.0;
-  	this._nodes.high.gain.value = 0.0;
+    this._nodes.high = this._audioCtx.createBiquadFilter();
+    this._nodes.high.type = 'highshelf';
+    this._nodes.high.frequency.value = 3200.0;
+    this._nodes.high.gain.value = 0.0;
 
     this._nodes.filterLow = this._audioCtx.createBiquadFilter();
-    this._nodes.filterLow.type = "lowpass";
+    this._nodes.filterLow.type = 'lowpass';
     this._nodes.filterLow.Q.value = 0;
 
     this._nodes.filterHigh = this._audioCtx.createBiquadFilter();
-    this._nodes.filterHigh.type = "highpass";
+    this._nodes.filterHigh.type = 'highpass';
     this._nodes.filterHigh.Q.value = 10;
 
     this._connectNodes();
   }
 
 
-  _connectNodes(lowFilter = false) {
+  _connectNodes() {
     this._nodes.source.connect(this._nodes.low);
     this._nodes.low.connect(this._nodes.mid);
     this._nodes.mid.connect(this._nodes.high);
@@ -148,7 +148,7 @@ class Player {
       this._player.play();
       this._startProgressClock();
       // Fire event to refresh UI
-      CustomEvents.publish(`Player/Play`, {
+      window.CustomEvents.publish(`Player/Play`, {
         name: this._name
       });
     }
@@ -161,7 +161,7 @@ class Player {
       this._player.pause();
       this._stopProgressClock();
       // Fire event to refresh UI
-      CustomEvents.publish(`Player/Pause`, {
+      window.CustomEvents.publish(`Player/Pause`, {
         name: this._name
       });
     }
@@ -178,11 +178,11 @@ class Player {
 
 
   _trackEnded() {
-    // Not updating isPlayoing as we want to keep this flag in case of new track loading
+    // Not updating isPlaying as we want to keep this flag in case of new track loading
     console.log('track ended');
     this.stopPlayback();
     // Fire event to refresh UI
-    CustomEvents.publish(`Player/Progress`, {
+    window.CustomEvents.publish(`Player/Progress`, {
       name: this._name,
       value: {
         progress: 0,
@@ -194,7 +194,7 @@ class Player {
 
   _startProgressClock() {
     // Fire event to refresh UI
-    CustomEvents.publish(`Player/Progress`, {
+    window.CustomEvents.publish(`Player/Progress`, {
       name: this._name,
       value: {
         progress: this._player.currentTime,
@@ -219,7 +219,7 @@ class Player {
       this._nodes.gain.gain.value = value;
     }
     // Fire event to refresh UI
-    CustomEvents.publish(`Player/SetVolume`, {
+    window.CustomEvents.publish(`Player/SetVolume`, {
       name: this._name,
       value: value
     });
@@ -227,10 +227,10 @@ class Player {
 
 
   setTrimVolume(value) {
-    const amount = Utils.convertKnobValue(value, 100);
+    const amount = window.Utils.convertKnobValue(value, 100);
     this._nodes.trimGain.gain.value = 1 + amount;
     // Fire event to refresh UI
-    CustomEvents.publish(`Player/TrimGain`, {
+    window.CustomEvents.publish(`Player/TrimGain`, {
       name: this._name,
       value: value
     });
@@ -272,11 +272,11 @@ class Player {
   setTempo(value) {
     // If gain node exists, apply new gain value
     if (this._player && this._player.src) {
-      const amount = Utils.convertKnobValue(value, 16);
+      const amount = window.Utils.convertKnobValue(value, 16);
       // Update player playback rate
       this._player.playbackRate = 1 + amount;
       // Fire event to refresh UI
-      CustomEvents.publish(`Player/SetTempo`, {
+      window.CustomEvents.publish(`Player/SetTempo`, {
         name: this._name,
         value: amount
       });
@@ -305,12 +305,12 @@ class Player {
   _setEQ(type, value) {
     // If gain node exists, apply new gain value
     if (this._player && this._player.src) {
-      const amount = Utils.convertKnobValue(value, 26);
+      const amount = window.Utils.convertKnobValue(value, 26);
       // Update player playback rate
       this._nodes[type].gain.value = amount * 100;
     }
     // Fire event to refresh UI
-    CustomEvents.publish(`Player/EQ`, {
+    window.CustomEvents.publish(`Player/EQ`, {
       name: this._name,
       type: type,
       value: value
@@ -329,14 +329,14 @@ class Player {
           this._highFiltered = false;
           this._nodes.high.connect(this._nodes.filterLow);
           this._nodes.filterLow.connect(this._nodes.gain);
-          const amount = Utils.convertKnobValue(value, 22050 - 320); // Keep 320Hz when lower end is reached
+          const amount = window.Utils.convertKnobValue(value, 22050 - 320); // Keep 320Hz when lower end is reached
           this._nodes.filterLow.frequency.value = 22050 + (amount * 100); // Amount is negative
         } else if (value > 0.5) {
           this._lowFiltered = false;
           this._highFiltered = true;
           this._nodes.high.connect(this._nodes.filterHigh);
           this._nodes.filterHigh.connect(this._nodes.gain);
-          const amount = Utils.convertKnobValue(value, 22050 - 3200);
+          const amount = window.Utils.convertKnobValue(value, 22050 - 3200);
           this._nodes.filterLow.frequency.value = (amount * 100);
         }
       } else { // Remove filter from audio chain

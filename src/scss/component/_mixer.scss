@@ -1,0 +1,140 @@
+.mixer {
+  border-left: solid 1px var(--mzk-color-bg-light);
+  border-right: solid 1px var(--mzk-color-bg-light);
+  height: 100%;
+  padding-top: 1rem;
+  width: 10%;
+
+  .tracks-eq-container {
+    display: flex;
+    height: calc(100% - 45%);
+    width: 100%;
+
+    .left, .right {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      position: relative;
+      width: 25%;
+
+      div[class^="eq"] {
+        height: 5rem;
+        width: 5rem;
+
+        p {
+          font-size: 1rem;
+          margin: 0;
+          padding-top: 4rem;
+          text-align: center;
+        }
+      }
+    }
+
+    div[class^="peakmeter-"] {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      width: 25%;
+
+      .peakmeter {
+        height: 80%;
+        width: 10%;
+      }
+    }
+
+    div[class^="headphones-"] {
+      align-items: center;
+      border: solid 1px grey;
+      border-radius: 2px;
+      cursor: pointer;
+      display: flex;
+      height: 2rem;
+      justify-content: center;
+      margin-top: var(--margin);
+      width: 70%;
+
+      img {
+        height: 80%;
+      }
+
+      &.enabled {
+        border: solid 1px var(--mzk-color-primary);
+
+        img {
+          filter: invert(72%) sepia(78%) saturate(412%) hue-rotate(64deg) brightness(149%) contrast(84%);
+        }
+      }
+    }
+  }
+
+  .fader-container {
+    align-items: center;
+    display: grid;
+    grid-template-areas: "left right"
+                         "crossfader crossfader";
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 65% 35%;
+    height: 45%;
+    justify-content: center;
+
+    .fader {
+      display: flex;
+      height: 100%;
+      padding: 5px 0;
+      position: relative;
+      width: 60%;
+
+      &.left {
+        grid-area: left;
+        justify-self: flex-end;
+        margin-right: .5rem;
+      }
+
+      &.right {
+        grid-area: right;
+        justify-self: flex-start;
+        margin-left: .5rem;
+      }
+
+      img {
+        width: 100%;
+      }
+
+      .fader-progress {
+        height: 1.6rem;
+        left: 1rem;
+        position: absolute;
+        width: calc(100% - 2rem);
+      }
+    }
+
+    .crossfader-wrapper {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      grid-area: crossfader;
+      height: 100%;
+
+      .crossfader {
+        height: 100%;
+        position: relative;
+        width: max-content;
+
+        img:first-child {
+          height: 90%;
+        }
+
+        .crossfader-progress {
+          height: 100%;
+          position: absolute;
+          right: calc(50% - .5rem);
+          top: -.25rem;
+        }
+      }
+    }
+  }
+}

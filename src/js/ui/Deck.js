@@ -85,12 +85,12 @@ class Deck {
 
 
   _addEvents() {
-    CustomEvents.addEvent('click', this._dom.play, () => {
-      Meax.pc.togglePlayback(this._name);
+    window.CustomEvents.addEvent('click', this._dom.play, () => {
+      window.Meax.pc.togglePlayback(this._name);
     }, this);
 
-    CustomEvents.addEvent('click', this._dom.cuePhone, () => {
-      Meax.pc.setCuePhone(this._name, {
+    window.CustomEvents.addEvent('click', this._dom.cuePhone, () => {
+      window.Meax.pc.setCuePhone(this._name, {
         raw: [
           (this._name === 'left' ? 144 : 145),
           84,
@@ -98,10 +98,10 @@ class Deck {
       });
     }, this);
 
-    CustomEvents.addEvent('timeupdate', Meax.pc.getPlayer(this._name), event => {
+    window.CustomEvents.addEvent('timeupdate', window.Meax.pc.getPlayer(this._name), () => {
       this.updateProgress({
-        progress: Meax.pc.getPlayer(this._name).currentTime,
-        duration: Meax.pc.getPlayer(this._name).duration
+        progress: window.Meax.pc.getPlayer(this._name).currentTime,
+        duration: window.Meax.pc.getPlayer(this._name).duration
       });
     }, this);
   }
@@ -109,7 +109,7 @@ class Deck {
 
   _setEventSubscriptions() {
     //CustomEvents.subscribe(`Player/Filter`, this._updateFilter.bind(this));
-    CustomEvents.subscribe(`Player/TrimGain`, this._updateTrimGain.bind(this));
+    window.CustomEvents.subscribe(`Player/TrimGain`, this._updateTrimGain.bind(this));
   }
 
 
@@ -157,21 +157,21 @@ class Deck {
     this._dom.artist.innerHTML = track.artist;
     this._dom.bpm.innerHTML = track.bpm;
     this._dom.key.innerHTML = track.key;
-    this._dom.progress.innerHTML = Utils.secondsToTimecode(0, true);
-    this._dom.duration.innerHTML = Utils.secondsToTimecode(track.duration, true);
+    this._dom.progress.innerHTML = window.Utils.secondsToTimecode(0, true);
+    this._dom.duration.innerHTML = window.Utils.secondsToTimecode(track.duration, true);
     this._dom.appliedBpm.innerHTML = track.bpm;
     this._bpm = parseInt(track.bpm);
     this._timelineController.updateTrack(track);
     this._dom.phraseSpinner.style.animationDelay = `${track.beatOffset}s`;
     this._dom.measureSpinner.style.animationDelay = `${track.beatOffset}s`;
-    this._dom.phraseSpinner.style.animationDuration = `${(60 / this._bpm) * 16}s`;
-    this._dom.measureSpinner.style.animationDuration = `${(60 / this._bpm) * 4}s`;
+    this._dom.phraseSpinner.style.animationDuration = `${(60 / this._bpm) * 64}s`;
+    this._dom.measureSpinner.style.animationDuration = `${(60 / this._bpm) * 16}s`;
     this._currentTrack = track;
   }
 
 
   updateProgress(options) {
-    this._dom.progress.innerHTML = Utils.secondsToTimecode(options.progress, true);
+    this._dom.progress.innerHTML = window.Utils.secondsToTimecode(options.progress, true);
     this._waveformController.updateProgress(options);
   }
 
@@ -190,7 +190,7 @@ class Deck {
   }
 
 
-  clearPadSelection(options) {
+  clearPadSelection() {
     this._performancePad.clearPadSelection();
   }
 

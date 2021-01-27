@@ -1,0 +1,48 @@
+/* Knob */
+:root {
+  --size: 38px;
+  --ring-radius: 24;
+  --knob-gauge: 3;
+  --track-border: calc(var(--size) / 20);
+  --item-border: calc(var(--size) / 50);
+}
+
+.meter-container {
+  width: calc(var(--size) - 10px);
+  height: calc(var(--size) - 10px);
+  margin: 10px;
+  border: var(--track-border) solid lightgrey;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.meter-container .dial {
+  height: calc(var(--size) / 2) !important;
+  width: 0;
+  border: calc(var(--item-border) * 1.5) solid grey;
+  background-color: grey;
+  transform: rotate(90deg);
+  transform-origin: bottom center;
+  position: absolute;
+  top: calc((var(--size) / 20) * -1 - 3px);
+  right: calc(50% - var(--item-border));
+  border-radius: calc(var(--size) / 10);
+}
+
+.meter-container .pin {
+  position: absolute;
+  width: calc(var(--size) / 5);
+  height: calc(var(--size) / 5);
+  background-color: grey;
+  border-radius: 50% 0% 50% 50%;
+  top: calc(50% - (var(--size) / 10));
+  transform-origin: center;
+  right: calc(50% - (var(--size) / 10));
+  transform: rotate(45deg);
+}
+
+progress-ring {
+  height: calc(var(--size) + (var(--knob-gauge) * 2px));
+  position: absolute;
+}

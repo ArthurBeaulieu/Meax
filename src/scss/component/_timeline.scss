@@ -1,0 +1,45 @@
+.timeline {
+  display: grid;
+  grid-template-areas: "align timeline controls";
+  grid-template-columns: 2rem calc(100% - 4rem) 2rem;
+  height: 50%;
+  width: 100%;
+
+  [class^="timeline-align-"],
+  [class^="timeline-controls-"] {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    img {
+      cursor: pointer;
+      max-width: 1.3rem;
+
+      &.selected {
+        filter: invert(84%) sepia(10%) saturate(3000%) hue-rotate(64deg) brightness(174%) contrast(88%);
+      }
+
+      &.disabled {
+        cursor: not-allowed;
+        filter: invert(14%) sepia(6%) saturate(120%) hue-rotate(202deg) brightness(52%) contrast(83%);
+      }
+    }
+  }
+
+  [class^="timeline-align-"] {
+    grid-area: align;
+  }
+
+  .timeline-container {
+    grid-area: timeline;
+  }
+
+  [class^="timeline-controls-"] {
+    grid-area: controls;
+
+    img {
+      max-width: 1.3rem;
+    }
+  }
+}

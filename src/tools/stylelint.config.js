@@ -17,7 +17,6 @@ module.exports = {
     'function-linear-gradient-no-nonstandard-direction': true,
     'keyframe-declaration-no-important': true,
     'media-feature-name-no-unknown': true,
-    'no-descending-specificity': true,
     'no-duplicate-at-import-rules': true,
     'no-duplicate-selectors': true,
     'no-empty-source': true,
@@ -26,7 +25,12 @@ module.exports = {
     'property-no-unknown': true,
     'selector-pseudo-class-no-unknown': true,
     'selector-pseudo-element-no-unknown': true,
-    'selector-type-no-unknown': true,
+    'selector-type-no-unknown': [
+      true,
+      {
+        ignoreTypes: ['progress-ring']
+      }
+    ],
     'string-no-newline': true,
     'unit-no-unknown': true
   }

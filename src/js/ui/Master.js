@@ -14,6 +14,10 @@ class Master {
       master: null
     };
 
+    this._dom = {
+      clock: null
+    };
+
     this._peakMeter = null;
 
     this._init();
@@ -43,23 +47,25 @@ class Master {
       side: 'global'
     });
 
-    this._peakMeter = new AudioVisualizer({
+    this._peakMeter = new window.AudioVisualizer({
       type: 'peakmeter', // Mandatory, either 'frequencybars', 'frequencycircle', 'oscilloscope', 'peakmeter' or 'spectrum'
-      player: Meax.pc.getPlayer('left'), // Mandatory, the play to wire visualisation to
-      audioContext: Meax.pc.audioContext,
-      inputNode: Meax.pc.getMasterOutputNode(),
+      player: window.Meax.pc.getPlayer('left'), // Mandatory, the play to wire visualisation to
+      audioContext: window.Meax.pc.audioContext,
+      inputNode: window.Meax.pc.getMasterOutputNode(),
       renderTo: document.querySelector(`#peakmeter-master`), // Mandatory, the HTML div to render component
       fftSize: 8192, // Optional (default 1024), Higher is smoother for vuemeter (doesn't consume much CPU)
       merged: false, // Optional (default false), Mix channel into single output
       orientation: 'horizontal' // Optional (default horizontal), 'vertical' or 'horizontal'
     });
+
+    this._dom.clock = document.getElementById('clock');
   }
 
 
   _addEvents() {
-    CustomEvents.addEvent('click', this._headphoneCueMaster, () => {
+    window.CustomEvents.addEvent('click', this._headphoneCueMaster, () => {
       this.toggleMasterPhoneCue();
-      Meax.pc.setMasterCuePhone({
+      window.Meax.pc.setMasterCuePhone({
         raw: [
           150,
           99,
@@ -67,6 +73,13 @@ class Master {
         ]
       });
     }, this);
+
+    setInterval(this._updateClock.bind(this), 1000);
+  }
+
+
+  _updateClock() {
+    this._dom.clock.innerHTML = new Date().toLocaleTimeString();
   }
 
 

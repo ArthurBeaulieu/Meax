@@ -13,7 +13,7 @@ class Pad {
 
   togglePad(deckSide, value, index) {
     // Fire event to refresh UI (border mostly)
-    CustomEvents.publish('Pad/Set', {
+    window.CustomEvents.publish('Pad/Set', {
       name: deckSide,
       pad: index + 1,
       shift: false,
@@ -23,21 +23,21 @@ class Pad {
     if (value.value === 'push') { // Only do model actions on push action
       if (this._activeMode === 0) { // HotCue
         if (this._hotCues[index] === -1) { // Save the cue point
-          const time = Meax.ui.getClosestBeatTime(deckSide);
+          const time = window.Meax.ui.getClosestBeatTime(deckSide);
           this._hotCues[index] = time;
-          CustomEvents.publish('Pad/SaveHotCue', {
+          window.CustomEvents.publish('Pad/SaveHotCue', {
             name: deckSide,
             pad: index + 1,
             active: value.raw[2] === 127,
             time: time,
-            color: Enums.DefaultColors.hotCue
+            color: window.Enums.DefaultColors.hotCue
           });
         } else { // Jump to its value
           this._player.currentTime = this._hotCues[index];
         }
       } else if (this._activeMode === 4) {
-        const trackInfo = Meax.pc.getTrackInfo(deckSide);
-        const offsetFactor = Meax.ui.getBeatJumpOffsetFactor(deckSide);
+        const trackInfo = window.Meax.pc.getTrackInfo(deckSide);
+        const offsetFactor = window.Meax.ui.getBeatJumpOffsetFactor(deckSide);
         if (trackInfo) { // A track is load, and as a bpm set
           if (index % 2 === 1) { // Fast forward
             this._player.currentTime += (60 / trackInfo.bpm) * Math.pow(2, (index - 1 + offsetFactor) / 2);
@@ -51,20 +51,20 @@ class Pad {
 
 
   shiftTogglePad(deckSide, value, index) {
-    CustomEvents.publish('Pad/ShiftSet', {
+    window.CustomEvents.publish('Pad/ShiftSet', {
       name: deckSide,
       pad: index + 1,
       shift: true,
-      active: value.raw[2] === 127 ? true : false
+      active: value.raw[2] === 127
     });
 
     if (value.value === 'push') { // Only do model actions on push action
       if (this._activeMode === 0) { // HotCue
         if (this._hotCues[index] !== -1) {
-          CustomEvents.publish('Pad/RemoveHotCue', {
+          window.CustomEvents.publish('Pad/RemoveHotCue', {
             name: deckSide,
             pad: index + 1,
-            active: value.raw[2] === 127 ? true : false
+            active: value.raw[2] === 127
           });
 
           if (this._hotCues[index] !== -1) {
@@ -77,10 +77,10 @@ class Pad {
 
 
   setPadType(deckSide, value, padNumber) {
-    this._type = Enums.PerformanceType[padNumber + 1];
+    this._type = window.Enums.PerformanceType[padNumber + 1];
     this._activeMode = padNumber + 1;
 
-    CustomEvents.publish('Pad/Type', {
+    window.CustomEvents.publish('Pad/Type', {
       name: deckSide,
       pad: padNumber + 1,
       value: value.raw[2] === 127

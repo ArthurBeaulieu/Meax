@@ -1,0 +1,39 @@
+@import 'tools/global';
+@import 'tools/variable';
+@import 'tools/animation';
+
+@import 'component/knob';
+@import 'component/modal';
+
+.master {
+  align-items: center;
+  background: var(--mzk-color-bg-lighter-alpha-50);
+  display: flex;
+  height: 3rem;
+  justify-content: center;
+  // Master child components
+  @import 'component/master';
+}
+
+.timelines {
+  height: 20%;
+}
+// Timeline wrapper child components
+@import 'component/timeline';
+
+.controller {
+  background: var(--mzk-color-bg-lighter-alpha-50);
+  display: flex;
+  height: 30%;
+}
+// Controller child components
+@import 'component/deck';
+@import 'component/mixer';
+
+.playlists {
+  color: white;
+  display: flex;
+  height: calc(50% - 3rem);
+}
+// ViewManager wrapper child components
+@import 'component/playlist';

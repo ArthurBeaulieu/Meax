@@ -38,11 +38,11 @@ class Mixer {
       }
     }
 
-    this._peakMeter.left = new AudioVisualizer({
+    this._peakMeter.left = new window.AudioVisualizer({
       type: 'peakmeter', // Mandatory, either 'frequencybars', 'frequencycircle', 'oscilloscope', 'peakmeter' or 'spectrum'
-      player: Meax.pc.getPlayer('left'), // Mandatory, the play to wire visualisation to
-      audioContext: Meax.pc.audioContext,
-      inputNode: Meax.pc.getPlayerOutputNode('left'),
+      player: window.Meax.pc.getPlayer('left'), // Mandatory, the play to wire visualisation to
+      audioContext: window.Meax.pc.audioContext,
+      inputNode: window.Meax.pc.getPlayerOutputNode('left'),
       renderTo: document.querySelector(`#peakmeter-left`), // Mandatory, the HTML div to render component
       fftSize: 8192, // Optional (default 1024), Higher is smoother for vuemeter (doesn't consume much CPU)
       merged: true, // Optional (default false), Mix channel into single output
@@ -57,11 +57,11 @@ class Mixer {
       }
     });
 
-    this._peakMeter.right = new AudioVisualizer({
+    this._peakMeter.right = new window.AudioVisualizer({
       type: 'peakmeter', // Mandatory, either 'frequencybars', 'frequencycircle', 'oscilloscope', 'peakmeter' or 'spectrum'
-      player: Meax.pc.getPlayer('right'), // Mandatory, the play to wire visualisation to
-      audioContext: Meax.pc.audioContext,
-      inputNode: Meax.pc.getPlayerOutputNode('right'),
+      player: window.Meax.pc.getPlayer('right'), // Mandatory, the play to wire visualisation to
+      audioContext: window.Meax.pc.audioContext,
+      inputNode: window.Meax.pc.getPlayerOutputNode('right'),
       renderTo: document.querySelector(`#peakmeter-right`), // Mandatory, the HTML div to render component
       fftSize: 8192, // Optional (default 1024), Higher is smoother for vuemeter (doesn't consume much CPU)
       merged: true, // Optional (default false), Mix channel into single output

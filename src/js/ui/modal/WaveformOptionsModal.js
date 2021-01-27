@@ -50,20 +50,20 @@ class WaveformOptionsModal extends ModalBase {
 
     this._dom.title.innerHTML = `${this._name.charAt(0).toUpperCase()}${this._name.slice(1)} Waveform Options`;
 
-    CustomEvents.addEvent('click', this._align.top, this.alignUpdate, this);
-    CustomEvents.addEvent('click', this._align.center, this.alignUpdate, this);
-    CustomEvents.addEvent('click', this._align.bottom, this.alignUpdate, this);
-    CustomEvents.addEvent('click', this._dom.update, this.updateOptions, this);
+    this._evtIds.push(window.CustomEvents.addEvent('click', this._align.top, this.alignUpdate, this));
+    this._evtIds.push(window.CustomEvents.addEvent('click', this._align.center, this.alignUpdate, this));
+    this._evtIds.push(window.CustomEvents.addEvent('click', this._align.bottom, this.alignUpdate, this));
+    this._evtIds.push(window.CustomEvents.addEvent('click', this._dom.update, this.updateOptions, this));
   }
 
 
   updateOptions() {
-    Meax.sm.save(`${this._name}-waveform-color-background`, this._dom.background.value);
-    Meax.sm.save(`${this._name}-waveform-color-track`, this._dom.track.value);
-    Meax.sm.save(`${this._name}-waveform-color-progress`, this._dom.progress.value);
-    Meax.sm.save(`${this._name}-waveform-color-progress-bar`, this._dom.progressBar.value);
-    Meax.sm.save(`${this._name}-waveform-align`, this._alignValue);
-    Meax.ui.waveformOptionUpdate({
+    window.Meax.sm.save(`${this._name}-waveform-color-background`, this._dom.background.value);
+    window.Meax.sm.save(`${this._name}-waveform-color-track`, this._dom.track.value);
+    window.Meax.sm.save(`${this._name}-waveform-color-progress`, this._dom.progress.value);
+    window.Meax.sm.save(`${this._name}-waveform-color-progress-bar`, this._dom.progressBar.value);
+    window.Meax.sm.save(`${this._name}-waveform-align`, this._alignValue);
+    window.Meax.ui.waveformOptionUpdate({
       name: this._name,
       background: this._dom.background.value,
       track: this._dom.track.value,
@@ -71,7 +71,6 @@ class WaveformOptionsModal extends ModalBase {
       progressBar: this._dom.progressBar.value,
       align: this._alignValue
     });
-    CustomEvents.removeEvent('click', this._dom.update, this.updateOptions, this);
     this.close();
   }
 
@@ -80,7 +79,7 @@ class WaveformOptionsModal extends ModalBase {
     this._align[this._alignValue].classList.remove('selected');
     this._alignValue = event.target.id.split('-')[2];
     this._align[this._alignValue].classList.add('selected');
-    Meax.sm.save(`${this._name}-waveform-alignment`, this._alignValue);
+    window.Meax.sm.save(`${this._name}-waveform-alignment`, this._alignValue);
   }
 
 

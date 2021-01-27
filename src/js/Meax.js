@@ -1,5 +1,5 @@
 // Import style file to avoid multi entry point in webpack config
-import '../css/Meax.scss';
+import '../scss/meax.scss';
 
 
 import SessionManager from './core/SessionManager.js';

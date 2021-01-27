@@ -1,0 +1,66 @@
+.app-logo {
+  margin-left: 2rem;
+  margin-right: auto;
+}
+
+label {
+  font-size: 1rem;
+  margin: 0 .5rem;
+}
+
+[class$="global"] {
+  height: 3rem;
+  width: 3rem;
+
+  progress-ring {
+    transform: scale(0.69) translateX(-.6rem) translateY(-.6rem);
+
+    &.headphone-global { // We want headphone progress ring track to begin from 0 to 100 instead of being centered
+      transform: scale(.69) translateX(.4em) translateY(1.5rem) rotate(-135deg);
+    }
+  }
+
+  .meter-container {
+    transform: scale(0.66);
+    margin: calc(1rem * 0.33);
+  }
+
+  p {
+    display: none;
+  }
+}
+
+[class^="headphones-master"] {
+  align-items: center;
+  border: solid 1px grey;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  height: 2rem;
+  justify-content: center;
+  margin-left: .5rem;
+  width: 2rem;
+
+  img {
+    height: 80%;
+  }
+
+  &.enabled {
+    border: solid 1px var(--mzk-color-primary);
+
+    img {
+      filter: invert(72%) sepia(78%) saturate(412%) hue-rotate(64deg) brightness(149%) contrast(84%);
+    }
+  }
+}
+
+.peakmeter-master {
+  height: 1rem;
+  margin-left: .5rem;
+  width: 8rem;
+}
+
+.clock {
+  font-size: 1rem;
+  margin: 0 2rem;
+}

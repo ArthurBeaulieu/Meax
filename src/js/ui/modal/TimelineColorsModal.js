@@ -35,24 +35,22 @@ class TimelineColorsModal extends ModalBase {
     this._dom.subBeat.value = this._colors.subBeat;
 
     this._dom.title.innerHTML = `${this._name.charAt(0).toUpperCase()}${this._name.slice(1)} Timeline Colors`;
-
-    CustomEvents.addEvent('click', this._dom.update, this.updateColors, this);
+    this._evtIds.push(window.CustomEvents.addEvent('click', this._dom.update, this.updateColors, this));
   }
 
 
   updateColors() {
-    Meax.sm.save(`${this._name}-timeline-color-background`, this._dom.background.value);
-    Meax.sm.save(`${this._name}-timeline-color-track`, this._dom.track.value);
-    Meax.sm.save(`${this._name}-timeline-color-main-beat`, this._dom.mainBeat.value);
-    Meax.sm.save(`${this._name}-timeline-color-sub-beat`, this._dom.subBeat.value);
-    Meax.ui.timelineColorUpdate({
+    window.Meax.sm.save(`${this._name}-timeline-color-background`, this._dom.background.value);
+    window.Meax.sm.save(`${this._name}-timeline-color-track`, this._dom.track.value);
+    window.Meax.sm.save(`${this._name}-timeline-color-main-beat`, this._dom.mainBeat.value);
+    window.Meax.sm.save(`${this._name}-timeline-color-sub-beat`, this._dom.subBeat.value);
+    window.Meax.ui.timelineColorUpdate({
       name: this._name,
       background: this._dom.background.value,
       track: this._dom.track.value,
       mainBeat: this._dom.mainBeat.value,
       subBeat: this._dom.subBeat.value
     });
-    CustomEvents.removeEvent('click', this._dom.update, this.updateColors, this);
     this.close();
   }
 

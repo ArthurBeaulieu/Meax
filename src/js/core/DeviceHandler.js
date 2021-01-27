@@ -20,8 +20,8 @@ class DeviceHandler {
 
 
   _setEventSubscriptions() {
-    CustomEvents.subscribe(`Player/CuePhones`, this._sendMIDIRaw.bind(this));
-    CustomEvents.subscribe(`Player/MasterCuePhones`, this._sendMIDIRaw.bind(this));
+    window.CustomEvents.subscribe(`Player/CuePhones`, this._sendMIDIRaw.bind(this));
+    window.CustomEvents.subscribe(`Player/MasterCuePhones`, this._sendMIDIRaw.bind(this));
   }
 
 
@@ -77,11 +77,11 @@ class DeviceHandler {
 
   _parseMIDIArguments(data) {
     return {
-      type: event.data[0] & 0xf0,
-      cmd: event.data[0] >> 4,
-      channel: event.data[0] & 0xf,
-      note: event.data[1],
-      velocity: event.data[2], //  / 127 to get percentage
+      type: data[0] & 0xf0,
+      cmd: data[0] >> 4,
+      channel: data[0] & 0xf,
+      note: data[1],
+      velocity: data[2], //  / 127 to get percentage
     }
   }
 
@@ -99,7 +99,7 @@ class DeviceHandler {
           if (element) {
             output = Object.assign({}, element); // Create element copy to not alter element structure
             output.name =  `${this._channels[i].name}/${element.name}`; // Assign full event name
-            output.id =  `${Enums.Components[this._channels[i].channel[j].name]}${element.id}`; // Prefix  element ID with channel number
+            output.id =  `${window.Enums.Components[this._channels[i].channel[j].name]}${element.id}`; // Prefix  element ID with channel number
           } else {
             console.log('Unmapped key', args);
           }
@@ -137,38 +137,37 @@ class DeviceHandler {
     element.value = '';
     const type = element.elementType;
     const args = element.args;
-    if (type === Enums.ElementType.BUTTON) {
+    if (type === window.Enums.ElementType.BUTTON) {
       if (args.velocity === 0x7F) {
         element.value = 'push';
       } else if (args.velocity === 0x00) {
         element.value = 'release';
       }
-    } else if (type === Enums.ElementType.JOGWHEEL) {
+    } else if (type === window.Enums.ElementType.JOGWHEEL) {
       if (args.velocity === 0x41) {
         element.value = 'increase';
       } else if (args.velocity === 0x3F) {
         element.value = 'decrease';
       }
-    } else if (type === Enums.ElementType.ROTARY) {
+    } else if (type === window.Enums.ElementType.ROTARY) {
       if (args.velocity === 0x01) {
         element.value = 'increase';
       } else if (args.velocity === 0x7F) {
         element.value = 'decrease';
       }
-    } else if (type === Enums.ElementType.SELECT) {
+    } else if (type === window.Enums.ElementType.SELECT) {
       if (args.velocity === 0x7F) {
         element.value = 'select';
       } else if (args.velocity === 0x00) {
         element = null; // We return null to notify that no event is to fire
       }
-    } else if (type === Enums.ElementType.KNOB_LOW) {
+    } else if (type === window.Enums.ElementType.KNOB_LOW) {
       this._knobLow = element; // Store low value then return null
       this._knobLow.args = args; // Saved args straight into knob low element
       element = null; // We return null to notify that no event is to fire
-    } else if (type === Enums.ElementType.KNOB_HIGH) {
+    } else if (type === window.Enums.ElementType.KNOB_HIGH) {
       const totalValue = (this._knobLow.args.velocity * 0x7F) + args.velocity;
-      const percentage = totalValue / ((0x7F * 0x7F) + 0x7F);
-      element.value = percentage; // Update value in percentage for element
+      element.value = totalValue / ((0x7F * 0x7F) + 0x7F); // Update value in percentage for element
       this._knobLow = null; // Reset know low for next knob event
     }
     // Return element with value
