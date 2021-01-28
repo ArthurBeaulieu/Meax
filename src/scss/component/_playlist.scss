@@ -1,4 +1,6 @@
 .playlist-browser {
+  background-color: var(--mzk-color-bg-lighter-alpha-25);
+  border-right: solid 1px var(--mzk-color-text-alpha-50);
   font-size: 1.4rem;
   height: 100%;
   width: 15%;
@@ -10,10 +12,6 @@
     padding: 0 1rem;
     width: 100%;
 
-    p {
-      margin: 0;
-    }
-
     img {
       cursor: pointer;
       height: 1.5rem;
@@ -24,17 +22,12 @@
   .new-playlist {
     cursor: pointer;
     padding: 0 1rem;
-
-    p {
-      margin: 0;
-    }
   }
 }
 
 .playlist-container {
   font-size: 1.3rem;
   height: 100%;
-  overflow-y: auto;
   position: relative;
   width: 85%;
 
@@ -71,48 +64,58 @@
     }
   }
 
-  .playlist-track {
-    height: 1.8rem;
+  .playlist-header {
+    align-items: center;
+    background-color: var(--mzk-color-bg-lighter-alpha-25);
+    border-bottom: solid 1px var(--mzk-color-text-alpha-50);
+    display: grid;
+    grid-template-columns: 30px 1fr 1fr 1fr 1fr 60px 50px;
+    height: 2rem;
+    width: 100%;
 
-    &.selected {
-      background: var(--mzk-color-primary);
-      color: black;
-
-      div {
-        &::before {
-          color: black;
-        }
-
-        img {
-          filter: invert(100%);
-        }
-      }
+    p:first-child {
+      font-size: .9rem;
+      font-style: italic;
+      text-align: center;
     }
+  }
 
-    div {
-      float: right;
-      padding: 0 1rem;
-      position: relative;
+  .playlist-tracks {
+    height: calc(100% - 2rem);
+    overflow-y: auto;
+    width: 100%;
 
-      img {
-        cursor: pointer;
-        max-height: 1.3rem;
+    .playlist-track {
+      display: grid;
+      grid-template-columns: 30px 1fr 1fr 1fr 1fr 60px 50px;
+      height: 1.8rem;
+
+      &.selected {
+        background: var(--mzk-color-primary);
+        color: black;
+
+        div {
+          &::before {
+            color: black;
+          }
+
+          img {
+            filter: invert(100%);
+          }
+        }
       }
 
-      &::before {
-        color: white;
-        font-size: 1rem;
-        position: absolute;
-        left: -.5rem;
-        top: .2rem;
+      p:first-child {
+        font-size: .9rem;
+        font-style: italic;
+        text-align: center;
       }
 
-      &:first-child::before {
-        content: 'R'; // Float right, so first is last5
-      }
-
-      &:last-child::before {
-        content: 'L';
+      p {
+        font-size: 1.2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }

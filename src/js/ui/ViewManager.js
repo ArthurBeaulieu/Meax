@@ -10,6 +10,7 @@ class ViewManager {
     this._dom = {
       browser: null,
       container: null,
+      trackContainer: null,
       loadingOverlay: null,
       loadingProgress: null,
       newLocalPlaylist: null
@@ -28,6 +29,7 @@ class ViewManager {
   _init() {
     this._dom.browser = document.getElementById('saved-playlists');
     this._dom.container = document.getElementById('playlist-container');
+    this._dom.trackContainer = document.getElementById('playlist-tracks');
     this._dom.loadingOverlay = document.createElement('DIV');
     this._dom.loadingProgress = document.createElement('P');
     this._dom.newLocalPlaylist = document.getElementById('new-local-playlist');
@@ -114,7 +116,7 @@ class ViewManager {
 
 
   _initPlaylistView() {
-    this._dom.container.innerHTML = '';
+    this._dom.trackContainer.innerHTML = '';
     this._dom.container.appendChild(this._dom.loadingOverlay);
   }
 
@@ -141,29 +143,35 @@ class ViewManager {
 
     for (let i = 0; i < playlist.tracks.length; ++i) {
       const track = document.createElement('DIV');
-      const loadLeft = document.createElement('DIV');
-      const loadRight = document.createElement('DIV');
+      const number = document.createElement('P');
+      const title = document.createElement('P');
+      const artist = document.createElement('P');
+      const composer = document.createElement('P');
+      const genre = document.createElement('P');
+      const bpm = document.createElement('P');
+      const key = document.createElement('P');
+
       track.classList.add('playlist-track');
-      track.innerHTML = `${playlist.tracks[i].artist} - ${playlist.tracks[i].title}`;
+      number.innerHTML = i + 1;
+      title.innerHTML = playlist.tracks[i].title || '';
+      artist.innerHTML = playlist.tracks[i].artist || '';
+      composer.innerHTML = playlist.tracks[i].composer || '';
+      genre.innerHTML = playlist.tracks[i].genre || '';
+      bpm.innerHTML = playlist.tracks[i].bpm || '';
+      key.innerHTML = playlist.tracks[i].key || '';
+
       track.dataset.id = i;
       track.info = playlist.tracks[i];
-      loadLeft.id = 'inject-left';
-      loadRight.id = 'inject-right';
-      loadLeft.innerHTML = '<img src="assets/img/inject.svg" alt="inject-left">';
-      loadRight.innerHTML = '<img src="assets/img/inject.svg" alt="inject-right">';
 
-      const injectClicked = function() { // Old function markup to get proper this on click elem
-        const side = this.id.split('-')[1];
-        window.Meax.pc.addTrack(side, track.info)
-          .then(track => { window.Meax.ui.addTrack(side, track); });
-      };
+      track.appendChild(number);
+      track.appendChild(title);
+      track.appendChild(artist);
+      track.appendChild(composer);
+      track.appendChild(genre);
+      track.appendChild(bpm);
+      track.appendChild(key);
 
-      this._evtIds.push(window.CustomEvents.addEvent('click', loadLeft, injectClicked, loadLeft));
-      this._evtIds.push(window.CustomEvents.addEvent('click', loadRight, injectClicked, loadRight));
-
-      track.appendChild(loadRight); // Reverse inject because float right re-reverse order
-      track.appendChild(loadLeft);
-      this._dom.container.appendChild(track);
+      this._dom.trackContainer.appendChild(track);
       this._tracks.push(track);
     }
 
@@ -189,7 +197,7 @@ class ViewManager {
 
     this._evtIds = [];
     this._tracks = [];
-    this._dom.container.innerHTML = '';
+    this._dom.trackContainer.innerHTML = '';
   }
 
 
