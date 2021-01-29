@@ -49,6 +49,7 @@ class TimelineController {
       player: window.Meax.pc.getPlayer(this._name),
       audioContext: window.Meax.pc.audioContext,
       inputNode: window.Meax.pc.getPlayerOutputNode(this._name),
+      outputNode: window.Meax.pc.getPlayerInputNode(this._name),
       renderTo: document.querySelector(`#timeline-container-${this._name}`),
       fftSize: 1024,
       speed: this._speed,
@@ -111,7 +112,7 @@ class TimelineController {
 
   updateTrack(track) {
     this._timeline.updateBeatInfo({
-      offset: track.beatOffset,
+      offset: track.firstBar,
       bpm: track.bpm,
       timeSignature: 4
     });
@@ -257,6 +258,21 @@ class TimelineController {
     if (hotCue) {
       this._timeline.updateHotCuePoint(hotCue, options);
     }
+  }
+
+
+  setLoopEntry() {
+    this._timeline.setLoopEntryPoint();
+  }
+
+
+  setLoopEnd() {
+    this._timeline.setLoopEndPoint();
+  }
+
+
+  exitLoop() {
+    this._timeline.exitLoop();
   }
 
 

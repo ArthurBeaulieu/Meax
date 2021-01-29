@@ -22,6 +22,9 @@ const Components = Object.freeze({
 
 const Commands = Object.freeze({
   PLAY: '001',
+  LOOP_ENTRY: '006',
+  LOOP_END: '008',
+  LOOP_EXIT: '010',
   CUE_PHONES_LEFT: '018',
   PERFORMANCE_TAB_1: '020',
   PERFORMANCE_TAB_2: '021',

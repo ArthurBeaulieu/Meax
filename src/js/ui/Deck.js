@@ -236,6 +236,21 @@ class Deck {
   }
 
 
+  setLoopEntry() {
+    this._timelineController.setLoopEntry();
+  }
+
+
+  setLoopEnd() {
+    this._timelineController.setLoopEnd();
+  }
+
+
+  exitLoop() {
+    this._timelineController.exitLoop();
+  }
+
+
   setPadType(options) {
     this._performancePad.setPadType(options, this._hotCues);
   }

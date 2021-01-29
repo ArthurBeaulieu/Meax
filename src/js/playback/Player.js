@@ -43,7 +43,7 @@ class Player {
       if (this._isPlaying) {
         this.stopPlayback();
         window.CustomEvents.removeEvent(this._endEvtId);
-        this._isPlaying = true; // Must restore flag to automatically start playback if load occured on playing track
+        this._isPlaying = true; // Must restore flag to automatically start playback if load occurred on playing track
       }
 
       this._trackInfo = track;
@@ -53,7 +53,7 @@ class Player {
         this._player.removeEventListener('loadedmetadata', loadedListener); // Remove loaded track listener
         // Restore context playing state in case it turned suspended
         this._audioCtx.resume();
-        // In case load occured during playback, we startPlayback
+        // In case load occurred during playback, we startPlayback
         if (this._isPlaying === true) {
           this.resumePlayback();
         }
@@ -272,7 +272,7 @@ class Player {
   setTempo(value) {
     // If gain node exists, apply new gain value
     if (this._player && this._player.src) {
-      const amount = window.Utils.convertKnobValue(value, 16);
+      const amount = window.Utils.convertKnobValue(value, 6);
       // Update player playback rate
       this._player.playbackRate = 1 + amount;
       // Fire event to refresh UI
@@ -376,6 +376,11 @@ class Player {
 
   get sourceNode() {
     return this._nodes.trimGain;
+  }
+
+
+  get entryNode() {
+    return this._nodes.low;
   }
 
 

@@ -182,6 +182,10 @@ class PlaybackController {
     return this[`_${deckSide}Player`].sourceNode;
   }
 
+  getPlayerInputNode(deckSide) {
+    return this[`_${deckSide}Player`].entryNode;
+  }
+
 
   getHotCue(deckSide, index) {
     return this[`_${deckSide}Player`].getHotCue(index);

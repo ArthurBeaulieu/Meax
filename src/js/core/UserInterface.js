@@ -204,6 +204,28 @@ class UserInterface {
   }
 
 
+  setLoopEntry(deckSide) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Deck`].setLoopEntry();
+    }
+  }
+
+
+  setLoopEnd(deckSide) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Deck`].setLoopEnd();
+    }
+  }
+
+
+  exitLoop(deckSide) {
+    if (deckSide === 'left' || deckSide === 'right') {
+      this[`_${deckSide}Deck`].exitLoop();
+    }
+  }
+
+
+
   getSelectedTrack() {
     return this._playlist.selectedTrack;
   }

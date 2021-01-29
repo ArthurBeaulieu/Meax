@@ -136,6 +136,12 @@ class Meax {
       this._pc.setMidEQ(side, element.value);
     } else if (actionId === Enums.Commands.LOW_EQ) {
       this._pc.setLowEQ(side, element.value);
+    } else if (actionId === Enums.Commands.LOOP_ENTRY && element.value === 'push') {
+      this._ui.setLoopEntry(side);
+    } else if (actionId === Enums.Commands.LOOP_END && element.value === 'push') {
+      this._ui.setLoopEnd(side);
+    } else if (actionId === Enums.Commands.LOOP_EXIT && element.value === 'push') {
+      this._ui.exitLoop(side);
     }
   }
 
